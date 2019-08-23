@@ -7,10 +7,7 @@ class Morph {
   // An array for the set of vertices beign drawn into the window
   morph: p5.Vector[];
 
-  // This boolean variable will control if we are morphing to a circle or square
-
-  setup() {
-
+  constructor() {
     // Setup shapes array
     this.shapes = [];
     this.currentShape = 0;

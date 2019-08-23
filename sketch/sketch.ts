@@ -1,8 +1,8 @@
 let morph: Morph;
+
 function setup() {
     createCanvas(windowWidth, windowHeight)
     morph = new Morph();
-    morph.setup();
 }
 
 function windowResized() {
