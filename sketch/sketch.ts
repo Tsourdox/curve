@@ -10,6 +10,6 @@ function windowResized() {
 }
 
 function draw() {
-    background(100);
+    background(20);
     morph.draw();
 }
