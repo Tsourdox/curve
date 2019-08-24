@@ -1,6 +1,6 @@
 let snakes: Snake[]
 let holes: Hole[]
-let isRunning: boolean
+let isGameRunning: boolean
 let backgroundColor: p5.Color
 let menuSound: p5.SoundFile
 let music: Music
@@ -9,26 +9,33 @@ let time: number
 
 function preload() {
     console.log('preload')
+
     const { loadSound: loadMusic } = (window as any) // todo fix typings for p5.sound
     musicFiles = {
-        menuMusic: loadMusic('../assets/music/mystic_drums.wav'),
-        gameMusic: loadMusic('../assets/music/evolution.mp3')
+        menu: loadMusic('../assets/music/mystic_drums.wav'),
+        game: loadMusic('../assets/music/evolution.mp3')
     }
 }
 
 function setup() {
     console.log('setup')
+
+    // Settings
     createCanvas(windowWidth, windowHeight)
     frameRate(90)
     noCursor()
-    fullscreen()
+
+    // Background
+    backgroundColor = color(20)
+
+    // Music
     music = new Music(musicFiles)
     music.playMenuMusic()
 
+    // Game
     createSnakes()
     createHoles()
-    isRunning = false
-    backgroundColor = color(20)
+    isGameRunning = false
 }
 
 function createSnakes() {
@@ -49,6 +56,8 @@ function createHoles() {
         new Hole(), new Hole(), new Hole(),
         new Hole(), new Hole(), new Hole(),
         new Hole(), new Hole(), new Hole(),
+        new Hole(), new Hole(), new Hole(),
+        new Hole(), new Hole(), new Hole(),
         new Hole(), new Hole(), new Hole()
     ]
 }
@@ -59,8 +68,8 @@ function windowResized() {
 
 function keyPressed() {
     if (keyCode == SPACE) {
-        isRunning = !isRunning
-        if (isRunning) {
+        isGameRunning = !isGameRunning
+        if (isGameRunning) {
             music.playGameMusic()
         } else {
             music.playMenuMusic()
@@ -70,7 +79,7 @@ function keyPressed() {
     if (keyCode == ESC) {
         createSnakes()
         createHoles()
-        isRunning = false
+        isGameRunning = false
         music.playMenuMusic()
     }
 
@@ -86,7 +95,8 @@ function keyPressed() {
 
 function draw() {
     background(backgroundColor)
-    if (isRunning) {
+
+    if (isGameRunning) {
         for (const snake of snakes) {
             snake.update()
         }
@@ -114,15 +124,23 @@ function checkCollision() {
 
             // optimize check by not calulating near by sections when far away
             for (const bodySection of snake_2.body) {
-                const dx = snake.head.x - bodySection.x
-                const dy = snake.head.y - bodySection.y
-                const distance = sqrt(dx * dx + dy * dy)
-
-                const snakesRadius = (snake.thickness / 2) + (snake_2.thickness / 2)
-                if (distance < snakesRadius) {
+                if (isCollision(snake.head, bodySection, snake.thickness, snake_2.thickness)) {
                     snake.isAlive = false
                 }
             }
         }
+        for (const hole of holes) {
+            if (isCollision(snake.head, hole.position, snake.thickness, hole.radius)) {
+                snake.isAlive = false
+            }
+        }
     }
+}
+
+function isCollision(a: Point, b: Point, aRadius: number, bRadius: number): boolean {
+    const dx = a.x - b.x
+    const dy = a.y - b.y
+    const distance = sqrt(dx * dx + dy * dy)
+    const collisionDistance = (aRadius / 2) + (bRadius / 2)
+    return distance < collisionDistance
 }

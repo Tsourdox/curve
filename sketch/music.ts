@@ -1,6 +1,6 @@
 interface MusicFiles {
-    menuMusic: p5.SoundFile
-    gameMusic: p5.SoundFile
+    menu: p5.SoundFile
+    game: p5.SoundFile
 }
 
 class Music {
@@ -10,11 +10,13 @@ class Music {
 
     constructor(musicFiles: MusicFiles) {
         this.musicFiles = musicFiles
-        this.activeMusicFile = musicFiles.menuMusic
+        this.activeMusicFile = musicFiles.menu
+        musicFiles.menu.setLoop(true);
+        musicFiles.game.setLoop(true);
     }
 
     private getVolume(forFile: p5.SoundFile) {
-        const { menuMusic, gameMusic } = this.musicFiles
+        const { menu: menuMusic, game: gameMusic } = this.musicFiles
         switch (forFile) {
             case menuMusic: return 0.02
             case gameMusic: return 0.1
@@ -46,7 +48,6 @@ class Music {
     public playMusic(volume?: number) {
         if (!this.activeMusicFile.isPlaying()) {
             volume = volume || this.getVolume(this.activeMusicFile)
-            this.activeMusicFile.setLoop(true)
             this.activeMusicFile.setVolume(0)
             this.activeMusicFile.play()
             this.activeMusicFile.setVolume(volume, this.fadeTime)
@@ -55,17 +56,17 @@ class Music {
 
     public pauseMusic() {
         this.activeMusicFile.setVolume(0, this.fadeTime)
-        this.activeMusicFile.pause(0.5)
+        this.activeMusicFile.pause(this.fadeTime)
     }
 
     public playMenuMusic() {
-        const { menuMusic } = this.musicFiles
+        const { menu: menuMusic } = this.musicFiles
         const volume = this.getVolume(menuMusic)
         this.playMusicFile(menuMusic, volume)
     }
 
     public playGameMusic() {
-        const { gameMusic } = this.musicFiles
+        const { game: gameMusic } = this.musicFiles
         const volume = this.getVolume(gameMusic)
         this.playMusicFile(gameMusic, volume)
     }
