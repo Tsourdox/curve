@@ -1,26 +1,17 @@
-interface Point {
-    x: number;
-    y: number;
-}
-
-interface Controls {
-    left: number,
-    right: number,
-    special?: number
-}
-
 class Snake {
-    private readonly name: string;
-    private readonly color: string;
+    public readonly id: number;
+    public readonly name: string;
+    private readonly color: p5.Color;
     private readonly controls: Controls;
-    private thickness!: number;
-    private body!: Point[];
     private direction!: number;
-    private isAlive!: boolean;
+    public isAlive!: boolean;
+    public thickness!: number;
+    public body!: Point[];
 
-    constructor(name: string, color: string, controls: Controls) {
+    constructor(name: string, _color: string, controls: Controls) {
+        this.id = random(0, 999999);
         this.name = name;
-        this.color = color;
+        this.color = color(_color);
         this.controls = controls
         this.birth();
     }
@@ -37,7 +28,7 @@ class Snake {
         this.isAlive = true;
     }
 
-    private get head() {
+    public get head() {
         return this.body[this.body.length - 1];
     }
 
