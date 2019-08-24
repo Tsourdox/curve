@@ -40,7 +40,6 @@ class Snake {
         if (this.isAlive) {
             this.updateDirection();
             this.growBody();
-            this.checkIfAlive();
         }
     }
 
@@ -86,18 +85,5 @@ class Snake {
             x: x + cos(this.direction) * 1,
             y: y + sin(this.direction) * 1
         })
-    }
-
-    private checkIfAlive() {
-        // TODO: optimate snake body and remove death by length
-        if (this.body.length > 10000) {
-            this.isAlive = false;
-        }
-
-        const { x, y } = this.head;
-        // Dead by wall..
-        if (x <= 0 || x >= width || y <= 0 || y >= height) {
-            this.isAlive = false;
-        }
     }
 }

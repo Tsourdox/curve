@@ -11,13 +11,13 @@ let time: number
 function preload() {
     console.log('preload')
 
-    const { loadSound: loadMusic } = (window as any) // todo fix typings for p5.sound
+    const { loadSound } = (window as any) // todo fix typings for p5.sound
     musicFiles = {
-        menu: loadMusic('../assets/music/mystic_drums.wav'),
-        game: loadMusic('../assets/music/evolution.mp3')
+        menu: loadSound('../assets/music/mystic_drums.wav'),
+        game: loadSound('../assets/music/evolution.mp3')
     }
     gameSounds = {
-        end: loadMusic('../assets/sounds/end.wav')
+        end: loadSound('../assets/sounds/end.wav')
     }
 }
 
@@ -26,7 +26,7 @@ function setup() {
 
     // Settings
     createCanvas(windowWidth, windowHeight)
-    frameRate(90)
+    frameRate(60)
     noCursor()
 
     // Background
@@ -35,6 +35,9 @@ function setup() {
     // Music
     music = new Music(musicFiles)
     music.playMenuMusic()
+
+    // Sounds
+    gameSounds.end.setVolume(1)
 
     // Game
     createSnakes()
@@ -129,6 +132,13 @@ function checkCollision() {
             continue
         }
 
+        // Check wall
+        const { x, y } = snake.head
+        if (x <= 0 || x >= width || y <= 0 || y >= height) {
+            snake.isAlive = false
+            gameSounds.end.play()
+        }
+
         // Check other snakes
         for (const snake_2 of snakes) {
             if (snake.id == snake_2.id) {
@@ -139,8 +149,7 @@ function checkCollision() {
             for (const bodySection of snake_2.body) {
                 if (isCollision(snake.head, bodySection, snake.thickness, snake_2.thickness)) {
                     snake.isAlive = false
-                    gameSounds.end.stop()
-                    gameSounds.end.play(0.01)
+                    gameSounds.end.play()
                 }
             }
         }
@@ -149,8 +158,7 @@ function checkCollision() {
         for (const hole of holes) {
             if (isCollision(snake.head, hole.position, snake.thickness, hole.radius)) {
                 snake.isAlive = false
-                gameSounds.end.stop()
-                gameSounds.end.play(0.01)
+                gameSounds.end.play()
             }
         }
     }
