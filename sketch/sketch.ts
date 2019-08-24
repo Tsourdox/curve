@@ -1,10 +1,9 @@
 let backgroundColor: p5.Color
-let menuSound: p5.SoundFile
 let music: Music
 let musicFiles: MusicFiles
 let gameSounds: GameSounds
 let game: Game
-let time: number
+let menu: Menu
 
 function preload() {
     console.log('preload')
@@ -37,15 +36,17 @@ function setup() {
     // Sounds
     gameSounds.end.setVolume(1)
 
-    // Game
+    // Game & Menu
+    menu = new Menu()
     game = new Game()
-
 }
 
 function draw() {
     background(backgroundColor)
+
     game.update();
     game.draw();
+    menu.draw();
 }
 
 function windowResized() {
@@ -53,7 +54,7 @@ function windowResized() {
 }
 
 function keyPressed() {
-    if (keyCode == SPACE) {
+    if (keyCode == SPACE && !menu.isSetup) {
         game.isRunning = !game.isRunning
         if (game.isRunning) {
             music.playGameMusic()
@@ -64,15 +65,19 @@ function keyPressed() {
 
     if (keyCode == ESC) {
         game.resetGame()
+        menu.isSetup = true
         music.playMenuMusic()
     }
 
     if (keyCode == ENTER) {
-        if (music.isPlaying()) {
-            music.pauseMusic()
-        } else {
-            music.playMusic()
-        }
+        game.restartGame()
+        music.playMenuMusic()
     }
+
+    if (keyCode >= KEY_1 && keyCode <= KEY_9 && menu.isSetup) {
+        game.createSnakes(keyCode - 48)
+        menu.isSetup = false
+    }
+
     return false
 }

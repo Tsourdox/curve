@@ -45,15 +45,21 @@ class Snake extends GameObject {
     }
 
     public draw() {
-        this.drawStart();
+        if (!game.isRunning) {
+            this.drawHead();
+        }
         this.drawBody();
     }
 
-    private drawStart() {
-        const { x, y } = this.body[0];
+    private drawHead() {
+        const { x, y } = this.head;
         noStroke();
         fill(this.color);
         circle(x, y, this.thickness);
+        noFill();
+        stroke(this.color);
+        strokeWeight(this.thickness * 0.5);
+        circle(x, y, this.thickness * 4);
     }
 
     private drawBody() {

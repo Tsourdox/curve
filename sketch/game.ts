@@ -8,30 +8,43 @@ class Game {
     }
 
     constructor() {
-        this.snakes = this.createSnakes()
-        this.holes = this.createHoles()
+        this.snakes = []
+        this.holes = []
         this.isRunning = false
+        this.createHoles()
     }
 
-    private createSnakes() {
-        return [
+    public createSnakes(nr: number) {
+        this.snakes = [
             new Snake('Olivia', 'yellow', {
                 left: LEFT_ARROW,
                 right: RIGHT_ARROW
             }),
             new Snake('David', 'red', {
-                left: KEY_A,
-                right: KEY_D
+                left: KEY_Z,
+                right: KEY_X
             }),
             new Snake('Manooni', 'blue', {
-                left: KEY_H,
-                right: KEY_J
+                left: KEY_U,
+                right: KEY_I
+            }),
+            new Snake('Spacy', 'green', {
+                left: KEY_Q,
+                right: KEY_W
+            }),
+            new Snake('Lilla MY', 'purple', {
+                left: KEY_N,
+                right: KEY_M
+            }),
+            new Snake('Bamse', 'orange', {
+                left: KEY_R,
+                right: KEY_T
             })
-        ]
+        ].slice(0, nr)
     }
 
     private createHoles() {
-        return [
+        this.holes = [
             new Hole(), new Hole(), new Hole(),
             new Hole(), new Hole(), new Hole(),
             new Hole(), new Hole(), new Hole(),
@@ -42,8 +55,13 @@ class Game {
     }
 
     public resetGame() {
-        this.snakes = this.createSnakes()
-        this.holes = this.createHoles()
+        this.createSnakes(0)
+        this.createHoles()
+        this.isRunning = false
+    }
+    public restartGame() {
+        this.createSnakes(this.snakes.length)
+        this.createHoles()
         this.isRunning = false
     }
 
