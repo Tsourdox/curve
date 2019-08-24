@@ -1,13 +1,34 @@
 let snakes: Snake[];
 let isRunning: boolean;
 let backgroundColor: p5.Color;
+let sound: p5.SoundFile;
+
+function preload() {
+    sound = (window as any).loadSound('../assets/mystic_drums.wav');
+}
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
     frameRate(50);
+    noCursor();
+    fullscreen();
+    playMusic();
+
     createSnakes();
     isRunning = false;
     backgroundColor = color(20);
+}
+
+function playMusic() {
+    sound.setLoop(true);
+    sound.setVolume(0);
+    sound.play();
+    sound.setVolume(0.1, 0.5);
+}
+
+function pauseMusic() {
+    sound.setVolume(0, 0.5);
+    sound.pause(0.5)
 }
 
 function createSnakes() {
@@ -33,6 +54,12 @@ function keyPressed() {
     } else if (keyCode == ESC) {
         createSnakes();
         isRunning = false;
+    } else if (keyCode == ENTER) {
+        if (sound.isPlaying()) {
+            pauseMusic();
+        } else {
+            playMusic();
+        }
     }
     return false;
 }
