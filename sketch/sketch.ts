@@ -47,6 +47,10 @@ function createSnakes() {
         new Snake('David', 'red', {
             left: KEY_A,
             right: KEY_D
+        }),
+        new Snake('Manooni', 'blue', {
+            left: KEY_H,
+            right: KEY_J
         })
     ]
 }
