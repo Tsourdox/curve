@@ -1,34 +1,34 @@
-let snakes: Snake[];
-let isRunning: boolean;
-let backgroundColor: p5.Color;
-let sound: p5.SoundFile;
+let snakes: Snake[]
+let holes: Hole[]
+let isRunning: boolean
+let backgroundColor: p5.Color
+let menuSound: p5.SoundFile
+let music: Music
+let musicFiles: MusicFiles
+let time: number
 
 function preload() {
-    sound = (window as any).loadSound('../assets/mystic_drums.wav');
+    console.log('preload')
+    const { loadSound: loadMusic } = (window as any) // todo fix typings for p5.sound
+    musicFiles = {
+        menuMusic: loadMusic('../assets/music/mystic_drums.wav'),
+        gameMusic: loadMusic('../assets/music/evolution.mp3')
+    }
 }
 
 function setup() {
-    createCanvas(windowWidth, windowHeight);
-    frameRate(50);
-    noCursor();
-    fullscreen();
-    playMusic();
+    console.log('setup')
+    createCanvas(windowWidth, windowHeight)
+    frameRate(90)
+    noCursor()
+    fullscreen()
+    music = new Music(musicFiles)
+    music.playMenuMusic()
 
-    createSnakes();
-    isRunning = false;
-    backgroundColor = color(20);
-}
-
-function playMusic() {
-    sound.setLoop(true);
-    sound.setVolume(0);
-    sound.play();
-    sound.setVolume(0.1, 0.5);
-}
-
-function pauseMusic() {
-    sound.setVolume(0, 0.5);
-    sound.pause(0.5)
+    createSnakes()
+    createHoles()
+    isRunning = false
+    backgroundColor = color(20)
 }
 
 function createSnakes() {
@@ -41,41 +41,67 @@ function createSnakes() {
             left: KEY_A,
             right: KEY_D
         })
-    ];
+    ]
+}
+
+function createHoles() {
+    holes = [
+        new Hole(), new Hole(), new Hole(),
+        new Hole(), new Hole(), new Hole(),
+        new Hole(), new Hole(), new Hole(),
+        new Hole(), new Hole(), new Hole()
+    ]
 }
 
 function windowResized() {
-    resizeCanvas(windowWidth, windowHeight);
+    resizeCanvas(windowWidth, windowHeight)
 }
 
 function keyPressed() {
     if (keyCode == SPACE) {
-        isRunning = !isRunning;
-    } else if (keyCode == ESC) {
-        createSnakes();
-        isRunning = false;
-    } else if (keyCode == ENTER) {
-        if (sound.isPlaying()) {
-            pauseMusic();
+        isRunning = !isRunning
+        if (isRunning) {
+            music.playGameMusic()
         } else {
-            playMusic();
+            music.playMenuMusic()
         }
     }
-    return false;
+
+    if (keyCode == ESC) {
+        createSnakes()
+        createHoles()
+        isRunning = false
+        music.playMenuMusic()
+    }
+
+    if (keyCode == ENTER) {
+        if (music.isPlaying()) {
+            music.pauseMusic()
+        } else {
+            music.playMusic()
+        }
+    }
+    return false
 }
 
 function draw() {
-    background(backgroundColor);
+    background(backgroundColor)
     if (isRunning) {
         for (const snake of snakes) {
-            snake.update();
+            snake.update()
+        }
+        for (const hole of holes) {
+            hole.update()
         }
     }
 
-    checkCollision();
+    checkCollision()
 
     for (const snake of snakes) {
-        snake.draw();
+        snake.draw()
+    }
+    for (const hole of holes) {
+        hole.draw()
     }
 }
 
@@ -83,7 +109,7 @@ function checkCollision() {
     for (const snake of snakes) {
         for (const snake_2 of snakes) {
             if (snake.id == snake_2.id) {
-                continue;
+                continue
             }
 
             // optimize check by not calulating near by sections when far away

@@ -83,8 +83,8 @@ class Snake {
     private growBody() {
         const { x, y } = this.body[this.body.length - 1];
         this.body.push({
-            x: x + cos(this.direction) * 1.5,
-            y: y + sin(this.direction) * 1.5
+            x: x + cos(this.direction) * 1,
+            y: y + sin(this.direction) * 1
         })
     }
 
