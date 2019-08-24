@@ -1,4 +1,4 @@
-class Hole {
+class Hole extends GameObject {
     private readonly baseRadius: number
     private readonly morphLimit: number
     private morphSpeed: number
@@ -10,6 +10,7 @@ class Hole {
     public position: Point
 
     constructor() {
+        super()
         this.color = color(random(30, 100), random(30, 100), random(30, 100))
         this.baseRadius = random(20, 150)
         this.morphLimit = random(10,100)

@@ -1,4 +1,4 @@
-class Snake {
+class Snake extends GameObject {
     public readonly id: number;
     public readonly name: string;
     private readonly color: p5.Color;
@@ -9,6 +9,7 @@ class Snake {
     public body!: Point[];
 
     constructor(name: string, _color: string, controls: Controls) {
+        super();
         this.id = random(0, 999999);
         this.name = name;
         this.color = color(_color);
