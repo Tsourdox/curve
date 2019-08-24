@@ -4,7 +4,7 @@ interface MusicFiles {
 }
 
 class Music {
-    private readonly fadeTime = 1
+    private readonly fadeTime = 0.5
     private activeMusicFile: p5.SoundFile
     private musicFiles: MusicFiles
 
@@ -18,9 +18,9 @@ class Music {
     private getVolume(forFile: p5.SoundFile) {
         const { menu: menuMusic, game: gameMusic } = this.musicFiles
         switch (forFile) {
-            case menuMusic: return 0.02
-            case gameMusic: return 0.1
-            default: return 0.1
+            case menuMusic: return 0.1
+            case gameMusic: return 1
+            default: return 1
         }
     }
 
