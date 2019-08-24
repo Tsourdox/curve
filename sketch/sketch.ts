@@ -17,8 +17,8 @@ function createSnakes() {
             right: RIGHT_ARROW
         }),
         new Snake('David', 'red', {
-            left: 65,
-            right: 68
+            left: KEY_A,
+            right: KEY_D
         })
     ];
 }
@@ -28,9 +28,9 @@ function windowResized() {
 }
 
 function keyPressed() {
-    if (keyCode == 32) { // Space
+    if (keyCode == SPACE) {
         isRunning = !isRunning;
-    } else if (keyCode == 27) { // Esc
+    } else if (keyCode == ESC) {
         createSnakes();
         isRunning = false;
     }
