@@ -5,6 +5,7 @@ let backgroundColor: p5.Color
 let menuSound: p5.SoundFile
 let music: Music
 let musicFiles: MusicFiles
+let gameSounds: GameSounds
 let time: number
 
 function preload() {
@@ -14,6 +15,9 @@ function preload() {
     musicFiles = {
         menu: loadMusic('../assets/music/mystic_drums.wav'),
         game: loadMusic('../assets/music/evolution.mp3')
+    }
+    gameSounds = {
+        end: loadMusic('../assets/sounds/end.wav')
     }
 }
 
@@ -121,6 +125,11 @@ function draw() {
 
 function checkCollision() {
     for (const snake of snakes) {
+        if (!snake.isAlive) {
+            continue
+        }
+
+        // Check other snakes
         for (const snake_2 of snakes) {
             if (snake.id == snake_2.id) {
                 continue
@@ -130,12 +139,18 @@ function checkCollision() {
             for (const bodySection of snake_2.body) {
                 if (isCollision(snake.head, bodySection, snake.thickness, snake_2.thickness)) {
                     snake.isAlive = false
+                    gameSounds.end.stop()
+                    gameSounds.end.play(0.01)
                 }
             }
         }
+
+        // Check holes
         for (const hole of holes) {
             if (isCollision(snake.head, hole.position, snake.thickness, hole.radius)) {
                 snake.isAlive = false
+                gameSounds.end.stop()
+                gameSounds.end.play(0.01)
             }
         }
     }
