@@ -30,8 +30,8 @@ class Hole extends GameObject {
     }
 
     update() {
-        this.updateMorphValue();
-        this.duration += deltaTime;
+        this.updateMorphValue()
+        this.duration += deltaTime
     }
 
     draw() {

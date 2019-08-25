@@ -11,8 +11,8 @@ class Music {
     constructor(musicFiles: MusicFiles) {
         this.musicFiles = musicFiles
         this.activeMusicFile = musicFiles.menu
-        musicFiles.menu.setLoop(true);
-        musicFiles.game.setLoop(true);
+        musicFiles.menu.setLoop(true)
+        musicFiles.game.setLoop(true)
     }
 
     private getVolume(forFile: p5.SoundFile) {

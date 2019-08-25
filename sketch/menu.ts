@@ -29,25 +29,25 @@ class Menu {
             // Draw main menu text
             fill(this.textColor)
             textSize(diameter * 0.08)
-            text('MAIN MENU', x, y - diameter * 0.25);
+            text('MAIN MENU', x, y - diameter * 0.25)
 
             // Draw content
             if (this.isSetup) {
                 textSize(diameter * 0.05)
-                text('How many players are you?', x, y + diameter * 0.07);
+                text('How many players are you?', x, y + diameter * 0.07)
 
                 textSize(diameter * 0.07)
-                text('1-6', x, y + diameter * 0.2);
+                text('1-6', x, y + diameter * 0.2)
             } else {
                 textSize(diameter * 0.04)
                 textSize(diameter * 0.04)
-                text('press enter to restart round', x, y - diameter * 0.02);
+                text('press enter to restart round', x, y - diameter * 0.02)
                 textSize(diameter * 0.042)
                 textStyle(BOLD)
-                text('press space to play/pause the game', x, y + diameter * 0.1);
+                text('press space to play/pause the game', x, y + diameter * 0.1)
                 textStyle(NORMAL)
                 textSize(diameter * 0.04)
-                text('press esc to select players', x, y + diameter * 0.22);
+                text('press esc to select players', x, y + diameter * 0.22)
             }
         }
     }
