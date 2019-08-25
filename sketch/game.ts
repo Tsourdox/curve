@@ -15,32 +15,7 @@ class Game {
     }
 
     public createSnakes(nr: number) {
-        this.snakes = [
-            new Snake('Olivia', 'yellow', {
-                left: LEFT_ARROW,
-                right: RIGHT_ARROW
-            }),
-            new Snake('David', 'red', {
-                left: KEY_Z,
-                right: KEY_X
-            }),
-            new Snake('Manooni', 'blue', {
-                left: KEY_U,
-                right: KEY_I
-            }),
-            new Snake('Spacy', 'green', {
-                left: KEY_Q,
-                right: KEY_W
-            }),
-            new Snake('Lilla MY', 'purple', {
-                left: KEY_N,
-                right: KEY_M
-            }),
-            new Snake('Bamse', 'orange', {
-                left: KEY_R,
-                right: KEY_T
-            })
-        ].slice(0, nr)
+        this.snakes = Snakes.all.slice(0, nr)
     }
 
     private createHoles() {
