@@ -2,6 +2,7 @@ class Game {
     private snakes: Snake[]
     private holes: Hole[]
     public isPaused: boolean
+    private hasEnded: boolean
 
     private get objects(): GameObject[] {
         return [...this.snakes, ...this.holes]
@@ -11,6 +12,49 @@ class Game {
         this.snakes = []
         this.holes = []
         this.isPaused = false
+        this.hasEnded = false
+        this.createHoles()
+    }
+
+    public update() {
+        if (!this.isPaused || menu.isSetup) {
+            for (const object of this.objects) {
+                object.update()
+            }
+
+            this.checkCollision()
+            this.checkEndCondition()
+        }
+    }
+
+    public draw() {
+        for (const object of this.objects) {
+            object.draw()
+        }
+    }
+
+    public resume() {
+        if (!this.isEndCondition) {
+            this.isPaused = false
+            music.playGameMusic()
+        }
+    }
+
+    public pause() {
+        this.isPaused = true
+        music.playMenuMusic()
+    }
+
+    public reset() {
+        this.isPaused = true
+        this.hasEnded = false
+        this.createSnakes(0)
+        this.createHoles()
+    }
+    public restart() {
+        this.isPaused = true
+        this.hasEnded = false
+        this.createSnakes(this.snakes.length)
         this.createHoles()
     }
 
@@ -29,30 +73,11 @@ class Game {
         ]
     }
 
-    public resetGame() {
-        this.createSnakes(0)
-        this.createHoles()
-        this.isPaused = true
-    }
-    public restartGame() {
-        this.createSnakes(this.snakes.length)
-        this.createHoles()
-        this.isPaused = true
-    }
-
-    public update() {
-        if (!this.isPaused || menu.isSetup) {
-            for (const object of this.objects) {
-                object.update()
-            }
-
-            this.checkCollision();
-        }
-    }
-
-    public draw() {
-        for (const object of this.objects) {
-            object.draw()
+    private checkEndCondition() {
+        let isAllSnakesDead = this.snakes.reduce((isDead, snake) => isDead && !snake.isAlive, true)
+        if (isAllSnakesDead) {
+            this.hasEnded = true
+            this.pause()
         }
     }
 

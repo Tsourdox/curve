@@ -57,27 +57,25 @@ function keyPressed() {
     if (menu.isSetup) {
         // GAME SETUP
         if (keyCode >= KEY_1 && keyCode <= KEY_9) {
-            game.resetGame()
+            game.reset()
             game.createSnakes(keyCode - 48)
             menu.isSetup = false
         }
     } else if (game.isPaused) {
         // PAUSED GAME
         if (keyCode == ESC) {
-            game.resetGame()
+            game.reset()
             menu.isSetup = true
         } else if (keyCode == ENTER) {
-            game.restartGame()
+            game.restart()
         }
         if (keyCode == SPACE) {
-            game.isPaused = false
-            music.playGameMusic()
+            game.resume()
         }
     } else {
         // GAME IS RUNNING
         if (keyCode == SPACE) {
-            game.isPaused = true
-            music.playMenuMusic()
+            game.pause()
         }
 
     }
