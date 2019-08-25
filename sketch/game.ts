@@ -1,7 +1,7 @@
 class Game {
     private snakes: Snake[]
     private holes: Hole[]
-    public isRunning: boolean
+    public isPaused: boolean
 
     private get objects(): GameObject[] {
         return [...this.snakes, ...this.holes]
@@ -10,7 +10,7 @@ class Game {
     constructor() {
         this.snakes = []
         this.holes = []
-        this.isRunning = false
+        this.isPaused = false
         this.createHoles()
     }
 
@@ -57,16 +57,16 @@ class Game {
     public resetGame() {
         this.createSnakes(0)
         this.createHoles()
-        this.isRunning = false
+        this.isPaused = true
     }
     public restartGame() {
         this.createSnakes(this.snakes.length)
         this.createHoles()
-        this.isRunning = false
+        this.isPaused = true
     }
 
     public update() {
-        if (this.isRunning) {
+        if (!this.isPaused || menu.isSetup) {
             for (const object of this.objects) {
                 object.update()
             }

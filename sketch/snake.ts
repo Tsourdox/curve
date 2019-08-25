@@ -45,7 +45,7 @@ class Snake extends GameObject {
     }
 
     public draw() {
-        if (!game.isRunning) {
+        if (game.isPaused) {
             this.drawHead();
         }
         this.drawBody();

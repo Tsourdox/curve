@@ -44,9 +44,9 @@ function setup() {
 function draw() {
     background(backgroundColor)
 
-    game.update();
-    game.draw();
-    menu.draw();
+    game.update()
+    game.draw()
+    menu.draw()
 }
 
 function windowResized() {
@@ -54,29 +54,32 @@ function windowResized() {
 }
 
 function keyPressed() {
-    if (keyCode == SPACE && !menu.isSetup) {
-        game.isRunning = !game.isRunning
-        if (game.isRunning) {
+    if (menu.isSetup) {
+        // GAME SETUP
+        if (keyCode >= KEY_1 && keyCode <= KEY_9) {
+            game.resetGame()
+            game.createSnakes(keyCode - 48)
+            menu.isSetup = false
+        }
+    } else if (game.isPaused) {
+        // PAUSED GAME
+        if (keyCode == ESC) {
+            game.resetGame()
+            menu.isSetup = true
+        } else if (keyCode == ENTER) {
+            game.restartGame()
+        }
+        if (keyCode == SPACE) {
+            game.isPaused = false
             music.playGameMusic()
-        } else {
+        }
+    } else {
+        // GAME IS RUNNING
+        if (keyCode == SPACE) {
+            game.isPaused = true
             music.playMenuMusic()
         }
-    }
 
-    if (keyCode == ESC) {
-        game.resetGame()
-        menu.isSetup = true
-        music.playMenuMusic()
-    }
-
-    if (keyCode == ENTER) {
-        game.restartGame()
-        music.playMenuMusic()
-    }
-
-    if (keyCode >= KEY_1 && keyCode <= KEY_9 && menu.isSetup) {
-        game.createSnakes(keyCode - 48)
-        menu.isSetup = false
     }
 
     return false
