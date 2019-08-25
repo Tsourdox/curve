@@ -34,7 +34,7 @@ class Game {
     }
 
     public resume() {
-        if (!this.isEndCondition) {
+        if (!this.hasEnded) {
             this.isPaused = false
             music.playGameMusic()
         }
