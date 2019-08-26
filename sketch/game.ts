@@ -17,13 +17,15 @@ class Game {
     }
 
     public update() {
-        if (!this.isPaused || menu.isSetup) {
+        if (!this.isPaused) {
             for (const object of this.objects) {
                 object.update()
             }
 
-            this.checkCollision()
-            this.checkEndCondition()
+            if (!menu.isSetup){
+                this.checkCollision()
+                this.checkEndCondition()
+            }
         }
     }
 

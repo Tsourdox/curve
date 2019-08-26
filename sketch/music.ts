@@ -13,13 +13,14 @@ class Music {
         this.activeMusicFile = musicFiles.menu
         musicFiles.menu.setLoop(true)
         musicFiles.game.setLoop(true)
+
     }
 
     private getVolume(forFile: p5.SoundFile) {
-        const { menu: menuMusic, game: gameMusic } = this.musicFiles
+        const { menu, game } = this.musicFiles
         switch (forFile) {
-            case menuMusic: return 0.1
-            case gameMusic: return 1
+            case menu: return 0.1
+            case game: return 1
             default: return 1
         }
     }
@@ -60,14 +61,14 @@ class Music {
     }
 
     public playMenuMusic() {
-        const { menu: menuMusic } = this.musicFiles
-        const volume = this.getVolume(menuMusic)
-        this.playMusicFile(menuMusic, volume)
+        const { menu } = this.musicFiles
+        const volume = this.getVolume(menu)
+        this.playMusicFile(menu, volume)
     }
 
     public playGameMusic() {
-        const { game: gameMusic } = this.musicFiles
-        const volume = this.getVolume(gameMusic)
-        this.playMusicFile(gameMusic, volume)
+        const { game } = this.musicFiles
+        const volume = this.getVolume(game)
+        this.playMusicFile(game, volume)
     }
 }

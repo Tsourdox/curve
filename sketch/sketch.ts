@@ -9,6 +9,7 @@ function preload() {
     console.log('preload')
 
     const { loadSound } = (window as any) // todo fix typings for p5.sound
+
     musicFiles = {
         menu: loadSound('../assets/music/mystic_drums.wav'),
         game: loadSound('../assets/music/birthofahero.mp3')
@@ -25,20 +26,16 @@ function setup() {
     createCanvas(windowWidth, windowHeight)
     frameRate(60)
     noCursor()
-
-    // Background
     backgroundColor = color(20)
-
-    // Music
-    music = new Music(musicFiles)
-    music.playMenuMusic()
-
-    // Sounds
     gameSounds.end.setVolume(1)
 
-    // Game & Menu
+    // Create Game Instances
+    music = new Music(musicFiles)
     menu = new Menu()
     game = new Game()
+
+    // Start music on user action
+    ;(window as any).userStartAudio().then(() => music.playMenuMusic())
 }
 
 function draw() {
@@ -54,18 +51,28 @@ function windowResized() {
 }
 
 function keyPressed() {
-    if (menu.isSetup) {
+    // Prevent error when reloading with keyboard shotcut
+    if (!music || !menu || !game) {
+        return
+    }
+
+    if (menu.setupStep == 'start') {
+        // GAME START
+        if (keyCode == SPACE) {
+            menu.setupStep = 'number-of-players'
+        }
+    } else if (menu.isSetup) {
         // GAME SETUP
         if (keyCode >= KEY_1 && keyCode <= KEY_9) {
             game.reset()
             game.createSnakes(keyCode - 48)
-            menu.isSetup = false
+            menu.setupStep = 'done'
         }
     } else if (game.isPaused) {
         // PAUSED GAME
         if (keyCode == ESC) {
             game.reset()
-            menu.isSetup = true
+            menu.setupStep = 'number-of-players'
         } else if (keyCode == ENTER) {
             game.restart()
         }
