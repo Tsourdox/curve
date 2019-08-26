@@ -69,7 +69,7 @@ class Menu {
 
     private printActionList(x: number, y: number, diameter: number) {
         textSize(diameter * 0.04)
-        text('press enter to restart round', x, y - diameter * 0.02)
+        text('press enter to restart the game', x, y - diameter * 0.02)
         textSize(diameter * 0.042)
         textStyle(BOLD)
         text('press space to play/pause the game', x, y + diameter * 0.1)
