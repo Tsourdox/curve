@@ -17,7 +17,7 @@ class Game {
     }
 
     public update() {
-        if (!this.isPaused) {
+        if (!this.isPaused || menu.isSetup) {
             for (const object of this.objects) {
                 object.update()
             }

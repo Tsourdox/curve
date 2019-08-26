@@ -97,7 +97,7 @@ class Snake extends GameObject {
     }
 
     private shrinkBody() {
-        for (let i = 0; i < 3; i++){
+        for (let i = 0; i < 1; i++){
             if (this.body.length > 1) {
                 this.body.shift()
             }
