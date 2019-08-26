@@ -23,3 +23,11 @@ class Mouse {
         }
     }
 }
+
+function mouseClicked() {
+    const mousePosition: Point = { x: mouseX, y: mouseY }
+
+    if (menu.isSetup) {
+        game.respawnHoleContaining(mousePosition)
+    }
+}

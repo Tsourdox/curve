@@ -64,6 +64,24 @@ class Game {
         this.snakes = Snakes.all.slice(0, nr)
     }
 
+    public respawnHoleContaining(point: Point) {
+        let holeContaingPoint: Hole | undefined
+        this.holes.reverse()
+        for (const hole of this.holes) {
+            if (this.isCollision(point, hole.position, 0, hole.radius)) {
+                holeContaingPoint = hole
+                break
+            }
+        }
+        this.holes.reverse()
+
+        if (holeContaingPoint) {
+            // Remove hole and add a new one
+            this.holes.splice(this.holes.indexOf(holeContaingPoint), 1)
+            this.holes.push(new Hole())
+        }
+    }
+
     private createHoles() {
         this.holes = [
             new Hole(), new Hole(), new Hole(),
