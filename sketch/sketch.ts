@@ -4,6 +4,7 @@ let musicFiles: MusicFiles
 let gameSounds: GameSounds
 let game: Game
 let menu: Menu
+let mouse: Mouse
 
 function preload() {
     console.log('preload')
@@ -24,7 +25,7 @@ function setup() {
 
     // Settings
     createCanvas(windowWidth, windowHeight)
-    frameRate(60)
+    frameRate(120)
     noCursor()
     backgroundColor = color(20)
     gameSounds.end.setVolume(1)
@@ -33,6 +34,7 @@ function setup() {
     music = new Music(musicFiles)
     menu = new Menu()
     game = new Game()
+    mouse = new Mouse()
 
     // Start music on user action
     ;(window as any).userStartAudio().then(() => music.playMenuMusic())
@@ -44,6 +46,7 @@ function draw() {
     game.update()
     game.draw()
     menu.draw()
+    mouse.draw()
 }
 
 function windowResized() {
