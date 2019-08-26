@@ -2,7 +2,7 @@ class Game {
     private snakes: Snake[]
     private holes: Hole[]
     public isPaused: boolean
-    private hasEnded: boolean
+    public hasEnded: boolean
 
     private get objects(): GameObject[] {
         return [...this.snakes, ...this.holes]

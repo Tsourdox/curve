@@ -47,7 +47,7 @@ class Snake extends GameObject {
     }
 
     public draw() {
-        if (game.isPaused) {
+        if (game.isPaused || !this.isAlive) {
             this.drawHead()
         }
         this.drawBody()
@@ -97,8 +97,10 @@ class Snake extends GameObject {
     }
 
     private shrinkBody() {
-        if (this.body.length > 1) {
-            this.body.shift()
+        for (let i = 0; i < 3; i++){
+            if (this.body.length > 1) {
+                this.body.shift()
+            }
         }
     }
 }

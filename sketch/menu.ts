@@ -68,14 +68,24 @@ class Menu {
     }
 
     private printActionList(x: number, y: number, diameter: number) {
-        textSize(diameter * 0.04)
+        game.hasEnded ? this.largeText(diameter, 1.2) : this.normalText(diameter)
         text('press enter to restart the game', x, y - diameter * 0.02)
-        textSize(diameter * 0.042)
-        textStyle(BOLD)
+
+        game.hasEnded ? this.normalText(diameter) : this.largeText(diameter)
         text('press space to play/pause the game', x, y + diameter * 0.1)
-        textStyle(NORMAL)
-        textSize(diameter * 0.04)
+
+        this.normalText(diameter)
         text('press esc to select players', x, y + diameter * 0.22)
+    }
+
+    private largeText(diameter: number, factor: number = 1.1) {
+        textSize(diameter * 0.04 * factor)
+        textStyle(BOLD)
+    }
+
+    private normalText(diameter: number) {
+        textSize(diameter * 0.04)
+        textStyle(NORMAL)
     }
 
 }
