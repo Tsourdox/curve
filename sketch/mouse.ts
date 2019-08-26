@@ -1,14 +1,18 @@
 class Mouse {
     private readonly color: p5.Color
     private readonly thickness: number
+    private mouseHasBeenFound: boolean
 
     constructor() {
         this.color = color(200)
         this.thickness = 5
+        this.mouseHasBeenFound = false
     }
 
     draw() {
-        if (menu.isSetup || game.isPaused) {
+        if (!this.mouseHasBeenFound) {
+            this.mouseHasBeenFound = Boolean(mouseX || mouseY)
+        } else if (menu.isSetup || game.isPaused) {
             noStroke()
             fill(this.color)
             circle(mouseX, mouseY, this.thickness)
