@@ -9,6 +9,7 @@
         "sourceMap": true,
         "noImplicitAny": true,
         "module": "none",
-        "strict": true
+        "strict": true,
+        "strictPropertyInitialization": true,
     }
 }
