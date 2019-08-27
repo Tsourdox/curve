@@ -20,7 +20,7 @@ class Music {
         const { menu, game } = this.musicFiles
         switch (forFile) {
             case menu: return 0.1
-            case game: return 1
+            case game: return 0.7
             default: return 1
         }
     }

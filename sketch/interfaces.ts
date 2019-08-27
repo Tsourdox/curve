@@ -10,5 +10,7 @@ interface Controls {
 }
 
 interface GameSounds {
-    end: p5.SoundFile
+    died: p5.SoundFile
+    freeze: p5.SoundFile
+    teleport: p5.SoundFile
 }

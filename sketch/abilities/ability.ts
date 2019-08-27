@@ -1,23 +1,23 @@
 abstract class Ability {
     public readonly name: string
-    private readonly coldown: number
+    private readonly cooldown: number
     private timeToActivation: number
 
-    private get isActive() {
+    private get isReady() {
         return !this.timeToActivation
     }
 
-    constructor(name: string, coldown: number) {
+    constructor(name: string, cooldown: number) {
         this.name = name
-        this.coldown = coldown
+        this.cooldown = cooldown
         this.timeToActivation = 0
     }
 
     protected abstract applyEffect(snake: Snake): void
 
     public use(snake: Snake) {
-        if (this.isActive) {
-            this.timeToActivation = this.coldown
+        if (this.isReady) {
+            this.timeToActivation = this.cooldown
             this.applyEffect(snake)
         }
     }
@@ -39,7 +39,7 @@ abstract class Ability {
 
         const diameter = thickness * 4
         const startAngle = -HALF_PI
-        const endAngle = startAngle + (TWO_PI * (this.coldown - this.timeToActivation / this.coldown))
+        const endAngle = startAngle + (TWO_PI * (this.cooldown - this.timeToActivation / this.cooldown))
         arc(x, y, diameter, diameter, startAngle, endAngle);
     }
 }

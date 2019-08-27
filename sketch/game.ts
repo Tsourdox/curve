@@ -3,23 +3,26 @@ class Game {
     private holes: Hole[]
     public isPaused: boolean
     public hasEnded: boolean
-
-    private get objects(): GameObject[] {
-        return [...this.snakes, ...this.holes]
-    }
+    public isTimeFrozened: boolean
 
     constructor() {
         this.snakes = []
         this.holes = []
         this.isPaused = false
         this.hasEnded = false
+        this.isTimeFrozened = false
         this.createHoles()
     }
 
     public update() {
         if (!this.isPaused || menu.isSetup) {
-            for (const object of this.objects) {
-                object.update()
+            for (const snake of this.snakes) {
+                snake.update()
+            }
+            if (!this.isTimeFrozened) {
+                for (const hole of this.holes) {
+                    hole.update()
+                }
             }
 
             if (!menu.isSetup){
@@ -30,8 +33,11 @@ class Game {
     }
 
     public draw() {
-        for (const object of this.objects) {
-            object.draw()
+        for (const snake of this.snakes) {
+            snake.draw()
+        }
+        for (const hole of this.holes) {
+            hole.draw(this.isTimeFrozened)
         }
     }
 
@@ -48,16 +54,15 @@ class Game {
     }
 
     public reset() {
-        this.isPaused = true
-        this.hasEnded = false
+        this.restart()
         this.createSnakes(0)
-        this.createHoles()
     }
     public restart() {
         this.isPaused = true
         this.hasEnded = false
-        this.createSnakes(this.snakes.length)
+        this.isTimeFrozened = false
         this.createHoles()
+        this.createSnakes(this.snakes.length)
     }
 
     public createSnakes(nr: number) {
@@ -111,7 +116,7 @@ class Game {
             const { x, y } = snake.head
             if (x <= 0 || x >= width || y <= 0 || y >= height) {
                 snake.isAlive = false
-                gameSounds.end.play()
+                gameSounds.died.play()
             }
 
             // Check other snakes
@@ -125,7 +130,7 @@ class Game {
                     for (const point of bodySection) {
                         if (this.isCollision(snake.head, point, snake.thickness, snake_2.thickness)) {
                             snake.isAlive = false
-                            gameSounds.end.play()
+                            gameSounds.died.play()
                         }
                     }
                 }
@@ -135,7 +140,7 @@ class Game {
             for (const hole of this.holes) {
                 if (this.isCollision(snake.head, hole.position, snake.thickness, hole.radius)) {
                     snake.isAlive = false
-                    gameSounds.end.play()
+                    gameSounds.died.play()
                 }
             }
         }

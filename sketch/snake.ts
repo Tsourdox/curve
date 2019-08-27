@@ -46,12 +46,13 @@ class Snake extends GameObject {
 
     public update() {
         if (this.isAlive) {
-            this.applyUseInputActions()
+            this.applyPlayerActions()
             this.growBody()
-            this.ability && this.ability.update()
         } else {
             this.shrinkBody()
         }
+
+        this.ability && this.ability.update()
     }
 
     public draw() {
@@ -95,7 +96,7 @@ class Snake extends GameObject {
         }
     }
 
-    private applyUseInputActions() {
+    private applyPlayerActions() {
         // Turn left/right
         if (keyIsDown(this.controls.left)) {
             this.direction -= 0.05
@@ -118,8 +119,11 @@ class Snake extends GameObject {
     }
 
     private shrinkBody() {
-        for (let i = 0; i < 1; i++){
-            if (this.body.length > 1) {
+        for (let i = 0; i < 2; i++){
+            const firstBodySection = this.body[0]
+            if (firstBodySection.length > 1) {
+                firstBodySection.shift()
+            } else if (this.body.length > 1) {
                 this.body.shift()
             }
         }

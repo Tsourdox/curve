@@ -16,7 +16,9 @@ function preload() {
         game: loadSound('../assets/music/birthofahero.mp3')
     }
     gameSounds = {
-        end: loadSound('../assets/sounds/end.wav')
+        died: loadSound('../assets/sounds/end.wav'),
+        freeze: loadSound('../assets/sounds/freeze.wav'),
+        teleport: loadSound('../assets/sounds/teleport.wav')
     }
 }
 
@@ -28,7 +30,10 @@ function setup() {
     frameRate(120)
     noCursor()
     backgroundColor = color(20)
-    gameSounds.end.setVolume(1)
+
+    gameSounds.died.setVolume(1)
+    gameSounds.freeze.setVolume(1)
+    gameSounds.teleport.setVolume(1)
 
     // Create Game Instances
     music = new Music(musicFiles)
