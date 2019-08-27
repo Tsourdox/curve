@@ -3,12 +3,14 @@ const SPACE = 32
 
 const KEY_Z = 90
 const KEY_X = 88
+const KEY_C = 67
 const KEY_N = 78
 const KEY_M = 77
 const KEY_Q = 81
 const KEY_W = 87
 const KEY_R = 84
 const KEY_T = 86
+const KEY_Y = 89
 const KEY_U = 85
 const KEY_I = 73
 

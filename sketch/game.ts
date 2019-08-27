@@ -122,9 +122,11 @@ class Game {
 
                 // optimize check by not calulating near by sections when far away
                 for (const bodySection of snake_2.body) {
-                    if (this.isCollision(snake.head, bodySection, snake.thickness, snake_2.thickness)) {
-                        snake.isAlive = false
-                        gameSounds.end.play()
+                    for (const point of bodySection) {
+                        if (this.isCollision(snake.head, point, snake.thickness, snake_2.thickness)) {
+                            snake.isAlive = false
+                            gameSounds.end.play()
+                        }
                     }
                 }
             }

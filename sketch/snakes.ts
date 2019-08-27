@@ -1,16 +1,22 @@
 class Snakes {
     public static get all() {
         return [
-            new Snake('Pod', 'blue', {
-                left: LEFT_ARROW,
-                right: RIGHT_ARROW
-            }),
+            new Snake('Pod', 'blue',
+                {
+                    left: LEFT_ARROW,
+                    special: UP_ARROW,
+                    right: RIGHT_ARROW
+                },
+                new TeleportAbility('Teleport', 5)
+            ),
             new Snake('Mess', 'red', {
                 left: KEY_Z,
-                right: KEY_X
+                special: KEY_X,
+                right: KEY_C
             }),
             new Snake('Glow', 'yellow', {
-                left: KEY_U,
+                left: KEY_Y,
+                special: KEY_U,
                 right: KEY_I
             }),
             new Snake('Luce', 'green', {
