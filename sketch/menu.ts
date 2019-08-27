@@ -57,6 +57,13 @@ class Menu {
     private drawMainMenuHeader(x: number, y: number, diameter: number) {
         textSize(diameter * 0.08)
         text('MAIN MENU', x, y - diameter * 0.25)
+
+        if (game.hasEnded) {
+            textStyle(BOLD)
+            textSize(diameter * 0.06)
+            text(game.time.toFixed(), x, y - diameter * 0.13)
+            textStyle(NORMAL)
+        }
     }
 
     private askForNumberOfPlayers(x: number, y: number, diameter: number) {

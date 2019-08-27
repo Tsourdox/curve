@@ -178,7 +178,6 @@ class Game {
         }
     }
 
-
     private isCollision(a: Point, b: Point, aRadius: number, bRadius: number): boolean {
         const dx = a.x - b.x
         const dy = a.y - b.y
