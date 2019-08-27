@@ -7,10 +7,10 @@ class Snake extends GameObject {
     private readonly controls: Controls
     private readonly ability?: Ability
 
-    public body: BodySection[]
+    public thickness: number
     public direction!: number
     public isAlive!: boolean
-    public thickness!: number
+    public body!: BodySection[]
 
     constructor(name: string, _color: string, controls: Controls, ability?: Ability) {
         super()
@@ -19,7 +19,7 @@ class Snake extends GameObject {
         this.color = color(_color)
         this.controls = controls
         this.ability = ability
-        this.body = []
+        this.thickness = 5
         this.birth()
     }
 
@@ -27,7 +27,12 @@ class Snake extends GameObject {
         return this.body[this.body.length - 1]
     }
 
-    private birth() {
+    public get readyForRebirth() {
+        return !this.isAlive && this.body.length == 1 && this.bodySection.length == 1
+    }
+
+    public birth() {
+        this.body = []
         const paddingX = width * 0.1
         const paddingY = height * 0.1
         const startingPoint = {
@@ -36,7 +41,6 @@ class Snake extends GameObject {
         }
         this.body.push([startingPoint])
         this.direction = random(0, 360)
-        this.thickness = 5
         this.isAlive = true
     }
 

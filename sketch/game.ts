@@ -140,10 +140,15 @@ class Game {
 
                     for (let i = bodySections.length - 1; i >= 0; i--) {
                         const bodySection = bodySections[i]
-                        if (this.isCollision(snake.head, bodySection, snake.thickness, snake_2.thickness)) {
+                        const thickness = snake_2.readyForRebirth ? snake_2.thickness * 5: snake_2.thickness
+                        if (this.isCollision(snake.head, bodySection, snake.thickness, thickness)) {
                             if (hasSkippedFirstFewPoints) {
-                                snake.isAlive = false
-                                gameSounds.died.play()
+                                if (snake_2.readyForRebirth) {
+                                    snake_2.birth()
+                                } else {
+                                    snake.isAlive = false
+                                    gameSounds.died.play()
+                                }
                             }
                         } else {
                             hasSkippedFirstFewPoints = true
