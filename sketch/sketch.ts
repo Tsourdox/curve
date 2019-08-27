@@ -16,10 +16,10 @@ function preload() {
         game: loadSound('../assets/music/birthofahero.mp3')
     }
     gameSounds = {
-        snakeReset: loadSound('../assets/sounds/end.wav'),
+        died: loadSound('../assets/sounds/end.wav'),
         freeze: loadSound('../assets/sounds/freeze.wav'),
         teleport: loadSound('../assets/sounds/teleport.wav'),
-        holeDisappeared: loadSound('../assets/sounds/teleport.wav')
+        disappear: loadSound('../assets/sounds/disappear.wav')
     }
 }
 
@@ -32,10 +32,10 @@ function setup() {
     noCursor()
     backgroundColor = color(20)
 
-    gameSounds.snakeReset.setVolume(1)
+    gameSounds.died.setVolume(1)
     gameSounds.freeze.setVolume(1)
     gameSounds.teleport.setVolume(1)
-    gameSounds.holeDisappeared.setVolume(1)
+    gameSounds.disappear.setVolume(0.5)
 
     // Create Game Instances
     music = new Music(musicFiles)

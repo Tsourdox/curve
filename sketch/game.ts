@@ -128,7 +128,7 @@ class Game {
             const { x, y } = snake.head
             if (x <= 0 || x >= width || y <= 0 || y >= height) {
                 snake.isAlive = false
-                gameSounds.snakeReset.play()
+                gameSounds.died.play()
             }
 
             // Check other snakes
@@ -141,7 +141,7 @@ class Game {
                         if (this.isCollision(snake.head, bodySection, snake.thickness, snake_2.thickness)) {
                             if (hasSkippedFirstFewPoints) {
                                 snake.isAlive = false
-                                gameSounds.snakeReset.play()
+                                gameSounds.died.play()
                             }
                         } else {
                             // hasSkippedFirstFewPoints = true
@@ -155,10 +155,10 @@ class Game {
                 if (this.isCollision(snake.head, hole.position, snake.thickness, hole.radius)) {
                     if (this.isTimeFrozen) {
                         hole.disappear()
-                        gameSounds.holeDisappeared.play()
+                        gameSounds.disappear.play()
                     } else {
                         snake.isAlive = false
-                        gameSounds.snakeReset.play()
+                        gameSounds.died.play()
                     }
                 }
             }

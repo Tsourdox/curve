@@ -10,8 +10,8 @@ interface Controls {
 }
 
 interface GameSounds {
-    snakeReset: p5.SoundFile
+    died: p5.SoundFile
     freeze: p5.SoundFile
     teleport: p5.SoundFile
-    holeDisappeared: p5.SoundFile
+    disappear: p5.SoundFile
 }
