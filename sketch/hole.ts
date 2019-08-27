@@ -6,6 +6,8 @@ class Hole extends GameObject {
     private color: p5.Color
     private colorFrozened: p5.Color
     private isIncreasing: boolean
+    public isFrozen: boolean
+    public shouldDisappear: boolean
     public position: Point
 
     constructor() {
@@ -17,6 +19,8 @@ class Hole extends GameObject {
         this.morphSpeed = random(0.1, 1)
         this.morphValue = this.baseRadius * -1
         this.isIncreasing = true
+        this.isFrozen = false
+        this.shouldDisappear = false
         this.position = {
             x: random(width),
             y: random(height)
@@ -36,6 +40,10 @@ class Hole extends GameObject {
         noStroke()
         fill(isFrozen ? this.colorFrozened : this.color)
         circle(x, y, this.radius)
+    }
+
+    public disappear() {
+        this.shouldDisappear = true
     }
 
     private updateMorphValue() {

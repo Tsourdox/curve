@@ -4,7 +4,7 @@ class Game {
     private holes: Hole[]
     public isPaused: boolean
     public hasEnded: boolean
-    public isTimeFrozened: boolean
+    public isTimeFrozen: boolean
     public time: number
 
     constructor() {
@@ -13,7 +13,7 @@ class Game {
         this.holes = []
         this.isPaused = false
         this.hasEnded = false
-        this.isTimeFrozened = false
+        this.isTimeFrozen = false
         this.time = 0
         this.createHoles()
     }
@@ -25,7 +25,7 @@ class Game {
             for (const snake of this.snakes) {
                 snake.update()
             }
-            if (!this.isTimeFrozened) {
+            if (!this.isTimeFrozen) {
                 for (const hole of this.holes) {
                     hole.update()
                 }
@@ -50,7 +50,7 @@ class Game {
             snake.draw()
         }
         for (const hole of this.holes) {
-            hole.draw(this.isTimeFrozened)
+            hole.draw(this.isTimeFrozen)
         }
     }
 
@@ -70,10 +70,11 @@ class Game {
         this.restart()
         this.createSnakes(0)
     }
+
     public restart() {
         this.isPaused = true
         this.hasEnded = false
-        this.isTimeFrozened = false
+        this.isTimeFrozen = false
         this.time = 0
         this.createHoles()
         this.createSnakes(this.snakes.length)
@@ -106,9 +107,6 @@ class Game {
             new Hole(), new Hole(), new Hole(),
             new Hole(), new Hole(), new Hole(),
             new Hole(), new Hole(), new Hole(),
-            new Hole(), new Hole(), new Hole(),
-            new Hole(), new Hole(), new Hole(),
-            new Hole(), new Hole(), new Hole()
         ]
     }
 
@@ -130,32 +128,50 @@ class Game {
             const { x, y } = snake.head
             if (x <= 0 || x >= width || y <= 0 || y >= height) {
                 snake.isAlive = false
-                gameSounds.died.play()
+                gameSounds.snakeReset.play()
             }
 
             // Check other snakes
             for (const snake_2 of this.snakes) {
-                if (snake.id == snake_2.id) {
-                    continue
-                }
+                let hasSkippedFirstFewPoints = snake.id != snake_2.id
 
-                // optimize check by not calulating near by sections when far away
-                for (const bodySection of snake_2.body) {
-                    for (const point of bodySection) {
-                        if (this.isCollision(snake.head, point, snake.thickness, snake_2.thickness)) {
-                            snake.isAlive = false
-                            gameSounds.died.play()
+                // optimize check by not calulating nearby sections when far away
+                for (const bodySections of snake_2.body) {
+                    for (const bodySection of bodySections) {
+                        if (this.isCollision(snake.head, bodySection, snake.thickness, snake_2.thickness)) {
+                            if (hasSkippedFirstFewPoints) {
+                                snake.isAlive = false
+                                gameSounds.snakeReset.play()
+                            }
+                        } else {
+                            // hasSkippedFirstFewPoints = true
                         }
                     }
                 }
             }
 
-            // Check holes
+            // Check hole collisions
             for (const hole of this.holes) {
                 if (this.isCollision(snake.head, hole.position, snake.thickness, hole.radius)) {
-                    snake.isAlive = false
-                    gameSounds.died.play()
+                    if (this.isTimeFrozen) {
+                        hole.disappear()
+                        gameSounds.holeDisappeared.play()
+                    } else {
+                        snake.isAlive = false
+                        gameSounds.snakeReset.play()
+                    }
                 }
+            }
+
+            // Remove holes
+            const disappearingHoles: Hole[] = []
+            for (const hole of this.holes) {
+                if (hole.shouldDisappear) {
+                    disappearingHoles.push(hole)
+                }
+            }
+            for (const hole of disappearingHoles) {
+                this.holes.splice(this.holes.indexOf(hole), 1)
             }
         }
     }
