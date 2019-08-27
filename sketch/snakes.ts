@@ -17,15 +17,22 @@ class Snakes {
                 },
                 new TeleportAbility(3)
             ),
-            new Snake('Glow', 'yellow', {
-                left: KEY_Y,
-                special: KEY_U,
-                right: KEY_I
-            }),
-            new Snake('Luce', 'green', {
-                left: KEY_Q,
-                right: KEY_W
-            }),
+            new Snake('Glow', 'yellow',
+                {
+                    left: KEY_Y,
+                    special: KEY_U,
+                    right: KEY_I
+                },
+                new TeleportAbility(3)
+            ),
+            new Snake('Luce', 'green',
+                {
+                    left: KEY_Q,
+                    special: KEY_W,
+                    right: KEY_E
+                },
+                new TeleportAbility(3))
+            ,
             new Snake('Ouc', 'purple', {
                 left: KEY_N,
                 right: KEY_M

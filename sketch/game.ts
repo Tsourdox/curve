@@ -133,18 +133,20 @@ class Game {
 
             // Check other snakes
             for (const snake_2 of this.snakes) {
-                let hasSkippedFirstFewPoints = snake.id != snake_2.id
 
                 // optimize check by not calulating nearby sections when far away
                 for (const bodySections of snake_2.body) {
-                    for (const bodySection of bodySections) {
+                    let hasSkippedFirstFewPoints = snake.id != snake_2.id
+
+                    for (let i = bodySections.length - 1; i >= 0; i--) {
+                        const bodySection = bodySections[i]
                         if (this.isCollision(snake.head, bodySection, snake.thickness, snake_2.thickness)) {
                             if (hasSkippedFirstFewPoints) {
                                 snake.isAlive = false
                                 gameSounds.died.play()
                             }
                         } else {
-                            // hasSkippedFirstFewPoints = true
+                            hasSkippedFirstFewPoints = true
                         }
                     }
                 }

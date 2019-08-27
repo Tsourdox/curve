@@ -8,6 +8,7 @@ const KEY_N = 78
 const KEY_M = 77
 const KEY_Q = 81
 const KEY_W = 87
+const KEY_E = 69
 const KEY_R = 84
 const KEY_T = 86
 const KEY_Y = 89
