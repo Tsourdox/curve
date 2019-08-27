@@ -1,21 +1,27 @@
 class Game {
+    private readonly spawnInterval: number
     private snakes: Snake[]
     private holes: Hole[]
     public isPaused: boolean
     public hasEnded: boolean
     public isTimeFrozened: boolean
+    public time: number
 
     constructor() {
+        this.spawnInterval = 5
         this.snakes = []
         this.holes = []
         this.isPaused = false
         this.hasEnded = false
         this.isTimeFrozened = false
+        this.time = 0
         this.createHoles()
     }
 
     public update() {
         if (!this.isPaused || menu.isSetup) {
+            const newTime = this.time + deltaTime * 0.001
+
             for (const snake of this.snakes) {
                 snake.update()
             }
@@ -25,10 +31,17 @@ class Game {
                 }
             }
 
+            const shouldSpawnHole = this.time % this.spawnInterval > newTime % this.spawnInterval
+            if (shouldSpawnHole) {
+                this.holes.push(new Hole())
+            }
+
             if (!menu.isSetup){
                 this.checkCollision()
                 this.checkEndCondition()
             }
+
+            this.time = newTime
         }
     }
 
@@ -61,6 +74,7 @@ class Game {
         this.isPaused = true
         this.hasEnded = false
         this.isTimeFrozened = false
+        this.time = 0
         this.createHoles()
         this.createSnakes(this.snakes.length)
     }
