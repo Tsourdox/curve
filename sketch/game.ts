@@ -8,7 +8,7 @@ class Game {
     public time: number
 
     constructor() {
-        this.spawnInterval = 5
+        this.spawnInterval = 3
         this.snakes = []
         this.holes = []
         this.isPaused = false

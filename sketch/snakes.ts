@@ -7,7 +7,7 @@ class Snakes {
                     special: UP_ARROW,
                     right: RIGHT_ARROW
                 },
-                new FreezeAbility(8, 1)
+                new FreezeAbility(8, 2)
             ),
             new Snake('Mess', 'red',
                 {

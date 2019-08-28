@@ -117,8 +117,8 @@ class Snake extends GameObject {
     private growBody() {
         const { x, y } = this.head
         this.bodySection.push({
-            x: x + cos(this.direction) * 1,
-            y: y + sin(this.direction) * 1
+            x: x + cos(this.direction) * 1.5,
+            y: y + sin(this.direction) * 1.5
         })
     }
 
