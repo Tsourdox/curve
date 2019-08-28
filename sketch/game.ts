@@ -142,7 +142,7 @@ class Game {
 
                 // optimize check by not calulating nearby sections when far away
                 for (const bodySections of snake_2.body) {
-                    let hasSkippedFirstFewPoints = snake.id != snake_2.id
+                    let hasSkippedFirstFewPoints = snake.name != snake_2.name
 
                     for (let i = bodySections.length - 1; i >= 0; i--) {
                         const bodySection = bodySections[i]

@@ -6,6 +6,11 @@ let game: Game
 let menu: Menu
 let mouse: Mouse
 
+/** Scale to fit screen  */
+function s(value: number) {
+    return min(width, height) * value * 0.001
+}
+
 function preload() {
     console.log('preload')
 

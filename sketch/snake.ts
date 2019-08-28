@@ -1,26 +1,24 @@
 type BodySection = Point[]
 
 class Snake extends GameObject {
-    public readonly id: number
     public readonly name: string
     public readonly color: p5.Color
     private readonly controls: Controls
     private readonly ability?: Ability
 
-    public isBurning!: boolean
     public thickness: number
+    public isBurning!: boolean
     public direction!: number
     public isAlive!: boolean
     public body!: BodySection[]
 
     constructor(name: string, _color: string, controls: Controls, ability?: Ability) {
         super()
-        this.id = random(0, 999999)
         this.name = name
         this.color = color(_color)
         this.controls = controls
         this.ability = ability
-        this.thickness = 5
+        this.thickness = s(5)
         this.birth()
     }
 
@@ -127,8 +125,8 @@ class Snake extends GameObject {
     private growBody() {
         const { x, y } = this.head
         this.bodySection.push({
-            x: x + cos(this.direction) * 1.5,
-            y: y + sin(this.direction) * 1.5
+            x: x + cos(this.direction) * s(1.5),
+            y: y + sin(this.direction) * s(1.5)
         })
     }
 

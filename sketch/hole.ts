@@ -1,6 +1,7 @@
 class Hole extends GameObject {
     private readonly baseRadius: number
     private readonly morphLimit: number
+    private readonly _position: Point
     private morphSpeed: number
     private morphValue: number
     private color: p5.Color
@@ -8,7 +9,6 @@ class Hole extends GameObject {
     private isIncreasing: boolean
     public isFrozen: boolean
     public shouldDisappear: boolean
-    public position: Point
 
     constructor() {
         super()
@@ -21,14 +21,21 @@ class Hole extends GameObject {
         this.isIncreasing = true
         this.isFrozen = false
         this.shouldDisappear = false
-        this.position = {
-            x: random(width),
-            y: random(height)
+        this._position = {
+            x: random(width) / width,
+            y: random(height) / height
         }
     }
 
     public get radius() {
-        return this.baseRadius + this.morphValue
+        return s(this.baseRadius + this.morphValue)
+    }
+
+    public get position(): Point {
+        return {
+            x: this._position.x * width,
+            y: this._position.y * height
+        }
     }
 
     public update() {

@@ -10,16 +10,17 @@ class Mouse {
     }
 
     draw() {
+        const thickness = s(this.thickness)
         if (!this.mouseHasBeenFound) {
             this.mouseHasBeenFound = Boolean(mouseX || mouseY)
         } else if (menu.isSetup || game.isPaused) {
             noStroke()
             fill(this.color)
-            circle(mouseX, mouseY, this.thickness)
+            circle(mouseX, mouseY, thickness)
             noFill()
             stroke(this.color)
-            strokeWeight(this.thickness * 0.5)
-            circle(mouseX, mouseY, this.thickness * 6)
+            strokeWeight(thickness * 0.5)
+            circle(mouseX, mouseY, thickness * 6)
         }
     }
 }
