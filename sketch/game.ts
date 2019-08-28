@@ -159,13 +159,23 @@ class Game {
 
             // Check hole collisions
             for (const hole of this.holes) {
-                if (this.isCollision(snake.head, hole.position, snake.thickness, hole.radius)) {
-                    if (this.isTimeFrozen) {
-                        hole.disappear()
-                        gameSounds.disappear.play()
-                    } else {
-                        snake.isAlive = false
-                        gameSounds.died.play()
+                if (snake.isBurning) {
+                    for (const bodySections of snake.body) {
+                        for (const bodySection of bodySections ) {
+                            if (this.isCollision(bodySection, hole.position, snake.thickness, hole.radius)) {
+                                hole.disappear()
+                            }
+                        }
+                    }
+                } else {
+                    if (this.isCollision(snake.head, hole.position, snake.thickness, hole.radius)) {
+                        if (this.isTimeFrozen) {
+                            hole.disappear()
+                            gameSounds.disappear.play()
+                        } else {
+                            snake.isAlive = false
+                            gameSounds.died.play()
+                        }
                     }
                 }
             }

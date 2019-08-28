@@ -14,4 +14,5 @@ interface GameSounds {
     freeze: p5.SoundFile
     teleport: p5.SoundFile
     disappear: p5.SoundFile
+    burn: p5.SoundFile
 }

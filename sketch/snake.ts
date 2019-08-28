@@ -7,6 +7,7 @@ class Snake extends GameObject {
     private readonly controls: Controls
     private readonly ability?: Ability
 
+    public isBurning!: boolean
     public thickness: number
     public direction!: number
     public isAlive!: boolean
@@ -42,6 +43,7 @@ class Snake extends GameObject {
         this.body.push([startingPoint])
         this.direction = random(0, 360)
         this.isAlive = true
+        this.isBurning = false
     }
 
     public get head() {
@@ -56,7 +58,7 @@ class Snake extends GameObject {
             this.shrinkBody()
         }
 
-        this.ability && this.ability.update()
+        this.ability && this.ability.update(this)
     }
 
     public draw() {

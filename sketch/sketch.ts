@@ -19,7 +19,8 @@ function preload() {
         died: loadSound('../assets/sounds/end.wav'),
         freeze: loadSound('../assets/sounds/freeze.wav'),
         teleport: loadSound('../assets/sounds/teleport.wav'),
-        disappear: loadSound('../assets/sounds/disappear.wav')
+        disappear: loadSound('../assets/sounds/disappear.wav'),
+        burn: loadSound('../assets/sounds/burn.wav')
     }
 }
 
@@ -32,10 +33,11 @@ function setup() {
     noCursor()
     backgroundColor = color(20)
 
-    gameSounds.died.setVolume(1)
+    gameSounds.died.setVolume(0.4)
     gameSounds.freeze.setVolume(1)
     gameSounds.teleport.setVolume(1)
     gameSounds.disappear.setVolume(0.5)
+    gameSounds.burn.setVolume(0.5)
 
     // Create Game Instances
     music = new Music(musicFiles)

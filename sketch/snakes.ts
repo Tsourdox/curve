@@ -7,7 +7,7 @@ class Snakes {
                     special: UP_ARROW,
                     right: RIGHT_ARROW
                 },
-                new FreezeAbility(8, 2)
+                new FreezeAbility(8, 1.5)
             ),
             new Snake('Mess', 'red',
                 {
@@ -15,7 +15,7 @@ class Snakes {
                     special: KEY_X,
                     right: KEY_C
                 },
-                new TeleportAbility(3)
+                new BurnAbility(15, 2)
             ),
             new Snake('Glow', 'yellow',
                 {

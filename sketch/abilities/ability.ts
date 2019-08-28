@@ -22,7 +22,7 @@ abstract class Ability {
         }
     }
 
-    public update() {
+    public update(snake?: Snake) {
         if (this.timeToActivation > 0) {
             this.timeToActivation = Math.max(0, this.timeToActivation - deltaTime * 0.001)
         }
