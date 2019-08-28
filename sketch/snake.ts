@@ -28,6 +28,14 @@ class Snake extends GameObject {
         return this.body[this.body.length - 1]
     }
 
+    private get bodyParts() {
+        const parts: Point[] = []
+        for (const section of this.body) {
+            parts.push(...section)
+        }
+        return parts
+    }
+
     public get readyForRebirth() {
         return !this.isAlive && this.body.length == 1 && this.bodySection.length == 1
     }
@@ -125,7 +133,8 @@ class Snake extends GameObject {
     }
 
     private shrinkBody() {
-        for (let i = 0; i < 2; i++){
+        const shrinkSpeed = 2 + Math.round(this.bodyParts.length * 0.003)
+        for (let i = 0; i < shrinkSpeed; i++){
             const firstBodySection = this.body[0]
             if (firstBodySection.length > 1) {
                 firstBodySection.shift()
