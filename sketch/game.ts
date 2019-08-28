@@ -84,21 +84,27 @@ class Game {
         this.snakes = Snakes.all.slice(0, nr)
     }
 
-    public respawnHoleContaining(point: Point) {
-        let holeContaingPoint: Hole | undefined
+    public removeHoleContaining(point: Point, respawn?: boolean, all?: boolean) {
+        let holesContaingPoint: Hole[] = []
+
+        // Select from end of list so that the top most circle is removed
         this.holes.reverse()
         for (const hole of this.holes) {
             if (this.isCollision(point, hole.position, 0, hole.radius)) {
-                holeContaingPoint = hole
-                break
+                holesContaingPoint.push(hole)
+                if (!all) {
+                    break
+                }
             }
         }
         this.holes.reverse()
 
-        if (holeContaingPoint) {
-            // Remove hole and add a new one
-            this.holes.splice(this.holes.indexOf(holeContaingPoint), 1)
-            this.holes.push(new Hole())
+        // Remove holes
+        for (const hole of holesContaingPoint) {
+            this.holes.splice(this.holes.indexOf(hole), 1)
+            if (respawn) {
+                this.holes.push(new Hole())
+            }
         }
     }
 

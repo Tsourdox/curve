@@ -10,8 +10,10 @@ class TeleportAbility extends Ability {
             x: x + cos(snake.direction) * 100,
             y: y + sin(snake.direction) * 100
         }
-        snake.body.push([newLocation])
 
+        game.removeHoleContaining(newLocation, false, true)
         gameSounds.teleport.play()
+
+        snake.body.push([newLocation])
     }
 }
