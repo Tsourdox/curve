@@ -7,7 +7,7 @@ class Snakes {
                     special: UP_ARROW,
                     right: RIGHT_ARROW
                 },
-                new FreezeAbility(9, 1.3)
+                new FreezeAbility(10, 2.2)
             ),
             new Snake('Mess', 'red',
                 {
@@ -15,7 +15,7 @@ class Snakes {
                     special: KEY_X,
                     right: KEY_C
                 },
-                new BurnAbility(14, 1.7)
+                new BurnAbility(12, 1.7)
             ),
             new Snake('Glow', 'yellow',
                 {
@@ -23,7 +23,7 @@ class Snakes {
                     special: KEY_U,
                     right: KEY_I
                 },
-                new TeleportAbility(2.5)
+                new TeleportAbility(4)
             ),
             new Snake('Luce', 'green',
                 {
@@ -31,16 +31,24 @@ class Snakes {
                     special: KEY_W,
                     right: KEY_E
                 },
-                new TeleportAbility(2.5))
+                new TeleportAbility(4))
             ,
-            new Snake('Ouc', 'purple', {
-                left: KEY_N,
-                right: KEY_M
-            }),
-            new Snake('Triz', 'orange', {
-                left: KEY_R,
-                right: KEY_T
-            })
+            new Snake('Ouc', 'purple',
+                {
+                    left: KEY_B,
+                    special: KEY_N,
+                    right: KEY_M
+                },
+                new FreezeAbility(6, 1.3)
+            ),
+            new Snake('Triz', 'orange',
+                {
+                    left: KEY_P,
+                    special: KEY_Å,
+                    right: KEY_POW_CHAR,
+                },
+                new BurnAbility(16, 2.5)
+            )
         ]
     }
 }
