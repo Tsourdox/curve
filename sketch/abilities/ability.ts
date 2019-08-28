@@ -39,7 +39,7 @@ abstract class Ability {
 
         const diameter = thickness * 4
         const startAngle = -HALF_PI
-        const endAngle = startAngle + (TWO_PI * (this.cooldown - this.timeToActivation / this.cooldown))
+        const endAngle = startAngle + (TWO_PI * (this.cooldown - this.timeToActivation) / this.cooldown)
         arc(x, y, diameter, diameter, startAngle, endAngle);
     }
 }
