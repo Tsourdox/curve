@@ -33,7 +33,7 @@ function setup() {
     noCursor()
     backgroundColor = color(20)
 
-    gameSounds.died.setVolume(0.4)
+    gameSounds.died.setVolume(0.5)
     gameSounds.freeze.setVolume(1)
     gameSounds.teleport.setVolume(1)
     gameSounds.disappear.setVolume(0.5)

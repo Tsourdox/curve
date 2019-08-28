@@ -32,7 +32,7 @@ class Game {
             }
 
             const shouldSpawnHole = this.time % this.spawnInterval > newTime % this.spawnInterval
-            if (shouldSpawnHole) {
+            if (shouldSpawnHole && !menu.isSetup) {
                 this.holes.push(new Hole())
             }
 
