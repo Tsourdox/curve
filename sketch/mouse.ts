@@ -28,7 +28,7 @@ class Mouse {
 function mouseClicked() {
     const mousePosition: Point = { x: mouseX, y: mouseY }
 
-    if (menu.isSetup) {
+    if (menu && menu.isSetup) {
         game.removeHoleContaining(mousePosition, true)
     }
 }

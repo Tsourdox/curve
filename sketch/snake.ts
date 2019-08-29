@@ -11,6 +11,7 @@ class Snake extends GameObject {
     public direction!: number
     public isAlive!: boolean
     public body!: BodySection[]
+    private nextBodyPart?: Point
 
     constructor(name: string, _color: string, controls: Controls, ability?: Ability) {
         super()
@@ -100,9 +101,11 @@ class Snake extends GameObject {
             const head = bodySection[bodySection.length - 1]
             beginShape()
             curveVertex(tail.x, tail.y)
-            for (const point of bodySection) {
+            for (let i = 0; i < bodySection.length; i+=3) {
+                const point = bodySection[i]
                 curveVertex(point.x, point.y)
             }
+            curveVertex(head.x, head.y)
             curveVertex(head.x, head.y)
             endShape()
         }
@@ -123,15 +126,20 @@ class Snake extends GameObject {
     }
 
     private growBody() {
-        const { x, y } = this.head
-        this.bodySection.push({
+        const { x, y } = this.nextBodyPart || this.head
+        this.nextBodyPart = {
             x: x + cos(this.direction) * s(1.5),
             y: y + sin(this.direction) * s(1.5)
-        })
+        }
+
+        if (this.shouldBodyPartBeAddedToBody(this.nextBodyPart, this.head)) {
+            this.bodySection.push(this.nextBodyPart)
+            delete this.nextBodyPart
+        }
     }
 
     private shrinkBody() {
-        const shrinkSpeed = 2 + Math.round(this.bodyParts.length * 0.003)
+        const shrinkSpeed = 1 + Math.round(this.bodyParts.length * 0.003)
         for (let i = 0; i < shrinkSpeed; i++){
             const firstBodySection = this.body[0]
             if (firstBodySection.length > 1) {
@@ -140,5 +148,12 @@ class Snake extends GameObject {
                 this.body.shift()
             }
         }
+    }
+
+    private shouldBodyPartBeAddedToBody(a: Point, b: Point): boolean {
+        const dx = a.x - b.x
+        const dy = a.y - b.y
+        const distance = sqrt(dx * dx + dy * dy)
+        return distance > this.thickness * 0.5
     }
 }
