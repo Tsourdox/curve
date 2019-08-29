@@ -15,5 +15,6 @@ class TeleportAbility extends Ability {
         gameSounds.teleport.play()
 
         snake.body.push([newLocation])
+        delete snake.nextBodyPart
     }
 }

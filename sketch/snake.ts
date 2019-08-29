@@ -11,7 +11,7 @@ class Snake extends GameObject {
     public direction!: number
     public isAlive!: boolean
     public body!: BodySection[]
-    private nextBodyPart?: Point
+    public nextBodyPart?: Point
 
     constructor(name: string, _color: string, controls: Controls, ability?: Ability) {
         super()
@@ -51,6 +51,7 @@ class Snake extends GameObject {
         this.direction = random(0, 360)
         this.isAlive = true
         this.isBurning = false
+        delete this.nextBodyPart
     }
 
     public get head() {
