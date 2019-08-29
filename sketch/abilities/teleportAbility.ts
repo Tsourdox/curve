@@ -7,8 +7,8 @@ class TeleportAbility extends Ability {
     protected applyEffect(snake: Snake): void {
         const { x, y } = snake.head
         const newLocation = {
-            x: x + cos(snake.direction) * 100,
-            y: y + sin(snake.direction) * 100
+            x: modulo((x + cos(snake.direction) * s(100)), width),
+            y: modulo((y + sin(snake.direction) * s(100)), height)
         }
 
         game.removeHoleContaining(newLocation, false, true)
