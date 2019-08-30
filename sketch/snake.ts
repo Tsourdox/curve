@@ -3,6 +3,7 @@ type BodySection = Point[]
 class Snake extends GameObject {
     public readonly name: string
     public readonly color: p5.Color
+    public readonly speed: number
     private readonly controls: Controls
     private readonly ability?: Ability
 
@@ -17,6 +18,7 @@ class Snake extends GameObject {
         super()
         this.name = name
         this.color = color(_color)
+        this.speed = 1.5
         this.controls = controls
         this.ability = ability
         this.thickness = s(5)
@@ -129,8 +131,8 @@ class Snake extends GameObject {
     private growBody() {
         const { x, y } = this.nextBodyPart || this.head
         this.nextBodyPart = {
-            x: x + cos(this.direction) * s(1.5),
-            y: y + sin(this.direction) * s(1.5)
+            x: x + cos(this.direction) * s(this.speed),
+            y: y + sin(this.direction) * s(this.speed)
         }
 
         if (this.shouldBodyPartBeAddedToBody(this.nextBodyPart, this.head)) {

@@ -90,7 +90,7 @@ class Game {
         // Select from end of list so that the top most circle is removed
         this.holes.reverse()
         for (const hole of this.holes) {
-            if (this.isCollision(point, hole.position, 0, hole.radius)) {
+            if (this.distanceToCollision(point, hole.position, 0, hole.radius) < 0) {
                 holesContaingPoint.push(hole)
                 if (!all) {
                     break
@@ -130,6 +130,8 @@ class Game {
                 continue
             }
 
+            const maxDistanceBetweenParts = s(snake.speed) * 2 // dont use hard coded value here
+
             // Check wall
             const { x, y } = snake.head
             if (x <= 0 || x >= width || y <= 0 || y >= height) {
@@ -139,15 +141,15 @@ class Game {
 
             // Check other snakes
             for (const snake_2 of this.snakes) {
-
-                // optimize check by not calulating nearby sections when far away
                 for (const bodySections of snake_2.body) {
                     let hasSkippedFirstFewPoints = snake.name != snake_2.name
 
                     for (let i = bodySections.length - 1; i >= 0; i--) {
-                        const bodySection = bodySections[i]
+                        const bodyPart = bodySections[i]
                         const thickness = snake_2.readyForRebirth ? snake_2.thickness * 5: snake_2.thickness
-                        if (this.isCollision(snake.head, bodySection, snake.thickness, thickness)) {
+                        const distance = this.distanceToCollision(snake.head, bodyPart, snake.thickness, thickness)
+
+                        if (distance < 0) {
                             if (hasSkippedFirstFewPoints) {
                                 if (snake_2.readyForRebirth) {
                                     snake_2.birth()
@@ -158,6 +160,8 @@ class Game {
                             }
                         } else {
                             hasSkippedFirstFewPoints = true
+                            // Skip points that never will collide
+                            i -= Math.floor(distance / maxDistanceBetweenParts)
                         }
                     }
                 }
@@ -167,14 +171,21 @@ class Game {
             for (const hole of this.holes) {
                 if (snake.isBurning) {
                     for (const bodySections of snake.body) {
-                        for (const bodySection of bodySections ) {
-                            if (this.isCollision(bodySection, hole.position, snake.thickness, hole.radius)) {
+                        for (let i = 0; i < bodySections.length; i ++ ) {
+                            const bodySection = bodySections[i]
+                            const distance = this.distanceToCollision(hole.position, bodySection, hole.radius, snake.thickness)
+
+                            if (distance < 0) {
                                 hole.disappear()
+                            } else {
+                                // Skip points that never will collide
+                                i += Math.floor(distance / maxDistanceBetweenParts)
                             }
                         }
                     }
                 } else {
-                    if (this.isCollision(snake.head, hole.position, snake.thickness, hole.radius)) {
+                    const distance = this.distanceToCollision(snake.head, hole.position, snake.thickness, hole.radius)
+                    if (distance < 0) {
                         if (this.isTimeFrozen) {
                             hole.disappear()
                             gameSounds.disappear.play()
@@ -199,11 +210,11 @@ class Game {
         }
     }
 
-    private isCollision(a: Point, b: Point, aRadius: number, bRadius: number): boolean {
+    private distanceToCollision(a: Point, b: Point, aRadius: number, bRadius: number): number {
         const dx = a.x - b.x
         const dy = a.y - b.y
         const distance = sqrt(dx * dx + dy * dy)
-        const collisionDistance = (aRadius / 2) + (bRadius / 2)
-        return distance < collisionDistance
+        const radius = (aRadius * 0.5) + (bRadius * 0.5)
+        return distance - radius
     }
 }
