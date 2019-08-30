@@ -12,7 +12,6 @@ class Snake extends GameObject {
     public direction!: number
     public isAlive!: boolean
     public body!: BodySection[]
-    public nextBodyPart?: Point
 
     constructor(name: string, _color: string, controls: Controls, ability?: Ability) {
         super()
@@ -53,7 +52,6 @@ class Snake extends GameObject {
         this.direction = random(0, 360)
         this.isAlive = true
         this.isBurning = false
-        delete this.nextBodyPart
     }
 
     public get head() {
@@ -104,7 +102,7 @@ class Snake extends GameObject {
             const head = bodySection[bodySection.length - 1]
             beginShape()
             curveVertex(tail.x, tail.y)
-            for (let i = 0; i < bodySection.length; i+=3) {
+            for (let i = 0; i < bodySection.length; i+=10) {
                 const point = bodySection[i]
                 curveVertex(point.x, point.y)
             }
@@ -129,16 +127,12 @@ class Snake extends GameObject {
     }
 
     private growBody() {
-        const { x, y } = this.nextBodyPart || this.head
-        this.nextBodyPart = {
+        const { x, y } = this.head
+        const nextBodyPart = {
             x: x + cos(this.direction) * s(this.speed),
             y: y + sin(this.direction) * s(this.speed)
         }
-
-        if (this.shouldBodyPartBeAddedToBody(this.nextBodyPart, this.head)) {
-            this.bodySection.push(this.nextBodyPart)
-            delete this.nextBodyPart
-        }
+        this.bodySection.push(nextBodyPart)
     }
 
     private shrinkBody() {
@@ -151,12 +145,5 @@ class Snake extends GameObject {
                 this.body.shift()
             }
         }
-    }
-
-    private shouldBodyPartBeAddedToBody(a: Point, b: Point): boolean {
-        const dx = a.x - b.x
-        const dy = a.y - b.y
-        const distance = sqrt(dx * dx + dy * dy)
-        return distance > this.thickness * 0.5
     }
 }

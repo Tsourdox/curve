@@ -109,11 +109,11 @@ class Game {
     }
 
     private createHoles() {
-        this.holes = [
-            new Hole(), new Hole(), new Hole(),
-            new Hole(), new Hole(), new Hole(),
-            new Hole(), new Hole(), new Hole(),
-        ]
+        this.holes = []
+        for (let i = 0; i < 10; i ++ ) {
+            this.holes.push(new Hole())
+        }
+
     }
 
     private checkEndCondition() {
@@ -130,7 +130,7 @@ class Game {
                 continue
             }
 
-            const maxDistanceBetweenParts = s(snake.speed) * 2 // dont use hard coded value here
+            const maxDistanceBetweenParts = s(snake.speed)
 
             // Check wall
             const { x, y } = snake.head
@@ -171,7 +171,7 @@ class Game {
             for (const hole of this.holes) {
                 if (snake.isBurning) {
                     for (const bodySections of snake.body) {
-                        for (let i = 0; i < bodySections.length; i ++ ) {
+                        for (let i = 0; i < bodySections.length; i++ ) {
                             const bodySection = bodySections[i]
                             const distance = this.distanceToCollision(hole.position, bodySection, hole.radius, snake.thickness)
 
