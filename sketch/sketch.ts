@@ -5,6 +5,7 @@ let gameSounds: GameSounds
 let game: Game
 let menu: Menu
 let mouse: Mouse
+let backgroundImage: p5.Image
 
 function preload() {
     console.log('preload')
@@ -24,6 +25,7 @@ function preload() {
         shrink: loadSound('../assets/sounds/shrink.wav'),
         ghost: loadSound('../assets/sounds/ghost.wav')
     }
+    backgroundImage = loadImage('../assets/images/hubble_photo.jpg');
 }
 
 function setup() {
@@ -55,6 +57,11 @@ function setup() {
 
 function draw() {
     background(backgroundColor)
+    // Possible background
+    /*
+        image(backgroundImage, 0, 0, width, height)
+        background(color('rgba(0,0,0,0.9)'))
+    */
 
     game.update()
     game.draw()

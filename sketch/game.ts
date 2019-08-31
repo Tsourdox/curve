@@ -1,18 +1,26 @@
 class Game {
-    private readonly spawnInterval: number
+    private readonly baseInterval: number
+    private spawnInterval: number
     private snakes: Snake[]
     public holes: Hole[]
     public isPaused: boolean
     public hasEnded: boolean
     public time: number
+    private disappearedHolesCount: number
+
+    public get score() {
+        return this.time * this.disappearedHolesCount / (this.snakes.length * 0.3)
+    }
 
     constructor() {
-        this.spawnInterval = 3
+        this.baseInterval = 3
+        this.spawnInterval = this.baseInterval
         this.snakes = []
         this.holes = []
         this.isPaused = false
         this.hasEnded = false
         this.time = 0
+        this.disappearedHolesCount = 0
         this.createHoles()
     }
 
@@ -42,6 +50,8 @@ class Game {
             }
 
             this.time = newTime
+            this.spawnInterval -= this.spawnInterval * 0.0001
+            console.log(this.spawnInterval)
         }
     }
 
@@ -75,6 +85,7 @@ class Game {
         this.isPaused = true
         this.hasEnded = false
         this.time = 0
+        this.spawnInterval = this.baseInterval
         this.createHoles()
         this.createSnakes(this.snakes.length)
     }
@@ -101,6 +112,8 @@ class Game {
         // Remove holes
         for (const hole of holesContaingPoint) {
             this.holes.splice(this.holes.indexOf(hole), 1)
+            this.disappearedHolesCount++
+
             if (respawn) {
                 this.holes.push(new Hole())
             }
@@ -220,6 +233,7 @@ class Game {
             }
             for (const hole of disappearingHoles) {
                 this.holes.splice(this.holes.indexOf(hole), 1)
+                this.disappearedHolesCount++
             }
         }
     }

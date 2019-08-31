@@ -59,10 +59,8 @@ class Menu {
         text('MAIN MENU', x, y - diameter * 0.25)
 
         if (game.hasEnded) {
-            textStyle(BOLD)
             textSize(diameter * 0.06)
-            text(game.time.toFixed(), x, y - diameter * 0.07)
-            textStyle(NORMAL)
+            text('SCORE: ' + game.score.toFixed() + ' P', x, y - diameter * 0.07)
         }
     }
 
