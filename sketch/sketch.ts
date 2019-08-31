@@ -21,7 +21,8 @@ function preload() {
         disappear: loadSound('../assets/sounds/disappear.wav'),
         burn: loadSound('../assets/sounds/burn.wav'),
         rebirth: loadSound('../assets/sounds/rebirth.wav'),
-        shrink: loadSound('../assets/sounds/shrink.wav')
+        shrink: loadSound('../assets/sounds/shrink.wav'),
+        ghost: loadSound('../assets/sounds/ghost.wav')
     }
 }
 

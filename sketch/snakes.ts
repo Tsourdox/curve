@@ -2,12 +2,11 @@ class Snakes {
     public static get all() {
         return [
             new Snake('Bliz', 'blue', this.controls[0], new FreezeAbility(14, 2.4)),
+            new Snake('Nic', 'orange', this.controls[5], new GhostAbility(13, 5)),
             new Snake('Mess', 'red', this.controls[1], new BurnAbility(12, 1.7)),
             new Snake('Glow', 'yellow', this.controls[2], new RebirthAbility(4)),
-            new Snake('Dash', 'green', this.controls[3], new TeleportAbility(5)),
-
+            new Snake('Dash', 'green', this.controls[3], new TeleportAbility(4)),
             new Snake('Ouc', 'purple', this.controls[4], new ShrinkAbility(10)),
-            new Snake('Triz', 'orange', this.controls[5], new RebirthAbility(4))
         ]
     }
 

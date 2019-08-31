@@ -173,7 +173,7 @@ class Game {
 
             // Check hole collisions
             for (const hole of this.holes) {
-                if (snake.isBurning) {
+                if (snake.effect === 'burning') {
                     for (const bodySections of snake.body) {
                         for (let i = 0; i < bodySections.length; i++ ) {
                             const bodySection = bodySections[i]

@@ -1,10 +1,10 @@
-class BurnAbility extends Ability {
+class GhostAbility extends Ability {
     private readonly duration: number
     private time: number
     private isActive: boolean
 
     constructor(coldown: number, duration: number) {
-        super('Burn', coldown)
+        super('Ghost', coldown)
         this.time = 0
         this.duration = duration
         this.isActive = false
@@ -12,9 +12,10 @@ class BurnAbility extends Ability {
 
     protected applyEffect(snake: Snake): void {
         this.isActive = true
-        gameSounds.burn.play()
-        snake.effect = 'burning'
-        snake.thickness *= 1.5
+        gameSounds.ghost.play()
+        snake.effect = 'ghost'
+        const snakeHead = snake.head
+        snake.body.push([snakeHead])
     }
 
     update(snake: Snake) {
@@ -25,8 +26,9 @@ class BurnAbility extends Ability {
                 this.isActive = false
                 this.time = 0
                 snake.effect = 'none'
-                snake.thickness /= 1.5
             }
+
+            snake.bodySection.shift()
         }
     }
 }

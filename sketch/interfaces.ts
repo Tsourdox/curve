@@ -17,4 +17,5 @@ interface GameSounds {
     burn: p5.SoundFile
     rebirth: p5.SoundFile
     shrink: p5.SoundFile
+    ghost: p5.SoundFile
 }

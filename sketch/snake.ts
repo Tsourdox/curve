@@ -1,4 +1,5 @@
 type BodySection = Point[]
+type Effect = 'none' | 'burning' | 'ghost'
 
 class Snake extends GameObject {
     public readonly name: string
@@ -8,7 +9,7 @@ class Snake extends GameObject {
     private readonly ability?: Ability
 
     public thickness: number
-    public isBurning!: boolean
+    public effect!: Effect
     public direction!: number
     public isAlive!: boolean
     public body!: BodySection[]
@@ -24,7 +25,7 @@ class Snake extends GameObject {
         this.birth()
     }
 
-    private get bodySection() {
+    public get bodySection() {
         return this.body[this.body.length - 1]
     }
 
@@ -51,7 +52,7 @@ class Snake extends GameObject {
         this.body.push([startingPoint])
         this.direction = random(0, 360)
         this.isAlive = true
-        this.isBurning = false
+        this.effect = 'none'
     }
 
     public get head() {
