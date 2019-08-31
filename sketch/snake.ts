@@ -4,6 +4,7 @@ type Effect = 'none' | 'burning' | 'ghost'
 class Snake extends GameObject {
     public readonly name: string
     public readonly color: p5.Color
+    public readonly colorGhosted: p5.Color
     public readonly speed: number
     private readonly controls: Controls
     private readonly ability?: Ability
@@ -18,6 +19,7 @@ class Snake extends GameObject {
         super()
         this.name = name
         this.color = color(_color)
+        this.colorGhosted = color(this.color.toString().replace(',1)', ',0.2)'))
         this.speed = 1.5
         this.controls = controls
         this.ability = ability
@@ -53,6 +55,13 @@ class Snake extends GameObject {
         this.direction = random(0, 360)
         this.isAlive = true
         this.effect = 'none'
+    }
+
+    public enterPassiveGhostForm() {
+        (this.ability as GhostAbility).enterPassiveGhostForm(this)
+    }
+    public leavePassiveGhostForm() {
+        (this.ability as GhostAbility).leavePassiveGhostForm(this)
     }
 
     public get head() {
@@ -92,7 +101,7 @@ class Snake extends GameObject {
     }
 
     private drawBody() {
-        stroke(this.color)
+        stroke(this.effect == 'ghost' ? this.colorGhosted : this.color)
         strokeWeight(this.thickness)
         curveTightness(0.5)
         noFill()

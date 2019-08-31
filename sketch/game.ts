@@ -4,7 +4,6 @@ class Game {
     public holes: Hole[]
     public isPaused: boolean
     public hasEnded: boolean
-    public isTimeFrozen: boolean
     public time: number
 
     constructor() {
@@ -13,7 +12,6 @@ class Game {
         this.holes = []
         this.isPaused = false
         this.hasEnded = false
-        this.isTimeFrozen = false
         this.time = 0
         this.createHoles()
     }
@@ -29,10 +27,8 @@ class Game {
             for (const snake of this.snakes) {
                 snake.update()
             }
-            if (!this.isTimeFrozen) {
-                for (const hole of this.holes) {
-                    hole.update()
-                }
+            for (const hole of this.holes) {
+                hole.update()
             }
 
             const shouldSpawnHole = this.time % this.spawnInterval > newTime % this.spawnInterval
@@ -54,7 +50,7 @@ class Game {
             snake.draw()
         }
         for (const hole of this.holes) {
-            hole.draw(this.isTimeFrozen)
+            hole.draw()
         }
     }
 
@@ -78,7 +74,6 @@ class Game {
     public restart() {
         this.isPaused = true
         this.hasEnded = false
-        this.isTimeFrozen = false
         this.time = 0
         this.createHoles()
         this.createSnakes(this.snakes.length)
@@ -157,7 +152,7 @@ class Game {
                             if (hasSkippedFirstFewPoints) {
                                 if (snake_2.readyForRebirth) {
                                     snake_2.birth()
-                                } else {
+                                } else if (snake.effect != 'ghost') {
                                     snake.isAlive = false
                                     gameSounds.died.play()
                                 }
@@ -172,6 +167,7 @@ class Game {
             }
 
             // Check hole collisions
+            let nicLeftGhostedHole = true
             for (const hole of this.holes) {
                 if (snake.effect === 'burning') {
                     for (const bodySections of snake.body) {
@@ -190,15 +186,27 @@ class Game {
                 } else {
                     const distance = distanceBetween(snake.head, hole.position, snake.thickness, hole.radius)
                     if (distance < 0) {
-                        if (this.isTimeFrozen) {
+                        if (hole.effect === 'frozen') {
                             hole.disappear()
                             gameSounds.disappear.play()
+                        } else if (hole.effect === 'ghosted' && snake.name === 'Nic') {
+                            nicLeftGhostedHole = false
+                            snake.enterPassiveGhostForm()
+                        } else if (snake.effect === 'ghost') {
+                            if (hole.effect !== 'ghosted') {
+                                hole.effect = 'ghosted'
+                            }
                         } else {
                             snake.isAlive = false
                             gameSounds.died.play()
                         }
                     }
                 }
+            }
+
+            // Did Nic leave his ghosted holes?
+            if (snake.name === 'Nic' && nicLeftGhostedHole) {
+                snake.leavePassiveGhostForm()
             }
 
             // Remove holes
