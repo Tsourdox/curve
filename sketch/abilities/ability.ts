@@ -2,6 +2,7 @@ abstract class Ability {
     public readonly name: string
     private readonly cooldown: number
     private timeToActivation: number
+    protected pauseCooldown: boolean
 
     private get isReady() {
         return !this.timeToActivation
@@ -11,6 +12,7 @@ abstract class Ability {
         this.name = name
         this.cooldown = cooldown
         this.timeToActivation = 0
+        this.pauseCooldown = false
     }
 
     protected abstract applyEffect(snake: Snake): void
@@ -24,6 +26,10 @@ abstract class Ability {
 
     public update(snake?: Snake) {
         if (this.timeToActivation > 0) {
+            if (this.pauseCooldown && this.timeToActivation !== this.cooldown) {
+                return
+            }
+
             this.timeToActivation = Math.max(0, this.timeToActivation - deltaTime * 0.001)
         }
     }
@@ -33,6 +39,10 @@ abstract class Ability {
     }
 
     private drawCooldownCircle(x: number, y: number, color: p5.Color, thickness: number) {
+        if (this.pauseCooldown) {
+            return
+        }
+
         noFill()
         stroke(color)
         strokeWeight(thickness * 0.5)

@@ -28,7 +28,7 @@ class Snake extends GameObject {
         return this.body[this.body.length - 1]
     }
 
-    private get bodyParts() {
+    public get bodyParts() {
         const parts: Point[] = []
         for (const section of this.body) {
             parts.push(...section)
@@ -80,7 +80,7 @@ class Snake extends GameObject {
         }
     }
 
-    private drawHead() {
+    public drawHead(enlarge = 1) {
         const { x, y } = this.head
         noStroke()
         fill(this.color)
@@ -88,7 +88,7 @@ class Snake extends GameObject {
         noFill()
         stroke(this.color)
         strokeWeight(this.thickness * 0.5)
-        circle(x, y, this.thickness * 4)
+        circle(x, y, this.thickness * 4 * enlarge)
     }
 
     private drawBody() {

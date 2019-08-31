@@ -1,13 +1,13 @@
 class Snakes {
     public static get all() {
         return [
-            new Snake('Pod', 'blue',
+            new Snake('Bliz', 'blue',
                 {
                     left: LEFT_ARROW,
                     special: UP_ARROW,
                     right: RIGHT_ARROW
                 },
-                new FreezeAbility(10, 2.2)
+                new FreezeAbility(14, 2.4)
             ),
             new Snake('Mess', 'red',
                 {
@@ -23,9 +23,9 @@ class Snakes {
                     special: KEY_U,
                     right: KEY_I
                 },
-                new TeleportAbility(4)
+                new RebirthAbility(6)
             ),
-            new Snake('Luce', 'green',
+            new Snake('Dash', 'green',
                 {
                     left: KEY_Q,
                     special: KEY_W,

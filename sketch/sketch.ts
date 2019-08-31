@@ -8,7 +8,6 @@ let mouse: Mouse
 
 function preload() {
     console.log('preload')
-
     const { loadSound } = (window as any) // todo fix typings for p5.sound
 
     musicFiles = {
@@ -20,7 +19,8 @@ function preload() {
         freeze: loadSound('../assets/sounds/freeze.wav'),
         teleport: loadSound('../assets/sounds/teleport.wav'),
         disappear: loadSound('../assets/sounds/disappear.wav'),
-        burn: loadSound('../assets/sounds/burn.wav')
+        burn: loadSound('../assets/sounds/burn.wav'),
+        rebirth: loadSound('../assets/sounds/rebirth.wav')
     }
 }
 
@@ -38,6 +38,7 @@ function setup() {
     gameSounds.teleport.setVolume(1)
     gameSounds.disappear.setVolume(0.5)
     gameSounds.burn.setVolume(0.5)
+    gameSounds.rebirth.setVolume(0.8)
 
     // Create Game Instances
     music = new Music(musicFiles)

@@ -15,4 +15,5 @@ interface GameSounds {
     teleport: p5.SoundFile
     disappear: p5.SoundFile
     burn: p5.SoundFile
+    rebirth: p5.SoundFile
 }

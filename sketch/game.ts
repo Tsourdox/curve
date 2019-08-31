@@ -18,6 +18,10 @@ class Game {
         this.createHoles()
     }
 
+    public get deadSnakes() {
+        return this.snakes.filter((snake) => !snake.isAlive)
+    }
+
     public update() {
         if (!this.isPaused || menu.isSetup) {
             const newTime = this.time + deltaTime * 0.001
@@ -90,7 +94,7 @@ class Game {
         // Select from end of list so that the top most circle is removed
         this.holes.reverse()
         for (const hole of this.holes) {
-            if (this.distanceToCollision(point, hole.position, 0, hole.radius) < 0) {
+            if (distanceBetween(point, hole.position, 0, hole.radius) < 0) {
                 holesContaingPoint.push(hole)
                 if (!all) {
                     break
@@ -147,7 +151,7 @@ class Game {
                     for (let i = bodySections.length - 1; i >= 0; i--) {
                         const bodyPart = bodySections[i]
                         const thickness = snake_2.readyForRebirth ? snake_2.thickness * 5: snake_2.thickness
-                        const distance = this.distanceToCollision(snake.head, bodyPart, snake.thickness, thickness)
+                        const distance = distanceBetween(snake.head, bodyPart, snake.thickness, thickness)
 
                         if (distance < 0) {
                             if (hasSkippedFirstFewPoints) {
@@ -173,7 +177,7 @@ class Game {
                     for (const bodySections of snake.body) {
                         for (let i = 0; i < bodySections.length; i++ ) {
                             const bodySection = bodySections[i]
-                            const distance = this.distanceToCollision(hole.position, bodySection, hole.radius, snake.thickness)
+                            const distance = distanceBetween(hole.position, bodySection, hole.radius, snake.thickness)
 
                             if (distance < 0) {
                                 hole.disappear()
@@ -184,7 +188,7 @@ class Game {
                         }
                     }
                 } else {
-                    const distance = this.distanceToCollision(snake.head, hole.position, snake.thickness, hole.radius)
+                    const distance = distanceBetween(snake.head, hole.position, snake.thickness, hole.radius)
                     if (distance < 0) {
                         if (this.isTimeFrozen) {
                             hole.disappear()
@@ -208,13 +212,5 @@ class Game {
                 this.holes.splice(this.holes.indexOf(hole), 1)
             }
         }
-    }
-
-    private distanceToCollision(a: Point, b: Point, aRadius: number, bRadius: number): number {
-        const dx = a.x - b.x
-        const dy = a.y - b.y
-        const distance = sqrt(dx * dx + dy * dy)
-        const radius = (aRadius * 0.5) + (bRadius * 0.5)
-        return distance - radius
     }
 }

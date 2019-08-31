@@ -5,5 +5,14 @@ function s(value: number) {
 
 /** Because % operator can't handle negative values */
 function modulo(value: number, limit: number) {
-    return ((value % limit) + limit) % limit;
-};
+    return ((value % limit) + limit) % limit
+}
+
+/** Distance between two points with subtracted radius */
+function distanceBetween(a: Point, b: Point, aRadius = 0, bRadius = 0): number {
+    const dx = a.x - b.x
+    const dy = a.y - b.y
+    const distance = sqrt(dx * dx + dy * dy)
+    const radius = (aRadius * 0.5) + (bRadius * 0.5)
+    return distance - radius
+}
