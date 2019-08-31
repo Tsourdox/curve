@@ -1,41 +1,26 @@
-class RebirthAbility extends Ability {
-    private readonly delay: number
-    private time: number
-    private isActive: boolean
-    private snakeToRebirth?: Snake
+class RebirthAbility extends DelayedAbility {
 
     constructor(cooldown: number) {
-        super('Rebirth', cooldown)
-        this.time = 0
-        this.delay = 1.5
-        this.isActive = false
+        super('Rebirth', cooldown, 1.5)
     }
 
-    protected applyEffect(snake: Snake): void {
-        this.isActive = true
-        this.pauseCooldown = true
+    protected applyEffect(): void {
         gameSounds.rebirth.play()
     }
 
     public update(snake: Snake) {
-        super.update(snake)
-
-        if (this.isActive) {
-            this.time += deltaTime * 0.001
-
+        if (this.isActivated) {
             if (this.time > this.delay) {
                 const deadSnake = this.findSnakeToRebirth(snake)
                 if (deadSnake) {
-                    this.rebirth(deadSnake)
+                    deadSnake.birth()
                 } else {
                     this.shrinkSelf(snake)
                 }
             }
-
-            if (this.time !== 0) {
-                snake.drawHead(1 + (this.time * this.time * this.time) / 2)
-            }
         }
+
+        super.update(snake)
     }
 
     private findSnakeToRebirth(snake: Snake): Snake | undefined {
@@ -55,21 +40,8 @@ class RebirthAbility extends Ability {
         }
     }
 
-    private rebirth(deadSnake: Snake) {
-        deadSnake.birth()
-        this.reset()
-    }
-
     private shrinkSelf(snake: Snake) {
         let shrinkLength = round(snake.bodyParts.length * 0.75)
         snake.body[0] = snake.bodyParts.slice(shrinkLength, snake.bodyParts.length)
-        this.reset()
-    }
-
-    private reset() {
-        delete this.snakeToRebirth
-        this.isActive = false
-        this.pauseCooldown = false
-        this.time = 0
     }
 }
