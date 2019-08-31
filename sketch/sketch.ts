@@ -20,7 +20,8 @@ function preload() {
         teleport: loadSound('../assets/sounds/teleport.wav'),
         disappear: loadSound('../assets/sounds/disappear.wav'),
         burn: loadSound('../assets/sounds/burn.wav'),
-        rebirth: loadSound('../assets/sounds/rebirth.wav')
+        rebirth: loadSound('../assets/sounds/rebirth.wav'),
+        shrink: loadSound('../assets/sounds/shrink.wav')
     }
 }
 
@@ -39,6 +40,7 @@ function setup() {
     gameSounds.disappear.setVolume(0.5)
     gameSounds.burn.setVolume(0.5)
     gameSounds.rebirth.setVolume(0.5)
+    gameSounds.shrink.setVolume(0.7)
 
     // Create Game Instances
     music = new Music(musicFiles)

@@ -41,7 +41,7 @@ class RebirthAbility extends DelayedAbility {
     }
 
     private shrinkSelf(snake: Snake) {
-        let shrinkLength = round(snake.bodyParts.length * 0.75)
+        let shrinkLength = round(snake.bodyParts.length * 0.8)
         snake.body[0] = snake.bodyParts.slice(shrinkLength, snake.bodyParts.length)
     }
 }

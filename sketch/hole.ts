@@ -1,5 +1,5 @@
 class Hole extends GameObject {
-    private readonly baseRadius: number
+    private baseRadius: number
     private readonly morphLimit: number
     private readonly _position: Point
     private morphSpeed: number
@@ -14,8 +14,8 @@ class Hole extends GameObject {
         super()
         this.color = color(random(30, 100), random(30, 100), random(30, 100))
         this.colorFrozened = color(random(40), random(40), random(80, 120))
-        this.baseRadius = random(20, 150)
-        this.morphLimit = random(10,100)
+        this.baseRadius = random(50, 200)
+        this.morphLimit = random(10, 100)
         this.morphSpeed = random(0.1, 1)
         this.morphValue = this.baseRadius * -1
         this.isIncreasing = true
@@ -24,6 +24,13 @@ class Hole extends GameObject {
         this._position = {
             x: random(width) / width,
             y: random(height) / height
+        }
+    }
+
+    public shrink() {
+        this.baseRadius *= 0.8
+        if (this.baseRadius < 5) {
+            this.shouldDisappear = true
         }
     }
 

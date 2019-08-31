@@ -6,7 +6,7 @@ class Snakes {
             new Snake('Glow', 'yellow', this.controls[2], new RebirthAbility(4)),
             new Snake('Dash', 'green', this.controls[3], new TeleportAbility(5)),
 
-            new Snake('Ouc', 'purple', this.controls[4], new FreezeAbility(6, 1.3)),
+            new Snake('Ouc', 'purple', this.controls[4], new ShrinkAbility(10)),
             new Snake('Triz', 'orange', this.controls[5], new RebirthAbility(4))
         ]
     }

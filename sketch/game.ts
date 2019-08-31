@@ -1,7 +1,7 @@
 class Game {
     private readonly spawnInterval: number
     private snakes: Snake[]
-    private holes: Hole[]
+    public holes: Hole[]
     public isPaused: boolean
     public hasEnded: boolean
     public isTimeFrozen: boolean
