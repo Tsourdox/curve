@@ -14,10 +14,11 @@ class GhostAbility extends Ability {
 
     protected applyEffect(snake: Snake, passive?: boolean): void {
         if (!this.isActive && !this.isPassive) {
-            gameSounds.ghost.play()
+            // Poor Sir Nicholas - headless once again ^^
             const snakeHead = snake.bodyParts.pop()
             snake.body.push([snakeHead!])
             snake.effect = 'ghost'
+            gameSounds.ghost.play()
         }
 
         if (passive) {
