@@ -152,7 +152,9 @@ class Game {
                             if (hasSkippedFirstFewPoints) {
                                 if (snake_2.readyForRebirth) {
                                     snake_2.birth()
-                                } else if (snake.effect != 'ghost') {
+                                } else if (snake.effect == 'ghost' || snake_2.effect == 'ghost') {
+                                    continue
+                                } else {
                                     snake.isAlive = false
                                     gameSounds.died.play()
                                 }
