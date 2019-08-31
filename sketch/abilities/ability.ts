@@ -30,16 +30,17 @@ abstract class Ability {
         }
     }
 
-    public draw(x: number, y: number, color: p5.Color, thickness: number, diameter?: number) {
-        this.drawCooldownCircle(x, y, color, thickness, diameter)
+    public draw(snake: Snake, diameter?: number) {
+        this.drawCooldownCircle(snake, diameter)
     }
 
-    private drawCooldownCircle(x: number, y: number, color: p5.Color, thickness: number, diameter?: number) {
+    private drawCooldownCircle(snake: Snake, diameter?: number) {
         noFill()
-        stroke(color)
-        strokeWeight(thickness * 0.5)
+        stroke(snake.color)
+        strokeWeight(snake.thickness * 0.5)
 
-        const d = (diameter || thickness) * 4
+        const { x, y } = snake.head
+        const d = (diameter || snake.thickness) * 4
         const startAngle = -HALF_PI
         const endAngle = startAngle + (TWO_PI * (this.cooldown - this.timeToActivation) / this.cooldown)
         arc(x, y, d, d, startAngle, endAngle);

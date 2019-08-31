@@ -75,8 +75,7 @@ class Snake extends GameObject {
         }
         this.drawBody()
         if (this.ability) {
-            const { x, y } = this.head
-            this.ability.draw(x, y, this.color, this.thickness)
+            this.ability.draw(this)
         }
     }
 

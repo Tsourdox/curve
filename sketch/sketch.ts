@@ -38,7 +38,7 @@ function setup() {
     gameSounds.teleport.setVolume(1)
     gameSounds.disappear.setVolume(0.5)
     gameSounds.burn.setVolume(0.5)
-    gameSounds.rebirth.setVolume(0.8)
+    gameSounds.rebirth.setVolume(0.5)
 
     // Create Game Instances
     music = new Music(musicFiles)

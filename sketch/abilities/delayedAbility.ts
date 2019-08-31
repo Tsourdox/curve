@@ -29,8 +29,8 @@ abstract class DelayedAbility extends Ability {
         }
     }
 
-    public draw(x: number, y: number, color: p5.Color, thickness: number) {
-        const circleDiameter = thickness + 1 * pow(this.time, 3)
-        super.draw(x, y, color, thickness, circleDiameter)
+    public draw(snake: Snake) {
+        const circleDiameter = snake.thickness + (snake.isAlive ? 1 * pow(this.time, 3) : 0)
+        super.draw(snake, circleDiameter)
     }
 }
