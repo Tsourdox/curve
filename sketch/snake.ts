@@ -9,6 +9,7 @@ class Snake extends GameObject {
     public readonly controls: Controls
     private readonly ability: Ability
 
+    public isInsideHoles: { [id: number]: HoleEffect | null }
     public thickness: number
     public effect!: Effect
     public direction!: number
@@ -23,6 +24,7 @@ class Snake extends GameObject {
         this.speed = 1.5
         this.controls = controls
         this.ability = ability
+        this.isInsideHoles = []
         this.thickness = s(5)
         this.birth()
     }
@@ -54,6 +56,7 @@ class Snake extends GameObject {
         this.body.push([startingPoint])
         this.direction = random(0, 360)
         this.isAlive = true
+        this.isInsideHoles = []
         this.effect = 'none'
     }
 
@@ -141,11 +144,23 @@ class Snake extends GameObject {
             x: x + cos(this.direction) * s(this.speed),
             y: y + sin(this.direction) * s(this.speed)
         }
-        this.bodySection.push(nextBodyPart)
+
+        const isInsideAHole = Object.keys(this.isInsideHoles).length
+        if (isInsideAHole) {
+            if (this.bodySection.length == 1) {
+                this.bodySection.pop()
+                this.bodySection.push(nextBodyPart)
+            } else {
+                this.bodySection.pop()
+                this.body.push([nextBodyPart])
+            }
+        } else {
+            this.bodySection.push(nextBodyPart)
+        }
     }
 
     private shrinkBody() {
-        const shrinkSpeed = 1 + Math.round(this.bodyParts.length * 0.003)
+        const shrinkSpeed = 3 + Math.round(this.bodyParts.length * 0.01)
         for (let i = 0; i < shrinkSpeed; i++){
             const firstBodySection = this.body[0]
             if (firstBodySection.length > 1) {

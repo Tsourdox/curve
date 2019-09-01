@@ -20,3 +20,17 @@ interface GameSounds {
     shrink: p5.SoundFile
     ghost: p5.SoundFile
 }
+
+interface HoleEffect {
+    type: HoleEffecType
+    time: number
+    delay: number
+    duration?: number
+}
+
+enum HoleEffecType {
+    'teleport',
+    'redirect',
+    'freeze',
+    'none'
+}

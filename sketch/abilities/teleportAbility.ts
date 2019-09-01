@@ -14,6 +14,9 @@ class TeleportAbility extends Ability {
         game.removeHoleContaining(newLocation, false, true)
         gameSounds.teleport.play()
 
+        if (snake.bodySection.length == 1) {
+            snake.body.pop()
+        }
         snake.body.push([newLocation])
     }
 }

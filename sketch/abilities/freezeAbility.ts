@@ -2,7 +2,7 @@ class FreezeAbility extends Ability {
     private readonly duration: number
     private time: number
     private isActive: boolean
-    private originalHoleEffects: { [id: number]: HoleEffect }
+    private originalHoleEffects: { [id: number]: HoleState }
 
     constructor(coldown: number, duration: number) {
         super('Freeze', coldown)
@@ -18,8 +18,8 @@ class FreezeAbility extends Ability {
 
         for (const index in game.holes) {
             const hole = game.holes[index]
-            this.originalHoleEffects[hole.id] = hole.effect
-            hole.effect = 'frozen'
+            this.originalHoleEffects[hole.id] = hole.state
+            hole.state = 'frozen'
         }
     }
 
@@ -33,7 +33,7 @@ class FreezeAbility extends Ability {
 
                 // Restore effects
                 for (const hole of game.holes) {
-                    hole.effect = this.originalHoleEffects[hole.id] || 'none'
+                    hole.state = this.originalHoleEffects[hole.id] || 'none'
                 }
 
                 this.originalHoleEffects = {}

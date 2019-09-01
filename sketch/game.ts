@@ -177,6 +177,7 @@ class Game {
 
             // Check hole collisions
             let nicLeftGhostedHole = true
+            const nonCollsionList = []
             for (const hole of this.holes) {
                 if (snake.effect === 'burning') {
                     for (const bodySections of snake.body) {
@@ -195,20 +196,21 @@ class Game {
                 } else {
                     const distance = distanceBetween(snake.head, hole.position, snake.thickness, hole.radius)
                     if (distance < 0) {
-                        if (hole.effect === 'frozen') {
+                        if (hole.state === 'frozen') {
                             hole.disappear()
                             gameSounds.disappear.play()
-                        } else if (hole.effect === 'ghosted' && snake.name === 'Nic') {
+                        } else if (hole.state === 'ghosted' && snake.name === 'Nic') {
                             nicLeftGhostedHole = false
                             snake.enterPassiveGhostForm()
                         } else if (snake.effect === 'ghost') {
-                            if (hole.effect !== 'ghosted') {
-                                hole.effect = 'ghosted'
+                            if (hole.state !== 'ghosted') {
+                                hole.state = 'ghosted'
                             }
                         } else {
-                            snake.isAlive = false
-                            gameSounds.died.play()
+                            this.handleCollisionWithHole(snake, hole)
                         }
+                    } else {
+                        nonCollsionList.push(hole.id)
                     }
                 }
             }
@@ -228,6 +230,55 @@ class Game {
             for (const hole of disappearingHoles) {
                 this.holes.splice(this.holes.indexOf(hole), 1)
                 this.disappearedHolesCount++
+            }
+
+            // Update if snake is inside holes
+            for (const id of nonCollsionList) {
+                const value = snake.isInsideHoles[id]
+                if (value !== undefined) {
+                    delete snake.isInsideHoles[id]
+                }
+            }
+        }
+    }
+
+    private handleCollisionWithHole(snake: Snake, hole: Hole) {
+        const outcome = random(1)
+        const holeEffect = snake.isInsideHoles[hole.id]
+
+        if (holeEffect === undefined) {
+            if (outcome < 0.2) {
+                snake.isAlive = false
+                gameSounds.died.play()
+            } else {
+                snake.isInsideHoles[hole.id] = {
+                    type: floor(random(4)),
+                    time: 0,
+                    delay: random(0.1, 0.6)
+                }
+            }
+        } else if (holeEffect !== null) {
+            holeEffect.time += deltaTime * 0.001
+
+            if (holeEffect.time > holeEffect.delay) {
+                snake.isInsideHoles[hole.id] = null
+
+                if (holeEffect.type == HoleEffecType.teleport) {
+                    const randomHole = this.holes[floor(random(this.holes.length))]
+                    snake.body.pop()
+                    snake.body.push([randomHole.position])
+                    snake.isInsideHoles[randomHole.id] = null
+                } else if (holeEffect.type == HoleEffecType.redirect) {
+                    const randomDirection = random(1) * TWO_PI
+                    snake.direction = randomDirection
+                } else if (holeEffect.type == HoleEffecType.freeze) {
+                    // todo.. apply freeze instead of random direction
+                    const randomDirection = random(1) * TWO_PI
+                    snake.direction = randomDirection
+                } else {
+                    // a small chance that nothing happens
+                }
+
             }
         }
     }

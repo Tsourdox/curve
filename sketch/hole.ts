@@ -1,4 +1,4 @@
-type HoleEffect = 'none' | 'frozen' | 'ghosted'
+type HoleState = 'none' | 'frozen' | 'ghosted'
 
 class Hole extends GameObject {
     public readonly id: number
@@ -11,7 +11,7 @@ class Hole extends GameObject {
     private colorFrozened: p5.Color
     private colorGhosted: p5.Color
     private isIncreasing: boolean
-    public effect: HoleEffect
+    public state: HoleState
     public shouldDisappear: boolean
 
     constructor() {
@@ -25,7 +25,7 @@ class Hole extends GameObject {
         this.morphSpeed = random(0.1, 1)
         this.morphValue = this.baseRadius * -1
         this.isIncreasing = true
-        this.effect = 'none'
+        this.state = 'none'
         this.shouldDisappear = false
         this._position = {
             x: random(width) / width,
@@ -52,7 +52,7 @@ class Hole extends GameObject {
     }
 
     public update() {
-        if (this.effect !== 'frozen') {
+        if (this.state !== 'frozen') {
             this.updateMorphValue()
         }
     }
@@ -60,7 +60,7 @@ class Hole extends GameObject {
     public draw() {
         const { x, y } = this.position
         noStroke()
-        switch (this.effect) {
+        switch (this.state) {
             case 'frozen': fill(this.colorFrozened); break
             case 'ghosted': fill(this.colorGhosted); break
             default: fill(this.color)

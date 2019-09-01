@@ -15,9 +15,12 @@ class GhostAbility extends Ability {
     protected applyEffect(snake: Snake, passive?: boolean): void {
         if (!this.isActive && !this.isPassive) {
             // Poor Sir Nicholas - headless once again ^^
-            const snakeHead = snake.bodyParts.pop()
-            snake.body.push([snakeHead!])
+            if (snake.bodySection.length > 1) {
+                const snakeHead = snake.bodyParts.pop()
+                snakeHead && snake.body.push([snakeHead])
+            }
             snake.effect = 'ghost'
+            snake.isInsideHoles = {}
             gameSounds.ghost.play()
         }
 
@@ -57,8 +60,14 @@ class GhostAbility extends Ability {
                 }
             }
 
-            snake.bodySection.shift()
+            this.shift(snake)
         } else if (this.isPassive) {
+            this.shift(snake)
+        }
+    }
+
+    private shift(snake: Snake) {
+        if (snake.isAlive) {
             snake.bodySection.shift()
         }
     }
