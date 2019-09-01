@@ -66,7 +66,7 @@ class Menu {
 
         if (game.hasEnded) {
             textSize(diameter * 0.06)
-            text('SCORE: ' + game.score.toFixed() + ' P', x, y - diameter * 0.07)
+            text('SCORE: ' + game.score.toFixed(), x, y - diameter * 0.07)
         }
     }
 
@@ -80,7 +80,7 @@ class Menu {
         }
 
         this.normalText(diameter)
-        text('press esc to select heroes', x, y + diameter * 0.22)
+        text('press esc to select characters', x, y + diameter * 0.22)
     }
 
     private largeText(diameter: number) {

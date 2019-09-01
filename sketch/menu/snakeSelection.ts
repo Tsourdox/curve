@@ -26,7 +26,7 @@ class SnakeSelection {
         textAlign(CENTER, CENTER)
         textStyle(BOLD)
         textSize(menuDiameter * 0.07)
-        text(`Select your heroes!`, x, y)
+        text(`Select your characters!`, x, y)
 
         textStyle(NORMAL)
         textSize(menuDiameter * 0.04)
