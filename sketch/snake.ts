@@ -6,8 +6,8 @@ class Snake extends GameObject {
     public readonly color: p5.Color
     public readonly colorGhosted: p5.Color
     public readonly speed: number
-    private readonly controls: Controls
-    private readonly ability?: Ability
+    public readonly controls: Controls
+    private readonly ability: Ability
 
     public thickness: number
     public effect!: Effect
@@ -15,7 +15,7 @@ class Snake extends GameObject {
     public isAlive!: boolean
     public body!: BodySection[]
 
-    constructor(name: string, _color: string, controls: Controls, ability?: Ability) {
+    constructor(name: string, _color: string, controls: Controls, ability: Ability) {
         super()
         this.name = name
         this.color = color(_color)
@@ -76,7 +76,7 @@ class Snake extends GameObject {
             this.shrinkBody()
         }
 
-        this.ability && this.ability.update(this)
+        this.ability.update(this)
     }
 
     public draw() {

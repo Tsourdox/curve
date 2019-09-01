@@ -6,7 +6,8 @@ interface Point {
 interface Controls {
     left: number
     right: number
-    special?: number
+    special: number
+    asString: string
 }
 
 interface GameSounds {

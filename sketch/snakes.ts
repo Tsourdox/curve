@@ -25,14 +25,14 @@ class Snakes {
         })
     }
 
-    private static get controls() {
+    private static get controls(): Controls[] {
         return [
-            { left: LEFT_ARROW, special: UP_ARROW, right: RIGHT_ARROW },
-            { left: KEY_Z, special: KEY_X, right: KEY_C },
-            { left: KEY_Y, special: KEY_U, right: KEY_I },
-            { left: KEY_Q, special: KEY_W, right: KEY_E },
-            { left: KEY_B, special: KEY_N, right: KEY_M },
-            { left: KEY_P, special: KEY_Å, right: KEY_POW_CHAR, }
+            { left: LEFT_ARROW, special: UP_ARROW, right: RIGHT_ARROW, asString: '← ↑ →' },
+            { left: KEY_Z, special: KEY_X, right: KEY_C, asString: 'z x c' },
+            { left: KEY_T, special: KEY_Y, right: KEY_U, asString: 't y u' },
+            { left: KEY_Q, special: KEY_W, right: KEY_E, asString: 'q w e' },
+            { left: KEY_B, special: KEY_N, right: KEY_M, asString: 'b n m' },
+            { left: KEY_O, special: KEY_P, right: KEY_Å, asString: 'o p å' }
         ]
     }
 }

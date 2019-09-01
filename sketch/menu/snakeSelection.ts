@@ -30,7 +30,7 @@ class SnakeSelection {
 
         textStyle(NORMAL)
         textSize(menuDiameter * 0.04)
-        text('press space to continue', x, y + menuDiameter * 0.2)
+        text('press space to continue', x, y + menuDiameter * 0.24)
     }
 
     private drawSnakeMenuItems(x: number, y: number, menuDiameter: number) {

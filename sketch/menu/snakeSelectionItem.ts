@@ -26,12 +26,14 @@ class SnakeSelectionItem {
         // Pepare text
         textAlign(CENTER, CENTER)
         fill(this.textColor)
-        textSize(diameter * 0.2)
+
         textStyle(BOLD)
+        textSize(diameter * 0.2)
+        text(this.snake.name, x, y - diameter * 0.05)
 
-
-        text(this.snake.name, x, y)
         textStyle(NORMAL)
+        textSize(diameter * 0.1)
+        text(this.snake.controls.asString, x, y + diameter * 0.2)
 
         // Handle selection
         if (!this.mouseWasPressed && mouseIsPressed) {

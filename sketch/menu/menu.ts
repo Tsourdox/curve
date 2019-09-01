@@ -80,7 +80,7 @@ class Menu {
         }
 
         this.normalText(diameter)
-        text('press esc to select players', x, y + diameter * 0.22)
+        text('press esc to select heroes', x, y + diameter * 0.22)
     }
 
     private largeText(diameter: number) {

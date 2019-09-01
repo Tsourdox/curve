@@ -13,13 +13,13 @@ const KEY_Q = 81
 const KEY_W = 87
 const KEY_E = 69
 
+const KEY_T = 84
 const KEY_Y = 89
 const KEY_U = 85
-const KEY_I = 73
 
+const KEY_O = 79
 const KEY_P = 80
 const KEY_Å = 219
-const KEY_POW_CHAR = 221
 
 
 const KEY_1 = 49
