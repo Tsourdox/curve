@@ -1,18 +1,24 @@
-type SetupStep = 'start' | 'number-of-players' | 'done'
+type SetupStep = 'start' | 'snake-selection' | 'done'
 
 class Menu {
     private bgColor: p5.Color
     private textColor: p5.Color
+    private snakeSelection: SnakeSelection
     public setupStep: SetupStep
 
     public get isSetup() {
         return this.setupStep != 'done'
     }
 
+    public get selectedSnakes() {
+        return this.snakeSelection.selectedSnakes
+    }
+
     constructor() {
         this.bgColor = color(0, 160)
         this.textColor = color(180)
         this.setupStep = 'start'
+        this.snakeSelection = new SnakeSelection()
     }
 
     public draw() {
@@ -45,8 +51,8 @@ class Menu {
                 this.drawMainMenuHeader(x, y, diameter)
 
                 // Draw content
-                if (this.setupStep == 'number-of-players') {
-                    this.askForNumberOfPlayers(x, y, diameter)
+                if (this.setupStep == 'snake-selection') {
+                    this.snakeSelection.draw(x, y, diameter)
                 } else {
                     this.printActionList(x, y, diameter)
                 }
@@ -62,14 +68,6 @@ class Menu {
             textSize(diameter * 0.06)
             text('SCORE: ' + game.score.toFixed() + ' P', x, y - diameter * 0.07)
         }
-    }
-
-    private askForNumberOfPlayers(x: number, y: number, diameter: number) {
-        textSize(diameter * 0.05)
-        text('How many players are you?', x, y + diameter * 0.07)
-
-        textSize(diameter * 0.07)
-        text('1-6', x, y + diameter * 0.2)
     }
 
     private printActionList(x: number, y: number, diameter: number) {

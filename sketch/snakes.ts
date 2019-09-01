@@ -10,6 +10,21 @@ class Snakes {
         ]
     }
 
+    public static create(snakes: Snake[]) {
+        const allSnakes = this.all
+        return snakes.map((snake) => {
+            switch (snake.name) {
+                case 'Bliz': return allSnakes[0]
+                case 'Hell': return allSnakes[1]
+                case 'Glow': return allSnakes[2]
+                case 'Dash': return allSnakes[3]
+                case 'Ouk': return allSnakes[4]
+                case 'Nic': return allSnakes[5]
+                default: return allSnakes[5]
+            }
+        })
+    }
+
     private static get controls() {
         return [
             { left: LEFT_ARROW, special: UP_ARROW, right: RIGHT_ARROW },

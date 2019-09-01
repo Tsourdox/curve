@@ -29,7 +29,7 @@ class Game {
     }
 
     public update() {
-        if (!this.isPaused || menu.isSetup) {
+        if (!this.isPaused || menu.setupStep == 'start') {
             const newTime = this.time + deltaTime * 0.001
 
             for (const snake of this.snakes) {
@@ -51,7 +51,6 @@ class Game {
 
             this.time = newTime
             this.spawnInterval -= this.spawnInterval * 0.0001
-            console.log(this.spawnInterval)
         }
     }
 
@@ -77,21 +76,16 @@ class Game {
     }
 
     public reset() {
-        this.restart()
-        this.createSnakes(0)
+        this.restart([])
     }
 
-    public restart() {
+    public restart(snakes?: Snake[]) {
         this.isPaused = true
         this.hasEnded = false
         this.time = 0
         this.spawnInterval = this.baseInterval
         this.createHoles()
-        this.createSnakes(this.snakes.length)
-    }
-
-    public createSnakes(nr: number) {
-        this.snakes = Snakes.all.slice(0, nr)
+        this.snakes = Snakes.create(snakes || this.snakes)
     }
 
     public removeHoleContaining(point: Point, respawn?: boolean, all?: boolean) {

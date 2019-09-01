@@ -79,23 +79,31 @@ function keyPressed() {
         return
     }
 
-    if (menu.setupStep == 'start') {
-        // GAME START
-        if (keyCode == SPACE) {
-            menu.setupStep = 'number-of-players'
-        }
-    } else if (menu.isSetup) {
+    if (menu.isSetup) {
         // GAME SETUP
-        if (keyCode >= KEY_1 && keyCode <= KEY_9) {
-            game.reset()
-            game.createSnakes(keyCode - 48)
-            menu.setupStep = 'done'
+        switch (menu.setupStep) {
+            case 'start': {
+                if (keyCode == SPACE) {
+                    menu.setupStep = 'snake-selection'
+                    game.restart()
+                }
+                break
+            }
+            case 'snake-selection': {
+                if (keyCode == SPACE || keyCode == ENTER) {
+                    if (menu.selectedSnakes.length > 0) {
+                        menu.setupStep = 'done'
+                        game.restart(menu.selectedSnakes)
+                    }
+                }
+                break
+            }
         }
     } else if (game.isPaused) {
         // PAUSED GAME
         if (keyCode == ESC) {
             game.reset()
-            menu.setupStep = 'number-of-players'
+            menu.setupStep = 'snake-selection'
         } else if (keyCode == ENTER) {
             game.restart()
         }
