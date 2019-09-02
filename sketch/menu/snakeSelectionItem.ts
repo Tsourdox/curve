@@ -11,8 +11,8 @@ class SnakeSelectionItem {
         this.selectedColor = snake.color
         this.bgColor = color(50)
         this.textColor = color(180)
-        this.isSelected = false
         this.mouseWasPressed = false
+        this.isSelected = !!JSON.parse(localStorage[snake.name] || 'false')
     }
 
     public draw(x: number, y: number, menuDiameter: number) {
@@ -40,6 +40,7 @@ class SnakeSelectionItem {
             const mousePosition = { x: mouseX, y: mouseY }
             if (distanceBetween(mousePosition, { x, y }, 0, diameter) < 0) {
                 this.isSelected = !this.isSelected
+                localStorage.setItem(this.snake.name, this.isSelected.toString())
             }
         }
 

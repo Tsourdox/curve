@@ -119,7 +119,6 @@ class Game {
         for (let i = 0; i < 10; i ++ ) {
             this.holes.push(new Hole())
         }
-
     }
 
     private checkEndCondition() {
@@ -230,6 +229,7 @@ class Game {
             for (const hole of disappearingHoles) {
                 this.holes.splice(this.holes.indexOf(hole), 1)
                 this.disappearedHolesCount++
+                delete snake.isInsideHoles[hole.id]
             }
 
             // Update if snake is inside holes
