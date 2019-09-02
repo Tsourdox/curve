@@ -84,7 +84,7 @@ class Menu {
 
         textStyle(NORMAL)
         textSize(diameter * 0.05)
-        text('press esc to end game', x, y + diameter * 0.22)
+        text('press enter to end game', x, y + diameter * 0.22)
     }
 
 }

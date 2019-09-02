@@ -34,7 +34,7 @@ function keyPressed() {
         }
     } else if (game.isPaused) {
         // PAUSED GAME
-        if (keyCode == ESC) {
+        if (keyCode == ENTER) {
             enterCharacterSelection()
         }
         if (keyCode == SPACE) {
