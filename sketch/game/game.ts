@@ -9,10 +9,12 @@ class Game {
     public time: number
 
     public get score() {
-        return this.time * (this.disappearedHolesCount || 1) / (this.snakes.length * 0.3)
+        const holes = this.disappearedHolesCount || 1
+        const snakes = this.snakes.length
+        return round(this.time * holes / sqrt(snakes))
     }
 
-    constructor(snakes: Snake[], isPaused = false) {
+    constructor(snakes: Snake[], isPaused = true) {
         this.baseInterval = 3
         this.spawnInterval = this.baseInterval
         this.snakes = snakes

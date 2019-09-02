@@ -24,7 +24,7 @@ function keyPressed() {
                 break
             }
             case 'snake-selection': {
-                if (keyCode == SPACE || keyCode == ENTER) {
+                if (keyCode == SPACE) {
                     if (menu.selectedSnakes.length > 0) {
                         reloadGame()
                     }
@@ -36,11 +36,14 @@ function keyPressed() {
         // PAUSED GAME
         if (keyCode == ESC) {
             enterCharacterSelection()
-        } else if (keyCode == ENTER) {
-            reloadGame()
         }
         if (keyCode == SPACE) {
-            game.resume()
+            if (game.hasEnded) {
+                saveHighScoreToLocalStorage()
+                reloadGame()
+            } else {
+                game.resume()
+            }
         }
     } else {
         // GAME IS RUNNING
@@ -61,5 +64,10 @@ function reloadGame() {
 
 function enterCharacterSelection() {
     menu.setupStep = 'snake-selection'
-    game = new Game([], true)
+    game = new Game([])
+}
+
+function saveHighScoreToLocalStorage() {
+    const highScore = Number(localStorage.highScore)
+    localStorage.highScore = max(game.score, highScore)
 }

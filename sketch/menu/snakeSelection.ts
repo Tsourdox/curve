@@ -1,6 +1,5 @@
 class SnakeSelection {
     private snakeMenuItems: SnakeSelectionItem[]
-    public nrOfSnakes: number
 
     public get selectedSnakes() {
         return (
@@ -11,7 +10,6 @@ class SnakeSelection {
     }
 
     constructor() {
-        this.nrOfSnakes = 0
         this.snakeMenuItems = []
         for (const snake of Snakes.all) {
             this.snakeMenuItems.push(new SnakeSelectionItem(snake))
@@ -24,13 +22,16 @@ class SnakeSelection {
         noStroke()
         fill(color(180))
         textAlign(CENTER, CENTER)
+
         textStyle(BOLD)
         textSize(menuDiameter * 0.07)
-        text(`Select your characters!`, x, y)
+        text(`select your characters`, x, y)
 
-        textStyle(NORMAL)
-        textSize(menuDiameter * 0.04)
-        text('press space to continue', x, y + menuDiameter * 0.24)
+        if (menu.selectedSnakes.length) {
+            textStyle(NORMAL)
+            textSize(menuDiameter * 0.05)
+            text('press space to continue', x, y + menuDiameter * 0.22)
+        }
     }
 
     private drawSnakeMenuItems(x: number, y: number, menuDiameter: number) {

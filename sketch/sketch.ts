@@ -31,7 +31,12 @@ function preload() {
 function setup() {
     console.log('setup')
 
-    // Settings
+    /* Init highscore variable */
+    if (!localStorage.getItem('highScore')) {
+        localStorage.highScore = '0'
+    }
+
+    // Canvas settings
     createCanvas(windowWidth, windowHeight)
     frameRate(120)
     noCursor()

@@ -48,49 +48,43 @@ class Menu {
                 textStyle(NORMAL)
 
             } else {
-                this.drawMainMenuHeader(x, y, diameter)
-
                 // Draw content
                 if (this.setupStep == 'snake-selection') {
                     this.snakeSelection.draw(x, y, diameter)
                 } else {
-                    this.printActionList(x, y, diameter)
+                    this.drawScore(x, y, diameter)
+                    this.drawActions(x, y, diameter)
                 }
             }
         }
     }
 
-    private drawMainMenuHeader(x: number, y: number, diameter: number) {
-        textSize(diameter * 0.08)
-        text('MAIN MENU', x, y - diameter * 0.25)
-
+    private drawScore(x: number, y: number, diameter: number) {
+        const score = game.hasEnded ? game.score : localStorage.highScore
+        let scoreTitle = 'HIGH SCORE'
         if (game.hasEnded) {
-            textSize(diameter * 0.06)
-            text('SCORE: ' + game.score.toFixed(), x, y - diameter * 0.07)
-        }
-    }
-
-    private printActionList(x: number, y: number, diameter: number) {
-        game.hasEnded ? this.largeText(diameter) : this.normalText(diameter)
-        text('press enter to restart the game', x, y - diameter * (game.hasEnded ? -0.1 : 0.02))
-
-        if (!game.hasEnded) {
-            this.largeText(diameter)
-            text('press space to play/pause the game', x, y + diameter * 0.1)
+            if (game.score > localStorage.highScore) {
+                scoreTitle = 'NEW HIGH SCORE'
+            } else {
+                scoreTitle = 'SCORE'
+            }
         }
 
-        this.normalText(diameter)
-        text('press esc to select characters', x, y + diameter * 0.22)
+        textSize(diameter * 0.07)
+        text(scoreTitle, x, y - diameter * 0.2)
+        textSize(diameter * 0.05)
+        text(numberWithSpaces(score), x, y - diameter * 0.1)
     }
 
-    private largeText(diameter: number) {
-        textSize(diameter * 0.045)
+    private drawActions(x: number, y: number, diameter: number) {
         textStyle(BOLD)
-    }
+        textSize(diameter * 0.06)
+        const spaceActionText = game.hasEnded ? 'press space to restart' : 'press space to play/pause'
+        text(spaceActionText, x, y + diameter * 0.1)
 
-    private normalText(diameter: number) {
-        textSize(diameter * 0.04)
         textStyle(NORMAL)
+        textSize(diameter * 0.05)
+        text('press esc to end game', x, y + diameter * 0.22)
     }
 
 }
