@@ -151,7 +151,7 @@ class Snake extends GameObject {
                 this.bodySection.pop()
                 this.bodySection.push(nextBodyPart)
             } else {
-                this.bodySection.pop()
+                this.body.pop()
                 this.body.push([nextBodyPart])
             }
         } else {

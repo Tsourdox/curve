@@ -41,13 +41,9 @@ class Game {
                 hole.update()
             }
 
-            const shouldSpawnHole = this.time % this.spawnInterval > newTime % this.spawnInterval
-            if (shouldSpawnHole && !menu.isSetup) {
-                this.holes.push(new Hole())
-            }
-
             if (!menu.isSetup){
-                this.checkCollision()
+                this.spawnHole(newTime)
+                this.checkCollisions()
                 this.checkEndCondition()
             }
 
@@ -78,26 +74,36 @@ class Game {
     }
 
     public removeHoleContaining(point: Point, respawn?: boolean, all?: boolean) {
-        let holesContaingPoint: Hole[] = []
-
         // Select from end of list so that the top most circle is removed
         this.holes.reverse()
         for (const hole of this.holes) {
             if (distanceBetween(point, hole.position, 0, hole.radius) < 0) {
-                holesContaingPoint.push(hole)
+                this.removeHole(hole)
+
+                if (respawn) {
+                    this.holes.push(new Hole())
+                }
                 if (!all) {
                     break
                 }
             }
         }
         this.holes.reverse()
+    }
 
-        // Remove holes
-        for (const hole of holesContaingPoint) {
-            this.holes.splice(this.holes.indexOf(hole), 1)
-            this.disappearedHolesCount++
+    private removeHole(hole: Hole) {
+        this.holes.splice(this.holes.indexOf(hole), 1)
+        this.disappearedHolesCount++
 
-            if (respawn) {
+        for (const snake of this.snakes) {
+            delete snake.isInsideHoles[hole.id]
+        }
+    }
+
+    private spawnHole(newTime: number) {
+        if (!menu.isSetup) {
+            const shouldSpawnHole = this.time % this.spawnInterval > newTime % this.spawnInterval
+            if (shouldSpawnHole) {
                 this.holes.push(new Hole())
             }
         }
@@ -118,7 +124,7 @@ class Game {
         }
     }
 
-    private checkCollision() {
+    private checkCollisions() {
         for (const snake of this.snakes) {
             if (!snake.isAlive) {
                 continue
@@ -208,27 +214,26 @@ class Game {
                 snake.leavePassiveGhostForm()
             }
 
-            // Remove holes
-            const disappearingHoles: Hole[] = []
-            for (const hole of this.holes) {
-                if (hole.shouldDisappear) {
-                    disappearingHoles.push(hole)
-                }
-            }
-            for (const hole of disappearingHoles) {
-                this.holes.splice(this.holes.indexOf(hole), 1)
-                this.disappearedHolesCount++
-                delete snake.isInsideHoles[hole.id]
-            }
-
             // Update if snake is inside holes
-            for (const id of nonCollsionList) {
-                const value = snake.isInsideHoles[id]
-                if (value !== undefined) {
-                    delete snake.isInsideHoles[id]
-                }
+        for (const id of nonCollsionList) {
+            const value = snake.isInsideHoles[id]
+            if (value !== undefined) {
+                delete snake.isInsideHoles[id]
             }
         }
+
+        }
+
+        // Remove holes
+        this.holes.reverse()
+        for (const hole of this.holes) {
+            if (hole.shouldDisappear) {
+                this.removeHole(hole)
+            }
+
+
+        }
+        this.holes.reverse()
     }
 
     private handleCollisionWithHole(snake: Snake, hole: Hole) {
