@@ -160,7 +160,7 @@ class Snake extends GameObject {
     }
 
     private shrinkBody() {
-        const shrinkSpeed = 3 + Math.round(this.bodyParts.length * 0.01)
+        const shrinkSpeed = 3 + Math.round(this.bodyParts.length * 0.005)
         for (let i = 0; i < shrinkSpeed; i++){
             const firstBodySection = this.body[0]
             if (firstBodySection.length > 1) {

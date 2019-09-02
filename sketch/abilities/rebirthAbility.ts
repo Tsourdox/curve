@@ -42,6 +42,22 @@ class RebirthAbility extends DelayedAbility {
 
     private shrinkSelf(snake: Snake) {
         let shrinkLength = round(snake.bodyParts.length * 0.8)
+        let nrOfSectionsToRemove = 0
+
+        // Make sure all sections of the snake are trimmed properly
+        for (const bodySection of snake.body) {
+            if (bodySection.length < shrinkLength) {
+                nrOfSectionsToRemove++
+                shrinkLength -= bodySection.length
+            } else {
+                break
+            }
+        }
+        while (nrOfSectionsToRemove > 0) {
+            snake.body.shift()
+            nrOfSectionsToRemove--
+        }
+
         snake.body[0] = snake.bodyParts.slice(shrinkLength, snake.bodyParts.length)
     }
 }
