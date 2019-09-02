@@ -35,6 +35,9 @@ function keyPressed() {
     } else if (game.isPaused) {
         // PAUSED GAME
         if (keyCode == ENTER) {
+            if (game.hasEnded) {
+                saveHighScoreToLocalStorage()
+            }
             enterCharacterSelection()
         }
         if (keyCode == SPACE) {
