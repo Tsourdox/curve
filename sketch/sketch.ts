@@ -47,8 +47,8 @@ function setup() {
 
     // Create Game Instances
     music = new Music(musicFiles)
+    game = new Game([])
     menu = new Menu()
-    game = new Game()
     mouse = new Mouse()
 
     // Start music on user action
@@ -58,10 +58,10 @@ function setup() {
 function draw() {
     background(backgroundColor)
     // Possible background
-    /*
-        image(backgroundImage, 0, 0, width, height)
-        background(color('rgba(0,0,0,0.9)'))
-    */
+
+    // image(backgroundImage, 0, 0, width, height)
+    // background(color('rgba(5,5,5,0.95)'))
+
 
     game.update()
     game.draw()
@@ -71,52 +71,4 @@ function draw() {
 
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight)
-}
-
-function keyPressed() {
-    // Prevent error when reloading with keyboard shotcut
-    if (!music || !menu || !game) {
-        return
-    }
-
-    if (menu.isSetup) {
-        // GAME SETUP
-        switch (menu.setupStep) {
-            case 'start': {
-                if (keyCode == SPACE) {
-                    menu.setupStep = 'snake-selection'
-                    game.restart()
-                }
-                break
-            }
-            case 'snake-selection': {
-                if (keyCode == SPACE || keyCode == ENTER) {
-                    if (menu.selectedSnakes.length > 0) {
-                        menu.setupStep = 'done'
-                        game.restart(menu.selectedSnakes)
-                    }
-                }
-                break
-            }
-        }
-    } else if (game.isPaused) {
-        // PAUSED GAME
-        if (keyCode == ESC) {
-            game.reset()
-            menu.setupStep = 'snake-selection'
-        } else if (keyCode == ENTER) {
-            game.restart()
-        }
-        if (keyCode == SPACE) {
-            game.resume()
-        }
-    } else {
-        // GAME IS RUNNING
-        if (keyCode == SPACE) {
-            game.pause()
-        }
-
-    }
-
-    return false
 }

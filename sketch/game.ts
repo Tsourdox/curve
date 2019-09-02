@@ -1,4 +1,5 @@
 class Game {
+    private disappearedHolesCount: number
     private readonly baseInterval: number
     private spawnInterval: number
     private snakes: Snake[]
@@ -6,18 +7,17 @@ class Game {
     public isPaused: boolean
     public hasEnded: boolean
     public time: number
-    private disappearedHolesCount: number
 
     public get score() {
-        return this.time * this.disappearedHolesCount / (this.snakes.length * 0.3)
+        return this.time * (this.disappearedHolesCount || 1) / (this.snakes.length * 0.3)
     }
 
-    constructor() {
+    constructor(snakes: Snake[], isPaused = false) {
         this.baseInterval = 3
         this.spawnInterval = this.baseInterval
-        this.snakes = []
+        this.snakes = snakes
         this.holes = []
-        this.isPaused = false
+        this.isPaused = isPaused
         this.hasEnded = false
         this.time = 0
         this.disappearedHolesCount = 0
@@ -73,19 +73,6 @@ class Game {
     public pause() {
         this.isPaused = true
         music.playMenuMusic()
-    }
-
-    public reset() {
-        this.restart([])
-    }
-
-    public restart(snakes?: Snake[]) {
-        this.isPaused = true
-        this.hasEnded = false
-        this.time = 0
-        this.spawnInterval = this.baseInterval
-        this.createHoles()
-        this.snakes = Snakes.create(snakes || this.snakes)
     }
 
     public removeHoleContaining(point: Point, respawn?: boolean, all?: boolean) {

@@ -24,11 +24,3 @@ class Mouse {
         }
     }
 }
-
-function mouseClicked() {
-    const mousePosition: Point = { x: mouseX, y: mouseY }
-
-    if (menu && menu.isSetup) {
-        game.removeHoleContaining(mousePosition, true)
-    }
-}
