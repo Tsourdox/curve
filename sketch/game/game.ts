@@ -45,6 +45,7 @@ class Game {
                 this.spawnHole(newTime)
                 this.checkCollisions()
                 this.checkEndCondition()
+                this.removeHoles()
             }
 
             this.time = newTime
@@ -86,6 +87,16 @@ class Game {
                 if (!all) {
                     break
                 }
+            }
+        }
+        this.holes.reverse()
+    }
+
+    private removeHoles() {
+        this.holes.reverse()
+        for (const hole of this.holes) {
+            if (hole.shouldDisappear) {
+                this.removeHole(hole)
             }
         }
         this.holes.reverse()
@@ -214,26 +225,11 @@ class Game {
                 snake.leavePassiveGhostForm()
             }
 
-            // Update if snake is inside holes
-        for (const id of nonCollsionList) {
-            const value = snake.isInsideHoles[id]
-            if (value !== undefined) {
+            // Update if snake left holes
+            for (const id of nonCollsionList) {
                 delete snake.isInsideHoles[id]
             }
         }
-
-        }
-
-        // Remove holes
-        this.holes.reverse()
-        for (const hole of this.holes) {
-            if (hole.shouldDisappear) {
-                this.removeHole(hole)
-            }
-
-
-        }
-        this.holes.reverse()
     }
 
     private handleCollisionWithHole(snake: Snake, hole: Hole) {
@@ -246,7 +242,7 @@ class Game {
                 gameSounds.died.play()
             } else {
                 snake.isInsideHoles[hole.id] = {
-                    type: floor(random(4)),
+                    type: floor(random(1, 2)),
                     time: 0,
                     delay: random(0.1, 0.6)
                 }

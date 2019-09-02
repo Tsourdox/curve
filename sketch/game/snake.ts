@@ -147,11 +147,10 @@ class Snake extends GameObject {
 
         const isInsideAHole = Object.keys(this.isInsideHoles).length
         if (isInsideAHole) {
-            if (this.bodySection.length == 1) {
-                this.bodySection.pop()
+            this.bodySection.pop()
+            if (this.bodySection.length == 0) {
                 this.bodySection.push(nextBodyPart)
             } else {
-                this.body.pop()
                 this.body.push([nextBodyPart])
             }
         } else {
