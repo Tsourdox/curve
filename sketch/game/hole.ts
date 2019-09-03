@@ -11,8 +11,17 @@ class Hole extends GameObject {
     private colorFrozened: p5.Color
     private colorGhosted: p5.Color
     private isIncreasing: boolean
+    private shouldDisappear: boolean
     public state: HoleState
-    public shouldDisappear: boolean
+
+    public get isGone() {
+        return this.radius < 0
+    }
+
+    public get isDisappearing() {
+        return this.shouldDisappear
+    }
+
 
     constructor() {
         super()
@@ -52,7 +61,9 @@ class Hole extends GameObject {
     }
 
     public update() {
-        if (this.state !== 'frozen') {
+        if (this.shouldDisappear) {
+            this.baseRadius -= 20
+        } else if (this.state !== 'frozen') {
             this.updateMorphValue()
         }
     }

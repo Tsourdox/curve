@@ -95,7 +95,7 @@ class Game {
     private removeHoles() {
         this.holes.reverse()
         for (const hole of this.holes) {
-            if (hole.shouldDisappear) {
+            if (hole.isGone) {
                 this.removeHole(hole)
             }
         }
@@ -200,7 +200,7 @@ class Game {
                     }
                 } else {
                     const distance = distanceBetween(snake.head, hole.position, snake.thickness, hole.radius)
-                    if (distance < 0) {
+                    if (distance < 0 && !hole.isDisappearing) {
                         if (hole.state === 'frozen') {
                             hole.disappear()
                             gameSounds.disappear.play()
