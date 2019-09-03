@@ -34,14 +34,11 @@ class BurnAbility extends Ability {
         }
     }
 
-    private newFireParticleSystem(position: Point) {
+    private addParticleSystem(position: Point, index: number) {
         const { x, y } = position
         const spawnRate = 0.8
-        return new ParticleSystem(createVector(x, y), spawnRate, fireParticle)
-    }
-
-    private addParticleSystem(position: Point, index: number) {
-        this.particleSystems.push(this.newFireParticleSystem(position))
+        const fire = new ParticleSystem(createVector(x, y), spawnRate, fireParticle)
+        this.particleSystems.push(fire)
         this.indexOfLastSystem = index
     }
 

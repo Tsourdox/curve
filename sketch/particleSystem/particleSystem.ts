@@ -4,13 +4,15 @@ class ParticleSystem {
     private particleGenerator: ParticleGenerator
     private spawnRate: number
     private time: number
+    private lifespan?: number
 
-    constructor(origin: p5.Vector, spawnRate: number, particleGenerator: ParticleGenerator) {
+    constructor(origin: p5.Vector, spawnRate: number, particleGenerator: ParticleGenerator, lifespan?: number, startingTime?: number) {
         this.origin = origin.copy()
         this.particles = []
         this.spawnRate = spawnRate
-        this.time = random(spawnRate)
+        this.time = startingTime || random(spawnRate)
         this.particleGenerator = particleGenerator
+        this.lifespan = lifespan
     }
 
     public updateOrigin(origin: p5.Vector) {
@@ -25,7 +27,9 @@ class ParticleSystem {
 
     public run() {
         const newTime = this.time + deltaTime * 0.001
-        this.addParticle(newTime)
+        if (this.lifespan == undefined || this.lifespan > this.time) {
+            this.addParticle(newTime)
+        }
 
         for (let i = this.particles.length - 1; i >= 0; i--) {
             let particle = this.particles[i];

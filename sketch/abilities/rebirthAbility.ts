@@ -1,7 +1,9 @@
 class RebirthAbility extends DelayedAbility {
+    private particleSystems: ParticleSystem[]
 
     constructor(cooldown: number) {
         super('Rebirth', cooldown, 1.5)
+        this.particleSystems = []
     }
 
     protected applyEffect(): void {
@@ -15,12 +17,21 @@ class RebirthAbility extends DelayedAbility {
                 if (deadSnake) {
                     deadSnake.birth()
                 } else {
-                    this.shrinkSelf(snake)
+                    this.initParticleEffect(snake)
+                    this.shiftSelf(snake)
                 }
             }
         }
 
         super.update(snake)
+    }
+
+    public draw(snake: Snake) {
+        super.draw(snake)
+
+        for (const particleSystem of this.particleSystems) {
+            particleSystem.run()
+        }
     }
 
     private findSnakeToRebirth(snake: Snake): Snake | undefined {
@@ -40,15 +51,30 @@ class RebirthAbility extends DelayedAbility {
         }
     }
 
-    private shrinkSelf(snake: Snake) {
-        let shrinkLength = round(snake.bodyParts.length * 0.8)
+    private shiftSelf(snake: Snake) {
+        let shiftLength = round(snake.bodyParts.length * 0.8)
 
-        while (shrinkLength > 0) {
+        while (shiftLength > 0) {
             snake.body[0].shift()
             if (!snake.body[0].length) {
                 snake.body.shift()
             }
-            shrinkLength--
+            shiftLength--
         }
+    }
+
+    private initParticleEffect(snake: Snake) {
+        const shiftLength = round(snake.bodyParts.length * 0.8)
+        for (let i = 0; i < shiftLength; i+= 3) {
+            this.addParticleSystem(snake.bodyParts[i])
+        }
+    }
+
+    private addParticleSystem(position: Point) {
+        const { x, y } = position
+        const spawnRate = 0.3
+        const lifespan = 0.2
+        const glow = new ParticleSystem(createVector(x, y), spawnRate, glowParticle, lifespan, 0)
+        this.particleSystems.push(glow)
     }
 }

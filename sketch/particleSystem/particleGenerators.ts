@@ -15,3 +15,12 @@ function snowParticle(position?: p5.Vector): Particle {
         size: s(random(1, 6))
     })
 }
+
+function glowParticle(position?: p5.Vector): Particle {
+    return new Particle({
+        position,
+        velocity: createVector(s(random(-0.4, 0.4)), s(random(-0.4, 0.4))),
+        color: color(255, 255, 0),
+        size: s(random(6, 10))
+    })
+}
