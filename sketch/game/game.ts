@@ -242,7 +242,7 @@ class Game {
                 gameSounds.died.play()
             } else {
                 snake.isInsideHoles[hole.id] = {
-                    type: floor(random(1, 2)),
+                    type: floor(random(3)),
                     time: 0,
                     delay: random(0.1, 0.6)
                 }
@@ -262,9 +262,7 @@ class Game {
                     const randomDirection = random(1) * TWO_PI
                     snake.direction = randomDirection
                 } else if (holeEffect.type == HoleEffecType.freeze) {
-                    // todo.. apply freeze instead of random direction
-                    const randomDirection = random(1) * TWO_PI
-                    snake.direction = randomDirection
+                    // implement freeze or other effect?
                 } else {
                     // a small chance that nothing happens
                 }
