@@ -17,6 +17,6 @@ function distanceBetween(a: Point, b: Point, aRadius = 0, bRadius = 0): number {
     return distance - radius
 }
 
-function numberWithSpaces(number: number) {);
+function numberWithSpaces(number: number) {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 }
