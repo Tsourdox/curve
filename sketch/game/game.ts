@@ -2,7 +2,7 @@ class Game {
     private disappearedHolesCount: number
     private readonly baseInterval: number
     private spawnInterval: number
-    private snakes: Snake[]
+    public snakes: Snake[]
     public holes: Hole[]
     public isPaused: boolean
     public hasEnded: boolean

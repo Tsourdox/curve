@@ -3,6 +3,7 @@ class FreezeAbility extends Ability {
     private time: number
     private isActive: boolean
     private originalHoleEffects: { [id: number]: HoleState }
+    private particleSystems: ParticleSystem[]
 
     constructor(coldown: number, duration: number) {
         super('Freeze', coldown)
@@ -10,6 +11,7 @@ class FreezeAbility extends Ability {
         this.duration = duration
         this.isActive = false
         this.originalHoleEffects = {}
+        this.particleSystems = []
     }
 
     protected applyEffect(): void {
@@ -21,12 +23,30 @@ class FreezeAbility extends Ability {
             this.originalHoleEffects[hole.id] = hole.state
             hole.state = 'frozen'
         }
+
+        for (const snake of game.snakes) {
+            const { x, y } = snake.head
+            this.particleSystems.push(
+                new ParticleSystem(createVector(x, y), 0.01, snowParticle)
+            )
+        }
     }
 
-    public update() {
-        super.update()
+    public update(snake: Snake) {
+        super.update(snake)
         if (this.isActive) {
             this.time += deltaTime * 0.001
+
+            for (const index in game.snakes) {
+                const snake = game.snakes[index]
+                const { x, y } = snake.head
+                this.particleSystems[index].updateOrigin(createVector(x, y))
+            }
+
+            for (const particleSystem of this.particleSystems) {
+                particleSystem.run()
+            }
+
             if (this.time > this.duration) {
                 this.isActive = false
                 this.time = 0
@@ -37,6 +57,7 @@ class FreezeAbility extends Ability {
                 }
 
                 this.originalHoleEffects = {}
+                this.particleSystems = []
             }
         }
     }
