@@ -64,18 +64,8 @@ function setup() {
 
 function draw() {
     background(backgroundColor)
-    // Possible background
-
-    // image(backgroundImage, 0, 0, width, height)
-    // background(color('rgba(5,5,5,0.95)'))
-
-
     game.update()
     game.draw()
     menu.draw()
     mouse.draw()
-}
-
-function windowResized() {
-    resizeCanvas(windowWidth, windowHeight)
 }
