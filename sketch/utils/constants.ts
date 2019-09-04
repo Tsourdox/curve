@@ -22,6 +22,7 @@ const KEY_P = 80
 const KEY_Å = 219
 
 
+const KEY_0 = 48
 const KEY_1 = 49
 const KEY_2 = 50
 const KEY_3 = 51

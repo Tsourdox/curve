@@ -2,7 +2,7 @@ class FreezeAbility extends Ability {
     private readonly duration: number
     private time: number
     private isActive: boolean
-    private originalHoleEffects: { [id: number]: HoleState }
+    private originalHoleEffects: { [id: string]: HoleState }
     private particleSystems: ParticleSystem[]
 
     constructor(coldown: number, duration: number) {

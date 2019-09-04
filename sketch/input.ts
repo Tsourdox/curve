@@ -16,37 +16,36 @@ function keyPressed() {
 
     if (menu.isSetup) {
         // GAME SETUP
-        switch (menu.setupStep) {
-            case 'start': {
-                if (keyCode == SPACE) {
-                    enterCharacterSelection()
-                }
-                break
+        if (menu.setupStep == 'start') {
+            if (keyCode == SPACE) {
+                enterCharacterSelection()
             }
-            case 'snake-selection': {
-                if (keyCode == SPACE) {
-                    if (menu.selectedSnakes.length > 0) {
-                        reloadGame()
-                    }
-                }
-                break
+        }
+        if (menu.setupStep == 'snake-selection') {
+            if (keyCode == SPACE && menu.selectedSnakes.length > 0) {
+                reloadGame()
             }
+        }
+    } else if (game.hasEnded) {
+        // GAME OVER
+        if (keyCode == ENTER) {
+            saveHighScoreToLocalStorage()
+            enterCharacterSelection()
+        }
+        if (keyCode == SPACE) {
+            saveHighScoreToLocalStorage()
+            reloadGame()
+        }
+        if (keyCode == KEY_0) {
+            game.holes.forEach((hole) => hole.state = 'ghosted')
         }
     } else if (game.isPaused) {
         // PAUSED GAME
         if (keyCode == ENTER) {
-            if (game.hasEnded) {
-                saveHighScoreToLocalStorage()
-            }
             enterCharacterSelection()
         }
         if (keyCode == SPACE) {
-            if (game.hasEnded) {
-                saveHighScoreToLocalStorage()
-                reloadGame()
-            } else {
-                game.resume()
-            }
+            game.resume()
         }
     } else {
         // GAME IS RUNNING

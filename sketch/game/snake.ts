@@ -9,7 +9,7 @@ class Snake extends GameObject {
     public readonly controls: Controls
     private readonly ability: Ability
 
-    public isInsideHoles: { [id: number]: HoleEffect | null }
+    public isInsideHoles: { [id: string]: HoleEffect | null }
     public thickness: number
     public effect!: Effect
     public direction!: number
@@ -24,7 +24,7 @@ class Snake extends GameObject {
         this.speed = 1.5
         this.controls = controls
         this.ability = ability
-        this.isInsideHoles = []
+        this.isInsideHoles = {}
         this.thickness = s(5)
         this.birth()
     }
@@ -56,7 +56,7 @@ class Snake extends GameObject {
         this.body.push([startingPoint])
         this.direction = random(0, 360)
         this.isAlive = true
-        this.isInsideHoles = []
+        this.isInsideHoles = {}
         this.effect = 'none'
     }
 

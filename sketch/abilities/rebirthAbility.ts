@@ -7,6 +7,7 @@ class RebirthAbility extends DelayedAbility {
     }
 
     protected applyEffect(): void {
+        this.particleSystems = []
         gameSounds.rebirth.play()
     }
 

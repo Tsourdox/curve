@@ -1,7 +1,7 @@
 type HoleState = 'none' | 'frozen' | 'ghosted'
 
 class Hole extends GameObject {
-    public readonly id: number
+    public readonly id: string
     private readonly morphLimit: number
     private readonly _position: Point
     private baseRadius: number
@@ -25,7 +25,7 @@ class Hole extends GameObject {
 
     constructor() {
         super()
-        this.id = random(99999999)
+        this.id = random(99999999).toFixed()
         this.color = color(random(30, 100), random(30, 100), random(30, 100))
         this.colorFrozened = color(random(40), random(40), random(80, 120))
         this.colorGhosted = color(this.color.toString().replace(',1)', ',0.2)'))
