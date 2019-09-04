@@ -20,8 +20,7 @@ function keyPressed() {
             if (keyCode == SPACE) {
                 enterCharacterSelection()
             }
-        }
-        if (menu.setupStep == 'snake-selection') {
+        } else if (menu.setupStep == 'snake-selection') {
             if (keyCode == SPACE && menu.selectedSnakes.length > 0) {
                 reloadGame()
             }

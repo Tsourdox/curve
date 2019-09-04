@@ -1,5 +1,6 @@
-class SnakeSelection {
-    private snakeMenuItems: SnakeSelectionItem[]
+class CharacterMenu {
+    private snakeMenuItems: CharacterMenuItem[]
+    private isHoveringOverSnake: string | null
 
     public get selectedSnakes() {
         return (
@@ -11,9 +12,14 @@ class SnakeSelection {
 
     constructor() {
         this.snakeMenuItems = []
+        this.isHoveringOverSnake = null
         for (const snake of Snakes.all) {
-            this.snakeMenuItems.push(new SnakeSelectionItem(snake))
+            this.snakeMenuItems.push(new CharacterMenuItem(snake, this.onMouseEnterOrLeaveMenuItem))
         }
+    }
+
+    private onMouseEnterOrLeaveMenuItem = (snakeName: string | null) => {
+        this.isHoveringOverSnake = snakeName
     }
 
     public draw(x: number, y: number, menuDiameter: number) {
@@ -23,14 +29,20 @@ class SnakeSelection {
         fill(color(180))
         textAlign(CENTER, CENTER)
 
-        textStyle(BOLD)
-        textSize(menuDiameter * 0.07)
-        text(`select your characters`, x, y)
+        if (this.isHoveringOverSnake) {
+            textStyle(BOLD)
+            textSize(menuDiameter * 0.1)
+            text(this.isHoveringOverSnake, x, y - menuDiameter * 0.25)
+        } else {
+            textStyle(BOLD)
+            textSize(menuDiameter * 0.07)
+            text('select your characters', x, y)
 
-        if (menu.selectedSnakes.length) {
-            textStyle(NORMAL)
-            textSize(menuDiameter * 0.05)
-            text('press space to continue', x, y + menuDiameter * 0.22)
+            if (menu.selectedSnakes.length) {
+                textStyle(NORMAL)
+                textSize(menuDiameter * 0.05)
+                text('press space to continue', x, y + menuDiameter * 0.22)
+            }
         }
     }
 

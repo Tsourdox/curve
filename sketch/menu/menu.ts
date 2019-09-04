@@ -3,7 +3,7 @@ type SetupStep = 'start' | 'snake-selection' | 'done'
 class Menu {
     private bgColor: p5.Color
     private textColor: p5.Color
-    private snakeSelection: SnakeSelection
+    private snakeSelection: CharacterMenu
     public setupStep: SetupStep
 
     public get isSetup() {
@@ -18,7 +18,7 @@ class Menu {
         this.bgColor = color(0, 160)
         this.textColor = color(180)
         this.setupStep = 'start'
-        this.snakeSelection = new SnakeSelection()
+        this.snakeSelection = new CharacterMenu()
     }
 
     public draw() {
