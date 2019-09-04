@@ -36,3 +36,10 @@ enum HoleEffecType {
     'freeze',
     'none'
 }
+
+interface SnakeInfo {
+    name: string
+    description: string
+    ability: string
+    abilityDescription: string
+}

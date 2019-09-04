@@ -58,7 +58,7 @@ function keyPressed() {
 }
 
 function reloadGame() {
-    const newSnakes = Snakes.create(menu.selectedSnakes)
+    const newSnakes = snakes.create(menu.selectedSnakes)
     game = new Game(newSnakes)
     menu.setupStep = 'done'
 }

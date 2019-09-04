@@ -3,6 +3,7 @@ let music: Music
 let musicFiles: MusicFiles
 let gameSounds: GameSounds
 let game: Game
+let snakes: Snakes
 let menu: Menu
 let mouse: Mouse
 let backgroundImage: p5.Image
@@ -53,6 +54,7 @@ function setup() {
     // Create Game Instances
     music = new Music(musicFiles)
     game = new Game([])
+    snakes = new Snakes()
     menu = new Menu()
     mouse = new Mouse()
 

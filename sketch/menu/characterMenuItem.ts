@@ -8,11 +8,11 @@ class CharacterMenuItem {
     public isSelected: boolean
     private mouseWasPressed: boolean
     private isMouseOver: boolean
-    private onMouseEnterOrLeave: MouseOverEvent
+    private onMouseEnter: MouseOverEvent
 
-    constructor(snake: Snake, onMouseEnterOrLeave: MouseOverEvent) {
+    constructor(snake: Snake, onMouseEnter: MouseOverEvent) {
         this.snake = snake
-        this.onMouseEnterOrLeave = onMouseEnterOrLeave
+        this.onMouseEnter = onMouseEnter
         this.isMouseOver = false
         this.selectedColor = snake.color
         this.bgColor = color(50)
@@ -27,13 +27,10 @@ class CharacterMenuItem {
         const distance = distanceBetween(mousePosition, itemPosition, 0, diameter)
         if (distance < 0) {
             if (!this.isMouseOver) {
-                this.onMouseEnterOrLeave(this.snake.name)
+                this.onMouseEnter(this.snake.name)
             }
             this.isMouseOver = true
         } else {
-            if (this.isMouseOver) {
-                this.onMouseEnterOrLeave(null)
-            }
             this.isMouseOver = false
         }
     }
