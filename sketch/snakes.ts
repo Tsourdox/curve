@@ -51,7 +51,7 @@ class Snakes {
             case 'Nic': return {
                 name, ability: 'Ghost',
                 description: 'A powerful ghost from ancient times, sworn to protect his world. Nic has the power to tap into his ancient magic and reveil what can not be seen.',
-                abilityDescription: 'Enter a powerful ghost state for 5 seconds enchanting all Force Fields he touches. While in this state he passes through almost everything.'
+                abilityDescription: 'Enters a powerful ghost state for 5 seconds enchanting all Force Fields he touches. While in this state he passes through almost everything.'
             }
             default: return {
                 name: 'Bug', ability: 'Crash',
