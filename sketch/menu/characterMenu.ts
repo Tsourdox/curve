@@ -38,12 +38,16 @@ class CharacterMenu {
     private drawAcions(x: number, y: number, menuDiameter: number) {
         textStyle(BOLD)
         textSize(menuDiameter * 0.08)
-        text('select your characters', x, y)
 
         if (menu.selectedSnakes.length) {
+            text('characters selected', x, y)
+            textSize(menuDiameter * 0.2)
+            text(this.selectedSnakes.length, x, y - menuDiameter * 0.22)
             textStyle(NORMAL)
             textSize(menuDiameter * 0.05)
             text('press space to continue', x, y + menuDiameter * 0.22)
+        } else {
+            text('select your characters', x, y)
         }
     }
 
