@@ -1,15 +1,13 @@
 let backgroundColor: p5.Color
-let music: Music
 let musicFiles: MusicFiles
 let gameSounds: GameSounds
-let game: Game
 let snakes: Snakes
+let music: Music
+let game: Game
 let menu: Menu
 let mouse: Mouse
-let backgroundImage: p5.Image
 
 function preload() {
-    console.log('preload')
     const { loadSound } = (window as any) // todo fix typings for p5.sound
 
     musicFiles = {
@@ -26,12 +24,9 @@ function preload() {
         shrink: loadSound('../assets/sounds/shrink.wav'),
         ghost: loadSound('../assets/sounds/ghost.wav')
     }
-    backgroundImage = loadImage('../assets/images/hubble_photo.jpg');
 }
 
 function setup() {
-    console.log('setup')
-
     /* Init highscore variable */
     if (!localStorage.getItem('highScore')) {
         localStorage.highScore = '0'
@@ -52,9 +47,9 @@ function setup() {
     gameSounds.shrink.setVolume(0.7)
 
     // Create Game Instances
+    snakes = new Snakes()
     music = new Music(musicFiles)
     game = new Game([])
-    snakes = new Snakes()
     menu = new Menu()
     mouse = new Mouse()
 
