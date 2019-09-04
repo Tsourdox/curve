@@ -37,12 +37,12 @@ class CharacterMenu {
 
     private drawAcions(x: number, y: number, menuDiameter: number) {
         textStyle(BOLD)
-        textSize(menuDiameter * 0.07)
+        textSize(menuDiameter * 0.08)
         text('select your characters', x, y)
 
         if (menu.selectedSnakes.length) {
             textStyle(NORMAL)
-            textSize(menuDiameter * 0.04)
+            textSize(menuDiameter * 0.05)
             text('press space to continue', x, y + menuDiameter * 0.22)
         }
     }
@@ -59,9 +59,9 @@ class CharacterMenu {
         textStyle(NORMAL)
         rectMode(CENTER)
         textAlign(CENTER, TOP)
-        textSize(menuDiameter * 0.03)
-        text(snakeInfo.description, x, y + menuDiameter * 0.03, menuDiameter * 0.7, menuDiameter * 0.4)
-        text(snakeInfo.abilityDescription, x, y + menuDiameter * 0.4, menuDiameter * 0.6, menuDiameter * 0.4)
+        textSize(menuDiameter * 0.035)
+        text(snakeInfo.description, x, y + menuDiameter * 0.01, menuDiameter * 0.7, menuDiameter * 0.4)
+        text(snakeInfo.abilityDescription, x, y + menuDiameter * 0.38, menuDiameter * 0.65, menuDiameter * 0.4)
     }
 
     private checkMouseOverMenu(x: number, y: number, menuDiameter: number) {

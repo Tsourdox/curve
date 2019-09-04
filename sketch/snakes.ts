@@ -36,7 +36,7 @@ class Snakes {
             case 'Glow': return {
                 name, ability: 'Rebirth',
                 description: 'When the last sun died due to the mysterius Force Fields, it gave birth to Glow. Being pure light she uses it to guide her but also to helps her friends.',
-                abilityDescription: 'After a short delay revives nearby friends - or shrinks herself if no one needs to be reborn.'
+                abilityDescription: 'Revives nearby friends after a short delay - or shrinks herself if no one needs to be reborn.'
             }
             case 'Dash': return {
                 name, ability: 'Teleport',
@@ -51,7 +51,7 @@ class Snakes {
             case 'Nic': return {
                 name, ability: 'Ghost',
                 description: 'A powerful ghost from ancient times, sworn to protect his world. Nic has the power to tap into his ancient magic and reveil what can not be seen.',
-                abilityDescription: 'Enters a powerful ghost state for 5 seconds enchanting all Force Fields he touches. While in this state he passes through almost everything.'
+                abilityDescription: 'Enters a powerful ghost state for five seconds ghosting all Force Fields he enters. While in this state he passes through almost everything.'
             }
             default: return {
                 name: 'Bug', ability: 'Crash',

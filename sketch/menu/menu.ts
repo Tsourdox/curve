@@ -40,13 +40,11 @@ class Menu {
             // Pepare text
             textAlign(CENTER, CENTER)
             fill(this.textColor)
+            textFont(Fonts.Chilanka)
 
             if (this.setupStep == 'start') {
-                textSize(diameter * 0.07)
-                textStyle(BOLD)
+                textSize(diameter * 0.08)
                 text('press space to begin', x, y)
-                textStyle(NORMAL)
-
             } else {
                 // Draw content
                 if (this.setupStep == 'snake-selection') {
@@ -61,19 +59,23 @@ class Menu {
 
     private drawScore(x: number, y: number, diameter: number) {
         const score = game.hasEnded ? game.score : localStorage.highScore
-        let scoreTitle = 'HIGH SCORE'
+        let scoreTitle = 'HIGH  SCORE'
         if (game.hasEnded) {
             if (game.score > localStorage.highScore) {
-                scoreTitle = 'NEW HIGH SCORE'
+                scoreTitle = 'NEW  HIGH  SCORE'
             } else {
                 scoreTitle = 'SCORE'
             }
         }
 
+        textFont(Fonts.Monoton)
         textSize(diameter * 0.07)
         text(scoreTitle, x, y - diameter * 0.2)
-        textSize(diameter * 0.05)
+
+        textFont(Fonts.Helvetica)
+        textSize(diameter * 0.06)
         text(numberWithSpaces(score), x, y - diameter * 0.1)
+        textFont(Fonts.Chilanka)
     }
 
     private drawActions(x: number, y: number, diameter: number) {

@@ -49,12 +49,14 @@ class CharacterMenuItem {
         fill(this.textColor)
 
         textStyle(BOLD)
-        textSize(diameter * 0.2)
-        text(this.snake.name, x, y - diameter * 0.05)
+        textSize(diameter * 0.26)
+        text(this.snake.name, x, y - diameter * 0.04)
 
         textStyle(NORMAL)
+        textFont(Fonts.Helvetica)
         textSize(diameter * 0.1)
         text(this.snake.controls.asString, x, y + diameter * 0.2)
+        textFont(Fonts.Chilanka)
 
         // Handle selection
         if (!this.mouseWasPressed && mouseIsPressed) {

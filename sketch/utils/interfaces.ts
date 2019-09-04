@@ -21,6 +21,12 @@ interface GameSounds {
     ghost: p5.SoundFile
 }
 
+enum Fonts {
+    Chilanka = 'Chilanka',
+    Helvetica = 'Helvetica',
+    Monoton = 'Monoton'
+}
+
 interface HoleEffect {
     type: HoleEffecType
     time: number
