@@ -1,4 +1,4 @@
-type MouseOverEvent = (snakeName: string | null) => void
+type MouseOverEvent = (snakeName: string) => void
 
 class CharacterMenuItem {
     private readonly bgColor: p5.Color
