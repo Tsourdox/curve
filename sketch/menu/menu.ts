@@ -73,7 +73,7 @@ class Menu {
         text(scoreTitle, x, y - diameter * 0.2)
 
         textFont(Fonts.Helvetica)
-        textSize(diameter * 0.06)
+        textSize(diameter * 0.068)
         text(numberWithSpaces(score), x, y - diameter * 0.1)
         textFont(Fonts.Chilanka)
     }

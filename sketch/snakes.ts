@@ -3,10 +3,10 @@ class Snakes {
     private get newSnakes(): { [name: string]: Snake } {
         return {
             'Bliz': new Snake('Bliz', 'blue', this.controls[0], new FreezeAbility(14, 2.4)),
-            'Hell': new Snake('Hell', 'red', this.controls[1], new BurnAbility(11, 1.7)),
+            'Hell': new Snake('Hell', 'red', this.controls[1], new BurnAbility(9, 1.7)),
             'Glow': new Snake('Glow', 'yellow', this.controls[2], new RebirthAbility(2)),
-            'Dash': new Snake('Dash', 'green', this.controls[3], new TeleportAbility(2.5)),
-            'Ouk': new Snake('Ouk', 'purple', this.controls[4], new ShrinkAbility(9)),
+            'Dash': new Snake('Dash', 'green', this.controls[3], new TeleportAbility(2)),
+            'Ouk': new Snake('Ouk', 'purple', this.controls[4], new ShrinkAbility(11)),
             'Nic': new Snake('Nic', 'white', this.controls[5], new GhostAbility(13, 5)),
         }
     }

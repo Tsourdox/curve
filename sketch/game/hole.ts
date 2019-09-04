@@ -22,7 +22,6 @@ class Hole extends GameObject {
         return this.shouldDisappear
     }
 
-
     constructor() {
         super()
         this.id = random(99999999).toFixed()
@@ -30,7 +29,7 @@ class Hole extends GameObject {
         this.colorFrozened = color(random(40), random(40), random(80, 120))
         this.colorGhosted = color(this.color.toString().replace(',1)', ',0.2)'))
         this.baseRadius = random(50, 200)
-        this.morphLimit = random(10, 100)
+        this.morphLimit = random(10, this.baseRadius * 0.8)
         this.morphSpeed = random(0.1, 1)
         this.morphValue = this.baseRadius * -1
         this.isIncreasing = true
@@ -43,7 +42,7 @@ class Hole extends GameObject {
     }
 
     public shrink() {
-        this.baseRadius *= 0.70
+        this.baseRadius *= 0.75
         if (this.baseRadius < 10) {
             this.shouldDisappear = true
         }
