@@ -11,5 +11,6 @@
         "module": "none",
         "strict": true,
         "strictPropertyInitialization": true,
+        "strictNullChecks": true
     }
 }

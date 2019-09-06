@@ -4,71 +4,57 @@ interface MusicFiles {
 }
 
 class Music {
-    private readonly fadeTime = 0.5
     private activeMusicFile: p5.SoundFile
     private musicFiles: MusicFiles
 
     constructor(musicFiles: MusicFiles) {
         this.musicFiles = musicFiles
         this.activeMusicFile = musicFiles.menu
-        musicFiles.menu.setVolume(0)
         musicFiles.menu.setLoop(true)
         musicFiles.game.setLoop(true)
+        musicFiles.menu.setVolume(0.1)
+        musicFiles.game.setVolume(0.6)
     }
 
-    private getVolume(forFile: p5.SoundFile) {
-        const { menu, game } = this.musicFiles
-        switch (forFile) {
-            case menu: return 0.1
-            case game: return 0.7
-            default: return 1
-        }
-    }
-
-    private playMusicFile(musicFile: p5.SoundFile, volume: number): void {
-        const isSameActiveFile = musicFile == this.activeMusicFile
-        if (this.isPlaying() && !isSameActiveFile) {
-            this.stopMusic()
-            this.activeMusicFile = musicFile
-            this.playMusic(volume)
-        } else {
-            this.activeMusicFile = musicFile
-            this.playMusic(volume)
+    private playMusicFile(musicFile: p5.SoundFile): void {
+        this.stopMusic()
+        this.activeMusicFile = musicFile
+        if (!this.isMuted) {
+            this.playMusic()
         }
     }
 
     private stopMusic() {
-        this.activeMusicFile.setVolume(0, this.fadeTime)
-        this.activeMusicFile.stop(this.fadeTime)
+        this.activeMusicFile.stop()
     }
 
-    public isPlaying() {
+    private get isMuted() {
+        return localStorage.isMusicMuted
+    }
+
+    public get isPlaying() {
         return this.activeMusicFile.isPlaying()
     }
 
-    public playMusic(volume?: number) {
-        if (!this.activeMusicFile.isPlaying()) {
-            volume = volume || this.getVolume(this.activeMusicFile)
-            this.activeMusicFile.setVolume(0)
+    public playMusic() {
+        if (!this.isPlaying) {
             this.activeMusicFile.play()
-            this.activeMusicFile.setVolume(volume, this.fadeTime)
+            localStorage.isMusicMuted = false
         }
     }
 
     public pauseMusic() {
-        this.activeMusicFile.setVolume(0, this.fadeTime)
-        this.activeMusicFile.pause(this.fadeTime)
+        this.activeMusicFile.pause()
+        localStorage.isMusicMuted = true
     }
 
     public playMenuMusic() {
         const { menu } = this.musicFiles
-        const volume = this.getVolume(menu)
-        this.playMusicFile(menu, volume)
+        this.playMusicFile(menu)
     }
 
     public playGameMusic() {
         const { game } = this.musicFiles
-        const volume = this.getVolume(game)
-        this.playMusicFile(game, volume)
+        this.playMusicFile(game)
     }
 }

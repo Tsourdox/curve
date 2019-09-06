@@ -14,6 +14,15 @@ function keyPressed() {
         return
     }
 
+    // Pause Music
+    if (keyCode == ENTER) {
+        if (music.isPlaying) {
+            music.pauseMusic()
+        } else {
+            music.playMusic()
+        }
+    }
+
     if (menu.isSetup) {
         // GAME SETUP
         if (menu.setupStep == 'start') {
@@ -27,7 +36,7 @@ function keyPressed() {
         }
     } else if (game.hasEnded) {
         // GAME OVER
-        if (keyCode == ENTER) {
+        if (keyCode == BACKSPACE) {
             saveHighScoreToLocalStorage()
             enterCharacterSelection()
         }
@@ -40,7 +49,7 @@ function keyPressed() {
         }
     } else if (game.isPaused) {
         // PAUSED GAME
-        if (keyCode == ENTER) {
+        if (keyCode == BACKSPACE) {
             enterCharacterSelection()
         }
         if (keyCode == SPACE) {

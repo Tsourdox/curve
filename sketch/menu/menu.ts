@@ -85,8 +85,8 @@ class Menu {
         text(spaceActionText, x, y + diameter * 0.1)
 
         textStyle(NORMAL)
-        textSize(diameter * 0.05)
-        text('press enter to end game', x, y + diameter * 0.22)
+        textSize(diameter * 0.045)
+        text('press backspace to end game', x, y + diameter * 0.22)
     }
 
 }
