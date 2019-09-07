@@ -9,7 +9,6 @@ class ScoreBoard {
 
     constructor() {
         this.scores = this.loadScoreFromLocalStorage()
-        console.log(this.scores)
     }
 
     private loadScoreFromLocalStorage(): ScoreData[] {
