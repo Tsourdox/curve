@@ -4,57 +4,47 @@ interface MusicFiles {
 }
 
 class Music {
-    private activeMusicFile: p5.SoundFile
     private musicFiles: MusicFiles
+    private readonly menuVolume = 0.1
+    private readonly gameVolume = 0.6
 
     constructor(musicFiles: MusicFiles) {
         this.musicFiles = musicFiles
-        this.activeMusicFile = musicFiles.menu
         musicFiles.menu.setLoop(true)
         musicFiles.game.setLoop(true)
-        musicFiles.menu.setVolume(0.1)
-        musicFiles.game.setVolume(0.6)
-    }
 
-    private playMusicFile(musicFile: p5.SoundFile): void {
-        this.stopMusic()
-        this.activeMusicFile = musicFile
-        if (!this.isMuted) {
-            this.playMusic()
+        if (this.isMuted) {
+            this.muteMusic()
+        } else {
+            this.unmuteMusic()
         }
     }
 
-    private stopMusic() {
-        this.activeMusicFile.stop()
+    public get isMuted() {
+        return !!JSON.parse(localStorage.isMusicMuted || '')
     }
 
-    private get isMuted() {
-        return localStorage.isMusicMuted
+    public muteMusic() {
+        musicFiles.menu.setVolume(0)
+        musicFiles.game.setVolume(0)
+        localStorage.setItem('isMusicMuted', JSON.stringify(true))
     }
 
-    public get isPlaying() {
-        return this.activeMusicFile.isPlaying()
-    }
-
-    public playMusic() {
-        if (!this.isPlaying) {
-            this.activeMusicFile.play()
-            localStorage.isMusicMuted = false
-        }
-    }
-
-    public pauseMusic() {
-        this.activeMusicFile.pause()
-        localStorage.isMusicMuted = true
+    public unmuteMusic() {
+        musicFiles.menu.setVolume(this.menuVolume)
+        musicFiles.game.setVolume(this.gameVolume)
+        localStorage.setItem('isMusicMuted', JSON.stringify(false))
     }
 
     public playMenuMusic() {
-        const { menu } = this.musicFiles
-        this.playMusicFile(menu)
+        const { menu, game } = this.musicFiles
+        game.stop()
+        menu.play()
     }
 
     public playGameMusic() {
-        const { game } = this.musicFiles
-        this.playMusicFile(game)
+        const { menu, game } = this.musicFiles
+        menu.stop()
+        game.play()
     }
 }

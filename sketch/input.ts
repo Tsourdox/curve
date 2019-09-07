@@ -16,10 +16,11 @@ function keyPressed() {
 
     // Pause Music
     if (keyCode == ENTER) {
-        if (music.isPlaying) {
-            music.pauseMusic()
+        console.log('enter', music.isMuted)
+        if (music.isMuted) {
+            music.unmuteMusic()
         } else {
-            music.playMusic()
+            music.muteMusic()
         }
     }
 
