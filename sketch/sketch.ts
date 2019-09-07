@@ -6,6 +6,7 @@ let music: Music
 let game: Game
 let menu: Menu
 let mouse: Mouse
+let scoreboard: ScoreBoard
 
 function preload() {
     const { loadSound } = (window as any) // todo fix typings for p5.sound
@@ -27,14 +28,9 @@ function preload() {
 }
 
 function setup() {
-    /* Init highscore variable */
-    if (!localStorage.getItem('highScore')) {
-        localStorage.highScore = '0'
-    }
-
     // Canvas settings
     createCanvas(windowWidth, windowHeight)
-    frameRate(120)
+    frameRate(60)
     noCursor()
     backgroundColor = color(20)
 
@@ -47,6 +43,7 @@ function setup() {
     gameSounds.shrink.setVolume(0.7)
 
     // Create Game Instances
+    scoreboard = new ScoreBoard()
     snakes = new Snakes()
     music = new Music(musicFiles)
     game = new Game([])

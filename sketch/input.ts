@@ -16,7 +16,6 @@ function keyPressed() {
 
     // Pause Music
     if (keyCode == ENTER) {
-        console.log('enter', music.isMuted)
         if (music.isMuted) {
             music.unmuteMusic()
         } else {
@@ -38,11 +37,9 @@ function keyPressed() {
     } else if (game.hasEnded) {
         // GAME OVER
         if (keyCode == BACKSPACE) {
-            saveHighScoreToLocalStorage()
             enterCharacterSelection()
         }
         if (keyCode == SPACE) {
-            saveHighScoreToLocalStorage()
             reloadGame()
         }
         if (keyCode == KEY_0) {
@@ -76,9 +73,4 @@ function reloadGame() {
 function enterCharacterSelection() {
     menu.setupStep = 'snake-selection'
     game = new Game([])
-}
-
-function saveHighScoreToLocalStorage() {
-    const highScore = Number(localStorage.highScore)
-    localStorage.highScore = max(game.score, highScore)
 }

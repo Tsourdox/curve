@@ -38,13 +38,17 @@ class Music {
 
     public playMenuMusic() {
         const { menu, game } = this.musicFiles
-        game.stop()
+        if (game.isPlaying()) {
+            game.stop()
+        }
         menu.play()
     }
 
     public playGameMusic() {
         const { menu, game } = this.musicFiles
-        menu.stop()
+        if (menu.isPlaying()) {
+            menu.stop()
+        }
         game.play()
     }
 }

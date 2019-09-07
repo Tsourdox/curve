@@ -58,10 +58,10 @@ class Menu {
     }
 
     private drawScore(x: number, y: number, diameter: number) {
-        const score = game.hasEnded ? game.score : localStorage.highScore
+        const score = game.hasEnded ? game.score : scoreboard.highScore
         let scoreTitle = 'HIGH  SCORE'
         if (game.hasEnded) {
-            if (game.score > localStorage.highScore) {
+            if (game.score >= scoreboard.highScore) {
                 scoreTitle = 'NEW  HIGH  SCORE'
             } else {
                 scoreTitle = 'SCORE'

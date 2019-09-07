@@ -134,6 +134,7 @@ class Game {
         if (isAllSnakesDead) {
             this.hasEnded = true
             this.pause()
+            scoreboard.saveScore()
         }
     }
 }
