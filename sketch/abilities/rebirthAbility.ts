@@ -16,6 +16,7 @@ class RebirthAbility extends DelayedAbility {
             if (this.time > this.delay) {
                 const deadSnake = this.findSnakeToRebirth(snake)
                 if (deadSnake) {
+                    this.initParticleEffect(deadSnake, true)
                     deadSnake.birth()
                 } else {
                     this.initParticleEffect(snake)
@@ -64,8 +65,8 @@ class RebirthAbility extends DelayedAbility {
         }
     }
 
-    private initParticleEffect(snake: Snake) {
-        const shiftLength = round(snake.bodyParts.length * 0.8)
+    private initParticleEffect(snake: Snake, whole = false) {
+        const shiftLength = round(snake.bodyParts.length * (whole ? 1 : 0.8))
         for (let i = 0; i < shiftLength; i+= 3) {
             this.addParticleSystem(snake.bodyParts[i])
         }
