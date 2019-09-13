@@ -1,32 +1,44 @@
-type SetupStep = 'start' | 'snake-selection' | 'done'
+type SetupStep = 'story' | 'selection' | 'done'
 
 class Menu {
     private bgColor: p5.Color
     private textColor: p5.Color
-    private snakeSelection: CharacterMenu
+    private storyMenu: StoryMenu
+    private characterMenu: CharacterMenu
     public setupStep: SetupStep
+    private maxDiameter: number
+    public diameter : number
 
     public get isSetup() {
         return this.setupStep != 'done'
     }
 
     public get selectedSnakes() {
-        return this.snakeSelection.selectedSnakes
+        return this.characterMenu.selectedSnakes
     }
 
     constructor() {
         this.bgColor = color(0, 160)
         this.textColor = color(180)
-        this.setupStep = 'start'
-        this.snakeSelection = new CharacterMenu()
+        this.setupStep = 'story'
+        this.storyMenu = new StoryMenu()
+        this.characterMenu = new CharacterMenu()
+        this.maxDiameter = 0
+        this.diameter = 0
+    }
+
+    public replayStory() {
+        this.storyMenu = new StoryMenu()
+        this.setupStep = 'story'
+        this.diameter = 0
     }
 
     public draw() {
         if (menu.isSetup || game.isPaused) {
             // Responsive centered content
             // Init variables
-            const maxDiameter = min(width, height)
-            const diameter = maxDiameter * 0.7
+            this.maxDiameter = min(width, height) * 0.7
+            this.diameter = min((this.diameter || 1) + this.diameter * 0.1, this.maxDiameter)
             const x = width * 0.5
             const y = height * 0.5
 
@@ -35,29 +47,26 @@ class Menu {
 
             // Draw circle
             fill(this.bgColor)
-            circle(width * 0.5, height * 0.5, diameter)
+            circle(width * 0.5, height * 0.5, this.diameter)
 
             // Pepare text
             textAlign(CENTER, CENTER)
             fill(this.textColor)
             textFont(Fonts.Chilanka)
 
-            if (this.setupStep == 'start') {
-                textSize(diameter * 0.08)
-                text('press space to begin', x, y)
+            // Draw content
+            if (this.setupStep == 'story') {
+                this.storyMenu.draw(x, y, this.diameter)
+            } else if (this.setupStep == 'selection') {
+                this.characterMenu.draw(x, y, this.diameter)
             } else {
-                // Draw content
-                if (this.setupStep == 'snake-selection') {
-                    this.snakeSelection.draw(x, y, diameter)
-                } else {
-                    this.drawScore(x, y, diameter)
-                    this.drawActions(x, y, diameter)
-                }
+                this.drawScore(x, y)
+                this.drawActions(x, y)
             }
         }
     }
 
-    private drawScore(x: number, y: number, diameter: number) {
+    private drawScore(x: number, y: number) {
         const score = game.hasEnded ? game.score : scoreboard.highScore
         let scoreTitle = 'HIGH  SCORE'
         if (game.hasEnded) {
@@ -69,24 +78,24 @@ class Menu {
         }
 
         textFont(Fonts.Monoton)
-        textSize(diameter * 0.07)
-        text(scoreTitle, x, y - diameter * 0.2)
+        textSize(this.diameter * 0.07)
+        text(scoreTitle, x, y - this.diameter * 0.2)
 
         textFont(Fonts.Helvetica)
-        textSize(diameter * 0.068)
-        text(numberWithSpaces(score), x, y - diameter * 0.1)
+        textSize(this.diameter * 0.068)
+        text(numberWithSpaces(score), x, y - this.diameter * 0.1)
         textFont(Fonts.Chilanka)
     }
 
-    private drawActions(x: number, y: number, diameter: number) {
+    private drawActions(x: number, y: number) {
         textStyle(BOLD)
-        textSize(diameter * 0.06)
+        textSize(this.diameter * 0.06)
         const spaceActionText = game.hasEnded ? 'press space to restart' : 'press space to play/pause'
-        text(spaceActionText, x, y + diameter * 0.1)
+        text(spaceActionText, x, y + this.diameter * 0.1)
 
         textStyle(NORMAL)
-        textSize(diameter * 0.045)
-        text('press backspace to end game', x, y + diameter * 0.22)
+        textSize(this.diameter * 0.045)
+        text('press backspace to end game', x, y + this.diameter * 0.22)
     }
 
 }

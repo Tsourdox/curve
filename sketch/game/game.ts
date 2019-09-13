@@ -33,7 +33,7 @@ class Game {
     }
 
     public update() {
-        if (!this.isPaused || menu.setupStep == 'start') {
+        if (!this.isPaused || menu.setupStep == 'story') {
             const newTime = this.time + deltaTime * 0.001
 
             for (const snake of this.snakes) {

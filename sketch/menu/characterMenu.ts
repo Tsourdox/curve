@@ -1,6 +1,7 @@
 class CharacterMenu {
     private snakeMenuItems: CharacterMenuItem[]
     private displayedSnake?: string
+    private showDefaultViewIn?: number
 
     public get selectedSnakes() {
         return (
@@ -13,11 +14,15 @@ class CharacterMenu {
     constructor() {
         this.snakeMenuItems = []
         for (const snake of snakes.listAll) {
-            this.snakeMenuItems.push(new CharacterMenuItem(snake, this.onMouseEnterMenuItem))
+            this.snakeMenuItems.push(new CharacterMenuItem(snake, this.onMouseEnterMenuItem, this.onMouseLeaveMenuItem))
         }
     }
 
-    private onMouseEnterMenuItem = (snakeName: string) => this.displayedSnake = snakeName
+    private onMouseLeaveMenuItem = () => this.showDefaultViewIn = 1000
+    private onMouseEnterMenuItem = (snakeName: string) => {
+        this.displayedSnake = snakeName
+        delete this.showDefaultViewIn
+    }
 
     public draw(x: number, y: number, menuDiameter: number) {
         this.drawSnakeMenuItems(x, y, menuDiameter)
@@ -27,10 +32,18 @@ class CharacterMenu {
         fill(color(180))
         textAlign(CENTER, CENTER)
 
+        if (this.showDefaultViewIn) {
+            this.showDefaultViewIn -= deltaTime
+            if (this.showDefaultViewIn < 0) {
+                delete this.displayedSnake
+                delete this.showDefaultViewIn
+            }
+        }
+
+
         if (this.displayedSnake) {
             this.drawCharacterInfo(x, y, menuDiameter)
-        }
-        else {
+        } else {
             this.drawAcions(x, y, menuDiameter)
         }
     }
@@ -74,6 +87,7 @@ class CharacterMenu {
         const distance = distanceBetween(mousePos, menuPos, 0, menuDiameter)
         if (distance < 0) {
             delete this.displayedSnake
+            delete this.showDefaultViewIn
         }
     }
 

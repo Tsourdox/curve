@@ -25,13 +25,16 @@ function keyPressed() {
 
     if (menu.isSetup) {
         // GAME SETUP
-        if (menu.setupStep == 'start') {
+        if (menu.setupStep == 'story') {
             if (keyCode == SPACE) {
                 enterCharacterSelection()
             }
-        } else if (menu.setupStep == 'snake-selection') {
+        } else if (menu.setupStep == 'selection') {
             if (keyCode == SPACE && menu.selectedSnakes.length > 0) {
                 reloadGame()
+            }
+            if (keyCode == BACKSPACE) {
+                showGameIntro()
             }
         }
     } else if (game.hasEnded) {
@@ -71,6 +74,10 @@ function reloadGame() {
 }
 
 function enterCharacterSelection() {
-    menu.setupStep = 'snake-selection'
+    menu.setupStep = 'selection'
     game = new Game([])
+}
+
+function showGameIntro() {
+    menu.replayStory()
 }

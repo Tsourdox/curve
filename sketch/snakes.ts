@@ -26,32 +26,32 @@ class Snakes {
             case 'Bliz': return {
                 name, ability: 'Freeze',
                 description: 'Created out of a blizzard from another world. Bliz gained the power to control her surroundings and create calm where chaos previously existed.',
-                abilityDescription: 'Freezes all Force Fields for 2.4 seconds. Frozen Force Fields are unstable and collapse upon impact.'
+                abilityDescription: 'Freezes all Anomalies for 2.4 seconds. Frozen Anomalies are unstable and collapse upon impact.'
             }
             case 'Hell': return {
                 name, ability: 'Burn',
-                description: 'From the deepest part of this world, Hell itself, rose up to defend what was left and rid it of all Force Fields for good.',
-                abilityDescription: 'Burns hellishly hot for just 1.7 seconds but vaporizes any Force Fields that comes into contact with him.'
+                description: 'From the deepest part of this world, Hell itself, rose up to defend what was left and rid it of all Anomalies for good.',
+                abilityDescription: 'Burns hellishly hot for just 1.7 seconds but vaporizes any Anomalies that comes into contact with him.'
             }
             case 'Glow': return {
                 name, ability: 'Rebirth',
-                description: 'When the last sun died due to the mysterius Force Fields, it gave birth to Glow. Being pure light she uses it to guide her but also to helps her friends.',
+                description: 'When the last sun died due to the mysterius Anomalies, it gave birth to Glow. Being pure light she uses it to guide her but also to helps her friends.',
                 abilityDescription: 'Revives nearby friends after a short delay - or shrinks herself if no one needs to be reborn.'
             }
             case 'Dash': return {
                 name, ability: 'Teleport',
                 description: 'No one knows how it happened, she just entered our world from nowhere. Dash jumps from location to location, from world to world - through anything.',
-                abilityDescription: 'Instantly jumps forward shattering any Force Fields at that location.'
+                abilityDescription: 'Instantly jumps forward shattering any Anomalies at that location.'
             }
             case 'Ouk': return {
                 name, ability: 'Collapse',
                 description: 'A mystical creature with legendary powers beyond this world. Ouk is the last survivor of her kind and has the will to stop anything.',
-                abilityDescription: 'Instantly alters the space-time continuum around all Force Fields, pushing them towards their imminent collapse.'
+                abilityDescription: 'Instantly alters the space-time continuum around all Anomalies, pushing them towards their imminent collapse.'
             }
             case 'Nic': return {
                 name, ability: 'Ghost',
                 description: 'A powerful ghost from ancient times, sworn to protect his world. Nic has the power to tap into his ancient magic and reveil what can not be seen.',
-                abilityDescription: 'Enters a powerful ghost state for five seconds ghosting all Force Fields he enters. While in this state he passes through almost everything.'
+                abilityDescription: 'Enters a powerful ghost state for five seconds ghosting all Anomalies he enters. While in this state he passes through almost everything.'
             }
             default: return {
                 name: 'Bug', ability: 'Crash',
