@@ -76,32 +76,37 @@ class Game {
         music.playMenuMusic()
     }
 
-    public removeHoleContaining(point: Point, respawn?: boolean, all?: boolean) {
+    public removeHoleContaining(point: Point, respawn?: boolean, all?: boolean, diameter?: number) {
         // Select from end of list so that the top most circle is removed
-        this.holes.reverse()
+        const holesToRemove: Hole[] = []
         for (const hole of this.holes) {
-            if (distanceBetween(point, hole.position, 0, hole.radius) < 0) {
-                this.removeHole(hole)
-
-                if (respawn) {
-                    this.holes.push(new Hole())
-                }
+            if (distanceBetween(point, hole.position, diameter, hole.radius) < 0) {
+                holesToRemove.push(hole)
                 if (!all) {
                     break
                 }
             }
         }
-        this.holes.reverse()
+
+        for (const hole of holesToRemove) {
+            this.removeHole(hole)
+            if (respawn) {
+                this.holes.push(new Hole())
+            }
+        }
     }
 
     private removeHoles() {
-        this.holes.reverse()
+        const holesToRemove: Hole[] = []
         for (const hole of this.holes) {
             if (hole.isGone) {
-                this.removeHole(hole)
+                holesToRemove.push(hole)
             }
         }
-        this.holes.reverse()
+
+        for (const hole of holesToRemove) {
+            this.removeHole(hole)
+        }
     }
 
     private removeHole(hole: Hole) {

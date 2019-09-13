@@ -12,7 +12,7 @@ class TeleportAbility extends Ability {
             y: modulo((y + sin(snake.direction) * s(100)), height)
         }
 
-        game.removeHoleContaining(newLocation, false, true)
+        game.removeHoleContaining(newLocation, false, true, s(100))
         gameSounds.teleport.play()
 
         if (snake.bodySection.length == 1) {
