@@ -9,10 +9,8 @@ class CollisionSystem {
 
             this.maxDistanceBetweenParts = s(snake.speed)
             this.checkCollisionWithWall(snake)
-            if (!snake.isProtected) {
-                this.checkCollisionWithSnakes(snake, snakes)
-                this.checkCollisionWithHole(snake, holes)
-            }
+            this.checkCollisionWithSnakes(snake, snakes)
+            this.checkCollisionWithHole(snake, holes)
         }
     }
 
@@ -45,7 +43,7 @@ class CollisionSystem {
                         if (hasSkippedFirstFewPoints) {
                             if (snake_2.readyForRebirth) {
                                 snake_2.birth()
-                            } else if (snake.effect == 'ghost' || snake_2.effect == 'ghost') {
+                            } else if (snake.isProtected || snake.effect == 'ghost' || snake_2.effect == 'ghost') {
                                 continue
                             } else {
                                 snake.isAlive = false
@@ -93,7 +91,7 @@ class CollisionSystem {
                             if (hole.state !== 'ghosted') {
                                 hole.state = 'ghosted'
                             }
-                        } else {
+                        } else if (!snake.isProtected) {
                             this.handleCollisionWithHole(snake, hole, holes)
                         }
                     } else {
