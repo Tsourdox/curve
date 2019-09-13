@@ -14,13 +14,18 @@ class RebirthAbility extends DelayedAbility {
     public update(snake: Snake) {
         if (this.isActivated) {
             if (this.time > this.delay) {
-                const deadSnake = this.findSnakeToRebirth(snake)
-                if (deadSnake) {
-                    this.initParticleEffect(deadSnake, true)
-                    deadSnake.birth()
+                const snakeToBirth = this.findSnakeToRebirth(snake)
+                if (snakeToBirth) {
+                    if (snakeToBirth.isAlive) {
+                        this.initParticleEffect(snakeToBirth)
+                        this.shiftSnake(snakeToBirth)
+                    } else {
+                        this.initParticleEffect(snakeToBirth, true)
+                        snakeToBirth.birth()
+                    }
                 } else {
                     this.initParticleEffect(snake)
-                    this.shiftSelf(snake)
+                    this.shiftSnake(snake)
                 }
             }
         }
@@ -40,20 +45,24 @@ class RebirthAbility extends DelayedAbility {
         let closestSnake: Snake | undefined
         let distanceToClosestSnake = Number.MAX_VALUE
 
-        for (const deadSnake of game.deadSnakes) {
-            const distanceToDeadSnake = distanceBetween(snake.head, deadSnake.head)
+        for (const snake2 of game.snakes) {
+            if (snake === snake2 && snake.isAlive) {
+                continue
+            }
+
+            const distanceToDeadSnake = distanceBetween(snake.head, snake2.head)
             if (distanceToDeadSnake < distanceToClosestSnake) {
-                closestSnake = deadSnake
+                closestSnake = snake2
                 distanceToClosestSnake = distanceToDeadSnake
             }
         }
 
-        if (distanceToClosestSnake < s(500)) {
+        if (distanceToClosestSnake < s(400)) {
             return closestSnake
         }
     }
 
-    private shiftSelf(snake: Snake) {
+    private shiftSnake(snake: Snake) {
         let shiftLength = round(snake.bodyParts.length * 0.9)
 
         while (shiftLength > 0) {
@@ -67,15 +76,15 @@ class RebirthAbility extends DelayedAbility {
 
     private initParticleEffect(snake: Snake, whole = false) {
         const shiftLength = round(snake.bodyParts.length * (whole ? 1 : 0.9))
-        for (let i = 0; i < shiftLength; i+= 3) {
+        for (let i = 0; i < shiftLength; i+= 5) {
             this.addParticleSystem(snake.bodyParts[i])
         }
     }
 
     private addParticleSystem(position: Point) {
         const { x, y } = position
-        const spawnRate = 0.01
-        const lifespan = 0.03
+        const spawnRate = 0.1
+        const lifespan = 0.1
         const glow = new ParticleSystem(createVector(x, y), spawnRate, glowParticle, lifespan, 0)
         this.particleSystems.push(glow)
     }

@@ -36,7 +36,7 @@ class Snakes {
             case 'Glow': return {
                 name, ability: 'Rebirth',
                 description: 'When the last sun died due to the mysterius Anomalies, it gave birth to Glow. Being pure light she uses it to guide her but also to helps her friends.',
-                abilityDescription: 'Revives nearby friends after a short delay - or shrinks herself if no one needs to be reborn.'
+                abilityDescription: 'Revives or shrinks nearby friend after a short delay - effects herself if no friend is nearby.'
             }
             case 'Dash': return {
                 name, ability: 'Teleport',
