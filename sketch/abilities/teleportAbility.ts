@@ -1,4 +1,5 @@
 class TeleportAbility extends Ability {
+    private particleSystem?: ParticleSystem
 
     constructor(cooldown: number) {
         super('Teleport', cooldown)
@@ -18,5 +19,16 @@ class TeleportAbility extends Ability {
             snake.body.pop()
         }
         snake.body.push([newLocation])
+
+        const origin = createVector(newLocation.x, newLocation.y)
+        this.particleSystem = new ParticleSystem(origin, 0.00001, teleportParticle, 0.01)
+    }
+
+    public draw(snake: Snake, thickness?: number) {
+        super.draw(snake, thickness)
+
+        if (this.particleSystem) {
+            this.particleSystem.run()
+        }
     }
 }

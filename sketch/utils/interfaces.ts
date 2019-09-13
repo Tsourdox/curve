@@ -34,7 +34,7 @@ interface HoleEffect {
     duration?: number
 }
 
-type ParticleGenerator = (position: p5.Vector) => Particle
+type ParticleGenerator = (position: p5.Vector) => Particle[]
 
 enum HoleEffecType {
     'teleport',

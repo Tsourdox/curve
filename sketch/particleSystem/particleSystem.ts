@@ -21,12 +21,13 @@ class ParticleSystem {
 
     private addParticle(newTime: number) {
         if (!this.particles.length || newTime % this.spawnRate < this.time % this.spawnRate) {
-            this.particles.push(this.particleGenerator(this.origin))
+            this.particles.push(...this.particleGenerator(this.origin))
         }
     }
 
     public run() {
         const newTime = this.time + deltaTime * 0.001
+
         if (this.lifespan == undefined || this.lifespan > this.time) {
             this.addParticle(newTime)
         }

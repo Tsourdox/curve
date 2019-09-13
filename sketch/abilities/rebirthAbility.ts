@@ -74,8 +74,8 @@ class RebirthAbility extends DelayedAbility {
 
     private addParticleSystem(position: Point) {
         const { x, y } = position
-        const spawnRate = 0.3
-        const lifespan = 0.2
+        const spawnRate = 0.01
+        const lifespan = 0.03
         const glow = new ParticleSystem(createVector(x, y), spawnRate, glowParticle, lifespan, 0)
         this.particleSystems.push(glow)
     }
