@@ -8,6 +8,7 @@ class Snake extends GameObject {
     public readonly speed: number
     public readonly controls: Controls
     private readonly ability: Ability
+    private rebirthProtection?: number
 
     public isInsideHoles: { [id: string]: HoleEffect | null }
     public thickness: number
@@ -27,6 +28,10 @@ class Snake extends GameObject {
         this.isInsideHoles = {}
         this.thickness = s(5)
         this.birth()
+    }
+
+    public get isProtected(): boolean {
+        return !!this.rebirthProtection
     }
 
     public get bodySection() {
@@ -58,6 +63,7 @@ class Snake extends GameObject {
         this.isAlive = true
         this.isInsideHoles = {}
         this.effect = 'none'
+        this.rebirthProtection = 3000
     }
 
     public enterPassiveGhostForm() {
@@ -75,6 +81,7 @@ class Snake extends GameObject {
         if (this.isAlive) {
             this.applyPlayerActions()
             this.growBody()
+            this.updateRebirthProtection()
         } else {
             this.shrinkBody()
         }
@@ -92,6 +99,15 @@ class Snake extends GameObject {
         }
     }
 
+    private updateRebirthProtection() {
+        if (this.rebirthProtection) {
+            this.rebirthProtection -= deltaTime
+            if (this.rebirthProtection < 0) {
+                delete this.rebirthProtection
+            }
+        }
+    }
+
     public drawHead(enlarge = 1) {
         const { x, y } = this.head
         noStroke()
@@ -103,8 +119,18 @@ class Snake extends GameObject {
         circle(x, y, this.thickness * 4 * enlarge)
     }
 
+    public get activeColor(): p5.Color {
+        if (this.effect == 'ghost') {
+            return this.colorGhosted
+        } else if (this.rebirthProtection) {
+            return this.rebirthProtection % 800 > 400 ? this.colorGhosted : this.color
+        } else {
+            return this.color
+        }
+    }
+
     private drawBody() {
-        stroke(this.effect == 'ghost' ? this.colorGhosted : this.color)
+        stroke(this.activeColor)
         strokeWeight(this.thickness)
         curveTightness(0.5)
         noFill()
@@ -133,7 +159,7 @@ class Snake extends GameObject {
             this.direction += 0.05
         }
         // Use ability
-        if (this.ability && this.controls.special && keyIsDown(this.controls.special)) {
+        if (keyIsDown(this.controls.special)) {
             this.ability.use(this)
         }
     }

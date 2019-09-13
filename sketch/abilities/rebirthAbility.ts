@@ -54,7 +54,7 @@ class RebirthAbility extends DelayedAbility {
     }
 
     private shiftSelf(snake: Snake) {
-        let shiftLength = round(snake.bodyParts.length * 0.8)
+        let shiftLength = round(snake.bodyParts.length * 0.9)
 
         while (shiftLength > 0) {
             snake.body[0].shift()
@@ -66,7 +66,7 @@ class RebirthAbility extends DelayedAbility {
     }
 
     private initParticleEffect(snake: Snake, whole = false) {
-        const shiftLength = round(snake.bodyParts.length * (whole ? 1 : 0.8))
+        const shiftLength = round(snake.bodyParts.length * (whole ? 1 : 0.9))
         for (let i = 0; i < shiftLength; i+= 3) {
             this.addParticleSystem(snake.bodyParts[i])
         }

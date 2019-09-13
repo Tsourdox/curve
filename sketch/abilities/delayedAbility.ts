@@ -30,7 +30,7 @@ abstract class DelayedAbility extends Ability {
     }
 
     public draw(snake: Snake) {
-        const circleDiameter = snake.thickness + (snake.isAlive ? 1 * pow(this.time, 3) : 0)
-        super.draw(snake, circleDiameter)
+        const thickness = snake.thickness + (snake.isAlive ? 1 * pow(this.time, 3) : 0)
+        super.draw(snake, thickness)
     }
 }
