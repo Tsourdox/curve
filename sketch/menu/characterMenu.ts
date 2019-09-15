@@ -40,22 +40,27 @@ class CharacterMenu {
             }
         }
 
-
         if (this.displayedSnake) {
             this.drawCharacterInfo(x, y, menuDiameter)
         } else {
-            this.drawAcions(x, y, menuDiameter)
+            this.drawActions(x, y, menuDiameter)
         }
     }
 
-    private drawAcions(x: number, y: number, menuDiameter: number) {
+    private drawActions(x: number, y: number, menuDiameter: number) {
+        fill(color(180))
         textStyle(BOLD)
         textSize(menuDiameter * 0.08)
 
         if (menu.selectedSnakes.length) {
-            text('characters selected', x, y)
-            textSize(menuDiameter * 0.2)
-            text(this.selectedSnakes.length, x, y - menuDiameter * 0.22)
+            if (menu.selectedSnakes.length >= 6) {
+                this.snakeMenuItems[6].draw(x, y - menuDiameter * 0.1, menuDiameter)
+            } else {
+                text('characters selected', x, y)
+                textSize(menuDiameter * 0.2)
+                text(this.selectedSnakes.length, x, y - menuDiameter * 0.22)
+            }
+            fill(color(180))
             textStyle(NORMAL)
             textSize(menuDiameter * 0.05)
             text('press space to continue', x, y + menuDiameter * 0.22)
@@ -86,20 +91,26 @@ class CharacterMenu {
         const menuPos: Point = { x, y }
         const distance = distanceBetween(mousePos, menuPos, 0, menuDiameter)
         if (distance < 0) {
-            delete this.displayedSnake
-            delete this.showDefaultViewIn
+            if (this.displayedSnake == 'Tok') {
+                if (this.showDefaultViewIn == undefined) {
+                    this.showDefaultViewIn = 5000
+                }
+            } else {
+                delete this.displayedSnake
+                delete this.showDefaultViewIn
+            }
         }
     }
 
     private drawSnakeMenuItems(x: number, y: number, menuDiameter: number) {
         const radius = menuDiameter * 0.7
-        const nrOfItems = this.snakeMenuItems.length
+        const nrOfItems = this.snakeMenuItems.length - 1
         let addedAngle = 0
         for(let i = 0; i < nrOfItems; i++) {
             const angle = 2 * PI / (nrOfItems + 4)
             const shift = -angle
 
-            if (i == this.snakeMenuItems.length / 2) {
+            if (i == nrOfItems / 2) {
                 addedAngle = angle * 2
             }
 

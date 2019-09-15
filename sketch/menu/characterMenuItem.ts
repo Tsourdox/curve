@@ -51,7 +51,7 @@ class CharacterMenuItem {
 
         // Pepare text
         textAlign(CENTER, CENTER)
-        fill(this.textColor)
+        fill(this.isSelected ? color(0) : this.textColor)
 
         textStyle(BOLD)
         textSize(diameter * 0.26)

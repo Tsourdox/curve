@@ -8,6 +8,7 @@ class Snakes {
             'Dash': new Snake('Dash', 'green', this.controls[3], new TeleportAbility(2)),
             'Ouk': new Snake('Ouk', 'purple', this.controls[4], new ShrinkAbility(11)),
             'Nic': new Snake('Nic', 'white', this.controls[5], new GhostAbility(13, 5)),
+            'Tok': new Snake('Tok', 'orange', this.controls[6], new TeleportAbility(2))
         }
     }
 
@@ -30,12 +31,12 @@ class Snakes {
             }
             case 'Hell': return {
                 name, ability: 'Burn',
-                description: 'From the deepest part of this world, Hell itself, rose up to defend what was left and rid it of all Anomalies for good.',
+                description: 'From the deepest part of this world, Hell itself, rose up to defend what was left and rid it of all the Anomalies for good.',
                 abilityDescription: 'Burns hellishly hot for just 1.7 seconds but vaporizes any Anomalies that comes into contact with him.'
             }
             case 'Glow': return {
                 name, ability: 'Rebirth',
-                description: 'When the last sun died due to the mysterius Anomalies, it gave birth to Glow. Being pure light she uses it to guide her but also to helps her friends.',
+                description: 'When the last sun died due to the mysterious Anomalies, it gave birth to Glow. Being pure light she uses it to guide her but also to help her friends.',
                 abilityDescription: 'Revives or shrinks nearby friend after a short delay - effects herself if no friend is nearby.'
             }
             case 'Dash': return {
@@ -53,6 +54,11 @@ class Snakes {
                 description: 'A powerful ghost from ancient times, sworn to protect his world. Nic has the power to tap into his ancient magic and reveil what can not be seen.',
                 abilityDescription: 'Enters a powerful ghost state for five seconds ghosting all Anomalies he enters. While in this state he passes through almost everything.'
             }
+            case 'Tok': return {
+                name, ability: 'Tokit',
+                description: 'A mysterias entity that entered this world through the first anomaly. At the beginning Tok tried to re-enter the Anomalies but could not - he just created more chaos.',
+                abilityDescription: 'All players gets the ability to push holes. Holes pushed off screen has a chance to disappear forever.'
+            }
             default: return {
                 name: 'Bug', ability: 'Crash',
                 description: 'Has the ability to mess with the game, be careful human!',
@@ -68,7 +74,8 @@ class Snakes {
             { left: KEY_T, special: KEY_Y, right: KEY_U, asString: 't y u' },
             { left: KEY_Q, special: KEY_W, right: KEY_E, asString: 'q w e' },
             { left: KEY_B, special: KEY_N, right: KEY_M, asString: 'b n m' },
-            { left: KEY_O, special: KEY_P, right: KEY_Å, asString: 'o p å' }
+            { left: KEY_8, special: KEY_9, right: KEY_0, asString: '8 9 0' },
+            { left: KEY_Å, special: KEY_Ä, right: KEY_Ö, asString: 'å ä ö' },
         ]
     }
 }
