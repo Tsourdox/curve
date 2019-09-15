@@ -13,7 +13,7 @@ class StoryMenu {
         textStyle(NORMAL)
         textAlign(CENTER, TOP)
         textSize(menuDiameter * 0.035)
-        text(this.storyDescription, x, y + menuDiameter * 0.18, menuDiameter * 0.84, menuDiameter * 0.8)
+        text(this.storyDescription, x, y + menuDiameter * 0.18, menuDiameter * 0.86, menuDiameter * 0.8)
 
         textStyle(BOLD)
         textSize(menuDiameter * 0.05)

@@ -16,11 +16,7 @@ function keyPressed() {
 
     // Pause Music
     if (keyCode == ENTER) {
-        if (music.isMuted) {
-            music.unmuteMusic()
-        } else {
-            music.muteMusic()
-        }
+        music.toggleMute()
     }
 
     if (menu.isSetup) {

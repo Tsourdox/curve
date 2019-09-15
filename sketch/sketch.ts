@@ -51,7 +51,7 @@ function setup() {
     mouse = new Mouse()
 
     // Start music on user action
-    ;(window as any).userStartAudio().then(() => music.playMenuMusic())
+    ;(window as any).userStartAudio().then(() => music.userStartAudio())
 }
 
 function draw() {

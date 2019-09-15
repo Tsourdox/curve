@@ -5,6 +5,7 @@ class Menu {
     private textColor: p5.Color
     private storyMenu: StoryMenu
     private characterMenu: CharacterMenu
+    private muteButton: MuteButton
     public setupStep: SetupStep
     private maxDiameter: number
     public diameter : number
@@ -23,6 +24,7 @@ class Menu {
         this.setupStep = 'story'
         this.storyMenu = new StoryMenu()
         this.characterMenu = new CharacterMenu()
+        this.muteButton = new MuteButton()
         this.maxDiameter = 0
         this.diameter = 0
     }
@@ -63,6 +65,7 @@ class Menu {
                 this.drawScore(x, y)
                 this.drawActions(x, y)
             }
+            this.muteButton.draw()
         }
     }
 
