@@ -8,7 +8,7 @@ class StoryMenu {
 
         textStyle(BOLD)
         textSize(menuDiameter * 0.1)
-        text('Boundless', x, y - menuDiameter * 0.3)
+        text('Curve', x, y - menuDiameter * 0.32)
 
         textStyle(NORMAL)
         textAlign(CENTER, TOP)
