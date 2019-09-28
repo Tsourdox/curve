@@ -75,7 +75,7 @@ class Snakes {
             { left: KEY_Q, special: KEY_W, right: KEY_E, asString: 'q w e' },
             { left: KEY_B, special: KEY_N, right: KEY_M, asString: 'b n m' },
             { left: KEY_8, special: KEY_9, right: KEY_0, asString: '8 9 0' },
-            { left: KEY_Å, special: KEY_Ä, right: KEY_Ö, asString: 'å ä ö' },
+            { left: KEY_L, special: KEY_Ö, right: KEY_Ä, asString: 'l ö ä' },
         ]
     }
 }

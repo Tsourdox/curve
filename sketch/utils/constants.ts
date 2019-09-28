@@ -17,9 +17,9 @@ const KEY_T = 84
 const KEY_Y = 89
 const KEY_U = 85
 
-const KEY_Å = 219
-const KEY_Ä = 222
+const KEY_L = 76
 const KEY_Ö = 186
+const KEY_Ä = 222
 
 
 const KEY_0 = 48

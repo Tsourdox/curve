@@ -140,6 +140,11 @@ class Game {
             this.hasEnded = true
             this.pause()
             scoreboard.saveScore()
+
+            console.log(
+                'Nr of holes: ' + this.holes.length + '\n' +
+                'Total area covered: ' + round(this.holes.reduce((area, hole) => area + hole.radius, 0))
+            )
         }
     }
 }
