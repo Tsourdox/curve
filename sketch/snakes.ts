@@ -2,13 +2,13 @@ class Snakes {
 
     private get newSnakes(): { [name: string]: Snake } {
         return {
-            'Bliz': new Snake('Bliz', 'blue', this.controls[0], new FreezeAbility(14, 2.4)),
-            'Hell': new Snake('Hell', 'red', this.controls[1], new BurnAbility(9, 1.7)),
+            'Bliz': new Snake('Bliz', 'blue', this.controls[0], new FreezeAbility(14, 5)),
+            'Hell': new Snake('Hell', 'red', this.controls[1], new BurnAbility(7, 1.7)),
             'Glow': new Snake('Glow', 'yellow', this.controls[2], new RebirthAbility(2)),
-            'Dash': new Snake('Dash', 'green', this.controls[3], new TeleportAbility(2)),
+            'Dash': new Snake('Dash', 'green', this.controls[3], new TeleportAbility(1.5)),
             'Ouk': new Snake('Ouk', 'purple', this.controls[4], new ShrinkAbility(11)),
-            'Nic': new Snake('Nic', 'white', this.controls[5], new GhostAbility(13, 5)),
-            'Tok': new Snake('Tok', 'orange', this.controls[6], new TeleportAbility(2))
+            'Nic': new Snake('Nic', 'white', this.controls[5], new GhostAbility(6, 4)),
+            'Tok': new Snake('Tok', 'orange', this.controls[6], new TeleportAbility(1.5))
         }
     }
 
@@ -27,7 +27,7 @@ class Snakes {
             case 'Bliz': return {
                 name, ability: 'Freeze',
                 description: 'Created out of a blizzard from another world. Bliz gained the power to control her surroundings and create calm where chaos previously existed.',
-                abilityDescription: 'Freezes all Anomalies for 2.4 seconds. Frozen Anomalies are unstable and collapse upon impact.'
+                abilityDescription: 'Freezes all Anomalies for 5 seconds. Frozen Anomalies are unstable and collapse upon impact.'
             }
             case 'Hell': return {
                 name, ability: 'Burn',
@@ -52,7 +52,7 @@ class Snakes {
             case 'Nic': return {
                 name, ability: 'Ghost',
                 description: 'A powerful ghost from ancient times, sworn to protect his world. Nic has the power to tap into his ancient magic and reveil what can not be seen.',
-                abilityDescription: 'Enters a powerful ghost state for five seconds ghosting all Anomalies he enters. While in this state he passes through almost everything.'
+                abilityDescription: 'Enters a powerful ghost state for 4 seconds ghosting all Anomalies he enters. While in this state he passes through almost everything.'
             }
             case 'Tok': return {
                 name, ability: 'Tokit',
