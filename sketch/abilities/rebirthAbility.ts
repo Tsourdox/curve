@@ -1,5 +1,6 @@
 class RebirthAbility extends DelayedAbility {
     private particleSystems: ParticleSystem[]
+    private readonly particleSystemMaxCount = 100
 
     constructor(cooldown: number) {
         super('Rebirth', cooldown, 1.5)
@@ -76,7 +77,10 @@ class RebirthAbility extends DelayedAbility {
 
     private initParticleEffect(snake: Snake, whole = false) {
         const shiftLength = round(snake.bodyParts.length * (whole ? 1 : 0.9))
-        for (let i = 0; i < shiftLength; i+= 5) {
+        const strechedIncrement = ceil(snake.bodyParts.length / this.particleSystemMaxCount)
+        const increment = min(10, strechedIncrement)
+
+        for (let i = 0; i < shiftLength; i+= increment) {
             this.addParticleSystem(snake.bodyParts[i])
         }
     }
