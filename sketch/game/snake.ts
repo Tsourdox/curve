@@ -94,9 +94,7 @@ class Snake extends GameObject {
             this.drawHead()
         }
         this.drawBody()
-        if (this.ability) {
-            this.ability.draw(this)
-        }
+        this.ability.draw(this)
     }
 
     private updateRebirthProtection() {
@@ -181,6 +179,14 @@ class Snake extends GameObject {
             }
         } else {
             this.bodySection.push(nextBodyPart)
+        }
+
+        // Make snake appear on oposite side of screen when going offscreen
+        if (x <= 0 || x >= width || y <= 0 || y >= height) {
+            this.body.push([{
+                x: modulo(this.head.x, width),
+                y: modulo(this.head.y, height)
+            }])
         }
     }
 

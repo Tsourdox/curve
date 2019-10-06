@@ -8,24 +8,8 @@ class CollisionSystem {
             }
 
             this.maxDistanceBetweenParts = s(snake.speed)
-            this.checkCollisionWithWall(snake)
             this.checkCollisionWithSnakes(snake, snakes)
             this.checkCollisionWithHole(snake, holes)
-        }
-    }
-
-    private checkCollisionWithWall(snake: Snake) {
-        const { x, y } = snake.head
-        if (x <= 0 || x >= width || y <= 0 || y >= height) {
-            if (snake.isProtected) {
-                snake.body.push([{
-                    x: modulo(snake.head.x, width),
-                    y: modulo(snake.head.y, height)
-                }])
-            } else {
-                snake.isAlive = false
-                gameSounds.died.play()
-            }
         }
     }
 
