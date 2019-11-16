@@ -21,7 +21,7 @@ class FreezeAbility extends Ability {
             if (hole.state === 'ghosted') {
                 hole.disappear()
             } else {
-                hole.state = 'frozen'
+                 hole.state = 'frozen'
             }
         }
 
@@ -51,9 +51,15 @@ class FreezeAbility extends Ability {
             if (this.time > this.duration) {
                 this.isActive = false
                 this.time = 0
-
                 this.particleSystems = []
+                this.unfreezeHoles()
             }
+        }
+    }
+
+    private unfreezeHoles() {
+        for (const hole of game.holes) {
+            hole.state = 'none'
         }
     }
 }
