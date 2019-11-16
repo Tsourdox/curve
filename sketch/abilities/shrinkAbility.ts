@@ -7,7 +7,11 @@ class ShrinkAbility extends Ability {
     protected applyEffect(snake: Snake): void {
         gameSounds.shrink.play()
         for (const hole of game.holes) {
-            hole.shrink()
+            if (hole.state === 'ghosted') {
+                hole.disappear()
+            } else {
+                hole.shrink()
+            }
         }
     }
 }

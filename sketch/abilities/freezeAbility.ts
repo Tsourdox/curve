@@ -2,7 +2,6 @@ class FreezeAbility extends Ability {
     private readonly duration: number
     private time: number
     private isActive: boolean
-    private originalHoleEffects: { [id: string]: HoleState }
     private particleSystems: ParticleSystem[]
 
     constructor(coldown: number, duration: number) {
@@ -10,7 +9,6 @@ class FreezeAbility extends Ability {
         this.time = 0
         this.duration = duration
         this.isActive = false
-        this.originalHoleEffects = {}
         this.particleSystems = []
     }
 
@@ -20,8 +18,11 @@ class FreezeAbility extends Ability {
 
         for (const index in game.holes) {
             const hole = game.holes[index]
-            this.originalHoleEffects[hole.id] = hole.state
-            hole.state = 'frozen'
+            if (hole.state === 'ghosted') {
+                hole.disappear()
+            } else {
+                hole.state = 'frozen'
+            }
         }
 
         for (const snake of game.snakes) {
@@ -51,12 +52,6 @@ class FreezeAbility extends Ability {
                 this.isActive = false
                 this.time = 0
 
-                // Restore effects
-                for (const hole of game.holes) {
-                    hole.state = this.originalHoleEffects[hole.id] || 'none'
-                }
-
-                this.originalHoleEffects = {}
                 this.particleSystems = []
             }
         }
