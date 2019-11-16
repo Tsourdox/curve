@@ -2,12 +2,12 @@ class Snakes {
 
     private get newSnakes(): { [name: string]: Snake } {
         return {
-            'Bliz': new Snake('Bliz', 'blue', this.controls[0], new FreezeAbility(14, 5)),
+            'Bliz': new Snake('Bliz', 'blue', this.controls[0], new FreezeAbility(14, 4)),
             'Hell': new Snake('Hell', 'red', this.controls[1], new BurnAbility(7, 1.7)),
-            'Glow': new Snake('Glow', 'yellow', this.controls[2], new RebirthAbility(2)),
-            'Dash': new Snake('Dash', 'green', this.controls[3], new TeleportAbility(1.5)),
+            'Glow': new Snake('Glow', 'yellow', this.controls[2], new RebirthAbility(3)),
+            'Dash': new Snake('Dash', 'green', this.controls[3], new TeleportAbility(2)),
             'Ouk': new Snake('Ouk', 'purple', this.controls[4], new ShrinkAbility(11)),
-            'Nic': new Snake('Nic', 'white', this.controls[5], new GhostAbility(6, 4)),
+            'Nic': new Snake('Nic', 'white', this.controls[5], new GhostAbility(6, 3)),
             'Tok': new Snake('Tok', 'orange', this.controls[6], new TeleportAbility(1.5))
         }
     }
@@ -37,7 +37,7 @@ class Snakes {
             case 'Glow': return {
                 name, ability: 'Rebirth',
                 description: 'When the last sun died due to the mysterious Anomalies, it gave birth to Glow. Being pure light she uses it to guide her but also to help her friends.',
-                abilityDescription: 'Revives or shrinks nearby friend after a short delay - effects herself if no friend is nearby.'
+                abilityDescription: 'Revives or shrinks nearby friend after a short delay. During this delay glow is invulnerable.'
             }
             case 'Dash': return {
                 name, ability: 'Teleport',
@@ -52,7 +52,7 @@ class Snakes {
             case 'Nic': return {
                 name, ability: 'Ghost',
                 description: 'A powerful ghost from ancient times, sworn to protect his world. Nic has the power to tap into his ancient magic and reveil what can not be seen.',
-                abilityDescription: 'Enters a powerful ghost state for 4 seconds ghosting all Anomalies he enters. While in this state he passes through almost everything.'
+                abilityDescription: 'Enters a powerful ghost state for 4 seconds weakening all Anomalies he enters. While in this state he passes through everything.'
             }
             case 'Tok': return {
                 name, ability: 'Tokit',
