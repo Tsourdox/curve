@@ -27,7 +27,12 @@ class CollisionSystem {
                         if (hasSkippedFirstFewPoints) {
                             if (snake_2.readyForRebirth) {
                                 snake_2.birth()
-                            } else if (snake.isProtected || snake.effect == 'ghost' || snake_2.effect == 'ghost') {
+                            } else if (
+                                snake.isProtected ||
+                                snake.effect == 'ghost' ||
+                                snake_2.effect == 'ghost' ||
+                                snake.effect == 'glowing'
+                            ) {
                                 continue
                             } else {
                                 snake.isAlive = false
@@ -65,7 +70,7 @@ class CollisionSystem {
                 } else {
                     const distance = distanceBetween(snake.head, hole.position, snake.thickness, hole.radius)
                     if (distance < 0 && !hole.isDisappearing) {
-                        if (hole.state === 'frozen') {
+                        if (hole.state === 'frozen' || snake.effect === 'glowing') {
                             hole.disappear()
                             gameSounds.disappear.play()
                         } else if (hole.state === 'ghosted' && snake.name === 'Nic') {

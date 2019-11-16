@@ -7,9 +7,10 @@ class RebirthAbility extends DelayedAbility {
         this.particleSystems = []
     }
 
-    protected applyEffect(): void {
+    protected applyEffect(snake: Snake): void {
         this.particleSystems = []
         gameSounds.rebirth.play()
+        snake.effect = 'glowing'
     }
 
     public update(snake: Snake) {
@@ -28,6 +29,7 @@ class RebirthAbility extends DelayedAbility {
                     this.initParticleEffect(snake)
                     this.shiftSnake(snake)
                 }
+                snake.effect = 'none'
             }
         }
 

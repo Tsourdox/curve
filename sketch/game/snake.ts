@@ -1,5 +1,5 @@
 type BodySection = Point[]
-type Effect = 'none' | 'burning' | 'ghost'
+type Effect = 'none' | 'burning' | 'ghost' | 'glowing'
 
 class Snake extends GameObject {
     public readonly name: string
