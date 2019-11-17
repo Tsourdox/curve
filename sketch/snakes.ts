@@ -4,8 +4,8 @@ class Snakes {
         return {
             'Bliz': new Snake('Bliz', 'blue', this.controls[0], new FreezeAbility(14, 4)),
             'Hell': new Snake('Hell', 'red', this.controls[1], new BurnAbility(7, 1.7)),
-            'Glow': new Snake('Glow', 'yellow', this.controls[2], new RebirthAbility(3)),
-            'Dash': new Snake('Dash', 'green', this.controls[3], new TeleportAbility(2)),
+            'Glow': new Snake('Glow', 'yellow', this.controls[2], new RebirthAbility(4)),
+            'Dash': new Snake('Dash', 'green', this.controls[3], new TeleportAbility(1.5)),
             'Ouk': new Snake('Ouk', 'purple', this.controls[4], new ShrinkAbility(11)),
             'Nic': new Snake('Nic', 'white', this.controls[5], new GhostAbility(6, 3)),
             'Tok': new Snake('Tok', 'orange', this.controls[6], new TeleportAbility(1.5))
@@ -37,7 +37,7 @@ class Snakes {
             case 'Glow': return {
                 name, ability: 'Rebirth',
                 description: 'When the last sun died due to the mysterious Anomalies, it gave birth to Glow. Being pure light she uses it to guide her but also to help her friends.',
-                abilityDescription: 'Revives or shrinks nearby friend after a short delay. During this delay glow is invulnerable.'
+                abilityDescription: 'Revives the neareast friend after a short delay. During this delay Glow is invulnerable.'
             }
             case 'Dash': return {
                 name, ability: 'Teleport',
