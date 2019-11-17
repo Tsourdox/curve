@@ -14,7 +14,17 @@ class CollisionSystem {
     }
 
     private checkCollisionWithSnakes(snake: Snake, snakes: Snake[]) {
+        // No need the check collision
+        if (snake.isProtected || snake.effect == 'ghost' || snake.effect == 'glowing') {
+            return
+        }
+
         for (const snake_2 of snakes) {
+            // No need the check collision
+            if (snake_2.effect == 'ghost') {
+                continue
+            }
+
             for (const bodySections of snake_2.body) {
                 let hasSkippedFirstFewPoints = snake.name != snake_2.name
 
@@ -27,13 +37,6 @@ class CollisionSystem {
                         if (hasSkippedFirstFewPoints) {
                             if (snake_2.readyForRebirth) {
                                 snake_2.birth()
-                            } else if (
-                                snake.isProtected ||
-                                snake.effect == 'ghost' ||
-                                snake_2.effect == 'ghost' ||
-                                snake.effect == 'glowing'
-                            ) {
-                                continue
                             } else {
                                 snake.isAlive = false
                                 gameSounds.died.play()
