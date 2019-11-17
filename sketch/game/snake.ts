@@ -136,6 +136,14 @@ class Snake extends GameObject {
         for (const bodySection of this.body) {
             const tail = bodySection[0]
             const head = bodySection[bodySection.length - 1]
+
+            // Draw body section as point
+            if (bodySection.length == 1) {
+                point(head.x, head.y)
+                continue
+            }
+
+            // Draw body section as curve
             beginShape()
             curveVertex(tail.x, tail.y)
             for (let i = 0; i < bodySection.length; i+=10) {
