@@ -68,7 +68,15 @@ class GhostAbility extends Ability {
 
     private shift(snake: Snake) {
         if (snake.isAlive) {
-            snake.bodySection.shift()
+            if (snake.bodySection.length === 1) {
+                // Snake just passed through the wall
+                // Remove prev body section
+                const head = snake.body.pop()
+                snake.body.pop()
+                snake.body.push(head!)
+            } else {
+                snake.bodySection.shift()
+            }
         }
     }
 }
