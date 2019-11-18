@@ -8,6 +8,7 @@ class Game {
     public isPaused: boolean
     public hasEnded: boolean
     public time: number
+    private endCheck: EndCheck
 
     public get score() {
         const holes = this.disappearedHolesCount || 1
@@ -26,6 +27,7 @@ class Game {
         this.time = 0
         this.disappearedHolesCount = 0
         this.createHoles()
+        this.endCheck = new EndCheck()
     }
 
     public get deadSnakes() {
@@ -52,6 +54,7 @@ class Game {
 
             this.time = newTime
             this.spawnInterval -= this.spawnInterval * 0.0001
+            this.endCheck.update(this.snakes)
         }
     }
 
@@ -135,16 +138,10 @@ class Game {
     }
 
     private checkEndCondition() {
-        let isAllSnakesDead = this.snakes.reduce((isDead, snake) => isDead && !snake.isAlive, true)
-        if (isAllSnakesDead) {
+        if (this.endCheck.isGameOver) {
             this.hasEnded = true
             this.pause()
             scoreboard.saveScore()
-
-            console.log(
-                'Nr of holes: ' + this.holes.length + '\n' +
-                'Total area covered: ' + round(this.holes.reduce((area, hole) => area + hole.radius, 0))
-            )
         }
     }
 }
