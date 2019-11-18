@@ -7,7 +7,7 @@ class Snakes {
             'Glow': new Snake('Glow', 'yellow', this.controls[2], new RebirthAbility(4)),
             'Dash': new Snake('Dash', 'green', this.controls[3], new TeleportAbility(1.5)),
             'Ouk': new Snake('Ouk', 'purple', this.controls[4], new ShrinkAbility(11)),
-            'Nic': new Snake('Nic', 'white', this.controls[5], new GhostAbility(6, 3)),
+            'Nic': new Snake('Nic', 'white', this.controls[5], new GhostAbility(17, 7)),
             'Tok': new Snake('Tok', 'orange', this.controls[6], new TeleportAbility(1.5))
         }
     }
