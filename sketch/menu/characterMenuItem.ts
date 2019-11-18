@@ -6,10 +6,11 @@ class CharacterMenuItem {
     private readonly textColor: p5.Color
     public snake: Snake
     public isSelected: boolean
-    private mouseWasPressed: boolean
     private isMouseOver: boolean
     private onMouseEnter: MouseOverEvent
     private onMouseLeave: Function
+    private mouseWasPressed: boolean
+    private keyWasPressed: boolean
 
     constructor(snake: Snake, onMouseEnter: MouseOverEvent, onMouseLeave: Function) {
         this.snake = snake
@@ -20,6 +21,7 @@ class CharacterMenuItem {
         this.bgColor = color(50)
         this.textColor = color(180)
         this.mouseWasPressed = false
+        this.keyWasPressed = false
         this.isSelected = !!JSON.parse(localStorage[snake.name] || 'false')
     }
 
@@ -63,16 +65,32 @@ class CharacterMenuItem {
         text(this.snake.controls.asString, x, y + diameter * 0.2)
         textFont(Fonts.Chilanka)
 
-        // Handle selection
+        this.updateSelection(x, y, diameter)
+
+        // update state
+        this.mouseWasPressed = mouseIsPressed
+        this.keyWasPressed = keyIsPressed
+    }
+
+    private updateSelection(x: number, y: number, diameter: number) {
+        // Mouse down
         if (!this.mouseWasPressed && mouseIsPressed) {
             const mousePosition = { x: mouseX, y: mouseY }
             if (distanceBetween(mousePosition, { x, y }, 0, diameter) < 0) {
-                this.isSelected = !this.isSelected
-                localStorage.setItem(this.snake.name, this.isSelected.toString())
+                this.toggleSelection()
             }
         }
-
-        this.mouseWasPressed = mouseIsPressed
+        // Key down
+        if (!this.keyWasPressed && keyIsPressed) {
+            const { left, special, right } = this.snake.controls
+            if (keyCode == left || keyCode == special || keyCode == right) {
+                this.toggleSelection()
+            }
+        }
     }
 
+    private toggleSelection() {
+        this.isSelected = !this.isSelected
+        localStorage.setItem(this.snake.name, this.isSelected.toString())
+    }
 }

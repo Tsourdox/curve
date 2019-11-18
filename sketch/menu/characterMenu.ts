@@ -6,7 +6,7 @@ class CharacterMenu {
     public get selectedSnakes() {
         return (
             this.snakeMenuItems
-                .filter((item) =>item.isSelected)
+                .filter((item) => item.isSelected)
                 .map((item) => item.snake)
         )
     }
