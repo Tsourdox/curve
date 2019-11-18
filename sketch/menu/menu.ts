@@ -7,8 +7,17 @@ class Menu {
     private characterMenu: CharacterMenu
     private muteButton: MuteButton
     public setupStep: SetupStep
-    private maxDiameter: number
-    public diameter : number
+    public diameter: number
+
+    constructor() {
+        this.bgColor = color(0, 160)
+        this.textColor = color(180)
+        this.setupStep = 'selection'
+        this.storyMenu = new StoryMenu()
+        this.characterMenu = new CharacterMenu()
+        this.muteButton = new MuteButton()
+        this.diameter = 0
+    }
 
     public get isSetup() {
         return this.setupStep != 'done'
@@ -18,29 +27,16 @@ class Menu {
         return this.characterMenu.selectedSnakes
     }
 
-    constructor() {
-        this.bgColor = color(0, 160)
-        this.textColor = color(180)
-        this.setupStep = 'story'
-        this.storyMenu = new StoryMenu()
-        this.characterMenu = new CharacterMenu()
-        this.muteButton = new MuteButton()
-        this.maxDiameter = 0
-        this.diameter = 0
-    }
-
     public replayStory() {
         this.storyMenu = new StoryMenu()
         this.setupStep = 'story'
-        this.diameter = 0
     }
 
     public draw() {
         if (menu.isSetup || game.isPaused) {
             // Responsive centered content
             // Init variables
-            this.maxDiameter = min(width, height) * 0.7
-            this.diameter = min((this.diameter || 1) + this.diameter * 0.1, this.maxDiameter)
+            this.diameter = min(width, height) * 0.7
             const x = width * 0.5
             const y = height * 0.5
 
