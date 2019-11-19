@@ -12,19 +12,19 @@ function preload() {
     const { loadSound } = (window as any) // todo fix typings for p5.sound
 
     musicFiles = {
-        menu: loadSound('../assets/music/mystic_drums.wav'),
-        game: loadSound('../assets/music/birthofahero.mp3')
+        menu: loadSound('./assets/music/mystic_drums.wav'),
+        game: loadSound('./assets/music/birthofahero.mp3')
     }
     gameSounds = {
-        died: loadSound('../assets/sounds/end.wav'),
-        freeze: loadSound('../assets/sounds/freeze.wav'),
-        teleport: loadSound('../assets/sounds/teleport.wav'),
-        disappear: loadSound('../assets/sounds/disappear.wav'),
-        burn: loadSound('../assets/sounds/burn.wav'),
-        rebirth: loadSound('../assets/sounds/rebirth.wav'),
-        shrink: loadSound('../assets/sounds/shrink.wav'),
-        ghost: loadSound('../assets/sounds/ghost.wav'),
-        warning: loadSound('../assets/sounds/warning.wav')
+        died: loadSound('./assets/sounds/end.wav'),
+        freeze: loadSound('./assets/sounds/freeze.wav'),
+        teleport: loadSound('./assets/sounds/teleport.wav'),
+        disappear: loadSound('./assets/sounds/disappear.wav'),
+        burn: loadSound('./assets/sounds/burn.wav'),
+        rebirth: loadSound('./assets/sounds/rebirth.wav'),
+        shrink: loadSound('./assets/sounds/shrink.wav'),
+        ghost: loadSound('./assets/sounds/ghost.wav'),
+        warning: loadSound('./assets/sounds/warning.wav')
     }
 }
 
