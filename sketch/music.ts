@@ -15,7 +15,11 @@ class Music {
         musicFiles.menu.setLoop(true)
         musicFiles.game.setLoop(true)
 
-        if (!!JSON.parse(localStorage.isMusicMuted || '')) {
+        if (localStorage.isMusicMuted === undefined) {
+            localStorage.setItem('isMusicMuted', JSON.stringify(true))
+        }
+
+        if (!!JSON.parse(localStorage.isMusicMuted)) {
             this.muteMusic()
         } else {
             this.unmuteMusic()
@@ -43,7 +47,7 @@ class Music {
     }
 
     public get isMuted() {
-        return !this.isMusicAllowed || !!JSON.parse(localStorage.isMusicMuted || '')
+        return !this.isMusicAllowed || !!JSON.parse(localStorage.isMusicMuted)
     }
 
     public playMenuMusic() {
