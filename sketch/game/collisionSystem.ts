@@ -58,7 +58,8 @@ class CollisionSystem {
                     for (const bodySections of snake.body) {
                         for (let i = 0; i < bodySections.length; i++ ) {
                             const bodySection = bodySections[i]
-                            const distance = distanceBetween(hole.position, bodySection, hole.radius, snake.thickness)
+                            const snakeBurnRadius = snake.thickness * 5
+                            const distance = distanceBetween(hole.position, bodySection, hole.radius, snakeBurnRadius)
 
                             if (distance < 0) {
                                 hole.disappear()
