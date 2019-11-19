@@ -12,7 +12,7 @@ class Menu {
     constructor() {
         this.bgColor = color(0, 160)
         this.textColor = color(180)
-        this.setupStep = 'selection'
+        this.setupStep = 'story'
         this.storyMenu = new StoryMenu()
         this.characterMenu = new CharacterMenu()
         this.muteButton = new MuteButton()
