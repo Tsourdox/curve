@@ -5,10 +5,7 @@ Gather your friends and beat your own highscore
 
 ### Install and usage
 ```
-npm install
-```
-```
-npm start
+npm install && npm start
 ```
 Thats it!
 
@@ -16,4 +13,4 @@ Thats it!
 
 Try the game out for your self!
 
-**[Play Game]()**
+**[Play Game](https://tsourdox.github.io/curve/)**
