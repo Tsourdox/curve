@@ -31,6 +31,7 @@ class EndCheck {
         // Check end conditions if game is running
         if (!isGamePaused) {
             let nextTimeAlone = this.timeAlone + deltaTime
+
             // Alone warning
             const aliveSnakes = snakes.filter((snake) => snake.isAlive)
             if (aliveSnakes.length == 1 && snakes.length > 1) {
@@ -42,13 +43,16 @@ class EndCheck {
                     gameSounds.warning.play()
                 }
             } else {
+                if (gameSounds.warning.isPlaying()) {
+                    gameSounds.warning.stop()
+                }
                 nextTimeAlone = 0
             }
 
             // End condition
-            if (this.isAllSnakesDead(snakes) || this.timeAlone > 30000) {
+            if (this.isAllSnakesDead(snakes) || this.timeAlone > this.WARNING_END_TIME) {
                 if (gameSounds.warning.isPlaying()) {
-                    gameSounds.warning.pause()
+                    gameSounds.warning.stop()
                 }
                 this._isGameOver = true
             }
