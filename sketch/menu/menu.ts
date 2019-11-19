@@ -72,7 +72,7 @@ class Menu {
             if (game.score >= scoreboard.highScore) {
                 scoreTitle = 'NEW  HIGH  SCORE'
             } else {
-                scoreTitle = 'GAME  OVER'
+                scoreTitle = 'SCORE'
             }
         }
 
