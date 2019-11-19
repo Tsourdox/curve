@@ -55,7 +55,10 @@ class Game {
             this.time = newTime
             this.spawnInterval -= this.spawnInterval * 0.0001
             this.endCheck.update(this.snakes)
+        } else {
+            this.endCheck.update(this.snakes, this.isPaused)
         }
+
     }
 
     public draw() {

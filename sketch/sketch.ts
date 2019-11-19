@@ -23,7 +23,8 @@ function preload() {
         burn: loadSound('../assets/sounds/burn.wav'),
         rebirth: loadSound('../assets/sounds/rebirth.wav'),
         shrink: loadSound('../assets/sounds/shrink.wav'),
-        ghost: loadSound('../assets/sounds/ghost.wav')
+        ghost: loadSound('../assets/sounds/ghost.wav'),
+        warning: loadSound('../assets/sounds/warning.wav')
     }
 }
 
@@ -34,13 +35,14 @@ function setup() {
     noCursor()
     backgroundColor = color(20)
 
-    gameSounds.died.setVolume(0.5)
+    gameSounds.died.setVolume(0.4)
     gameSounds.freeze.setVolume(1)
     gameSounds.teleport.setVolume(1)
     gameSounds.disappear.setVolume(0.5)
     gameSounds.burn.setVolume(0.5)
     gameSounds.rebirth.setVolume(0.5)
     gameSounds.shrink.setVolume(0.7)
+    gameSounds.warning.setVolume(0.8)
 
     // Create Game Instances
     scoreboard = new ScoreBoard()

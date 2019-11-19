@@ -19,6 +19,7 @@ interface GameSounds {
     rebirth: p5.SoundFile
     shrink: p5.SoundFile
     ghost: p5.SoundFile
+    warning: p5.SoundFile
 }
 
 enum Fonts {
