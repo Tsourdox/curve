@@ -1,14 +1,15 @@
 {
     "compilerOptions": {
         "target": "es5",
-        "removeComments": true,
-        "preserveConstEnums": true,
+        "module": "none",
         "outFile": "./build/build.js",
         "sourceRoot": "./sketch/",
         "rootDir": "./sketch/",
         "sourceMap": true,
+
+        "removeComments": true,
+        "preserveConstEnums": true,
         "noImplicitAny": true,
-        "module": "none",
         "strict": true,
         "strictPropertyInitialization": true,
         "strictNullChecks": true
