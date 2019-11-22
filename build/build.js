@@ -1255,7 +1255,7 @@ var Snake = (function (_super) {
         this.isAlive = true;
         this.isInsideHoles = {};
         this.effect = 'none';
-        this.rebirthProtection = 3000;
+        this.rebirthProtection = 4000;
     };
     Snake.prototype.enterPassiveGhostForm = function () {
         this.ability.enterPassiveGhostForm(this);
@@ -1313,7 +1313,9 @@ var Snake = (function (_super) {
                 return this.colorGhosted;
             }
             else if (this.rebirthProtection) {
-                return this.rebirthProtection % 800 > 400 ? this.colorGhosted : this.color;
+                var speed = this.rebirthProtection / 150;
+                var alternatingValue = map(sin(speed), -1, 1, 0.3, 0.8);
+                return color(this.color.toString().replace(',1)', "," + alternatingValue + ")"));
             }
             else {
                 return this.color;
@@ -1583,7 +1585,7 @@ var Menu = (function () {
     function Menu() {
         this.bgColor = color(0, 160);
         this.textColor = color(180);
-        this.setupStep = 'selection';
+        this.setupStep = 'story';
         this.storyMenu = new StoryMenu();
         this.characterMenu = new CharacterMenu();
         this.muteButton = new MuteButton();
