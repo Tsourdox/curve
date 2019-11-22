@@ -63,7 +63,7 @@ class Snake extends GameObject {
         this.isAlive = true
         this.isInsideHoles = {}
         this.effect = 'none'
-        this.rebirthProtection = 3000
+        this.rebirthProtection = 4000
     }
 
     public enterPassiveGhostForm() {
@@ -121,7 +121,9 @@ class Snake extends GameObject {
         if (this.effect == 'ghost') {
             return this.colorGhosted
         } else if (this.rebirthProtection) {
-            return this.rebirthProtection % 800 > 400 ? this.colorGhosted : this.color
+            const speed = this.rebirthProtection / 150
+            const alternatingValue = map(sin(speed), -1, 1, 0.3, 0.8)
+            return color(this.color.toString().replace(',1)', `,${alternatingValue})`))
         } else {
             return this.color
         }
