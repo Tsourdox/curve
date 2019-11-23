@@ -39,4 +39,9 @@ class ScoreBoard {
 
         return highScore
     }
+
+    public get topTenList(): ScoreData[] {
+        const sortedScores = this.scores.sort((a, b) => a.score > b.score ? -1 : 1)
+        return sortedScores.slice(0, 10)
+    }
 }

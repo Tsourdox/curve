@@ -32,6 +32,13 @@ function keyPressed() {
             if (keyCode == BACKSPACE) {
                 showGameIntro()
             }
+            if (key == "h") {
+                showHighScore()
+            }
+        } else if (menu.setupStep == 'highscore') {
+            if (keyCode == BACKSPACE || keyCode == SPACE) {
+                enterCharacterSelection()
+            }
         }
     } else if (game.hasEnded) {
         // GAME OVER
@@ -72,5 +79,9 @@ function enterCharacterSelection() {
 }
 
 function showGameIntro() {
-    menu.replayStory()
+    menu.setupStep = 'story'
+}
+
+function showHighScore() {
+    menu.setupStep = 'highscore'
 }

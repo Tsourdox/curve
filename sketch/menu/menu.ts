@@ -1,10 +1,11 @@
-type SetupStep = 'story' | 'selection' | 'done'
+type SetupStep = 'story' | 'selection' | 'highscore' | 'done'
 
 class Menu {
     private bgColor: p5.Color
     private textColor: p5.Color
     private storyMenu: StoryMenu
     private characterMenu: CharacterMenu
+    private highScoreMenu: HighScoreMenu
     private muteButton: MuteButton
     public setupStep: SetupStep
     public diameter: number
@@ -15,6 +16,7 @@ class Menu {
         this.setupStep = 'story'
         this.storyMenu = new StoryMenu()
         this.characterMenu = new CharacterMenu()
+        this.highScoreMenu = new HighScoreMenu()
         this.muteButton = new MuteButton()
         this.diameter = 0
     }
@@ -25,11 +27,6 @@ class Menu {
 
     public get selectedSnakes() {
         return this.characterMenu.selectedSnakes
-    }
-
-    public replayStory() {
-        this.storyMenu = new StoryMenu()
-        this.setupStep = 'story'
     }
 
     public draw() {
@@ -57,6 +54,8 @@ class Menu {
                 this.storyMenu.draw(x, y, this.diameter)
             } else if (this.setupStep == 'selection') {
                 this.characterMenu.draw(x, y, this.diameter)
+            } else if (this.setupStep == 'highscore') {
+                this.highScoreMenu.draw(x, y, this.diameter)
             } else {
                 this.drawScore(x, y)
                 this.drawActions(x, y)
