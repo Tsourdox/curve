@@ -281,7 +281,7 @@ var Snakes = (function () {
             };
             case 'Nic': return {
                 name: name, ability: 'Ghost',
-                description: 'A powerful ghost from ancient times, sworn to protect his world. Nic has the power to tap into his ancient magic and reveil what can not be seen.',
+                description: 'A powerful ghost from ancient times, sworn to protect her world. Nic has the power to tap into her ancient magic and reveil what can not be seen.',
                 abilityDescription: 'Enters a powerful ghost state for 4 seconds weakening all anomalies she enters. While in this state she passes through everything.'
             };
             case 'Tok': return {
