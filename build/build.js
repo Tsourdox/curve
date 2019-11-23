@@ -89,9 +89,6 @@ function keyPressed() {
         if (keyCode == SPACE) {
             reloadGame();
         }
-        if (keyCode == KEY_0) {
-            game.holes.forEach(function (hole) { return hole.state = 'ghosted'; });
-        }
     }
     else if (game.isPaused) {
         if (keyCode == BACKSPACE) {
@@ -1086,6 +1083,7 @@ var Game = (function () {
     };
     Game.prototype.checkEndCondition = function () {
         if (this.endCheck.isGameOver) {
+            this.holes.forEach(function (hole) { return hole.state = 'ghosted'; });
             this.hasEnded = true;
             this.pause();
             scoreboard.saveScore();
