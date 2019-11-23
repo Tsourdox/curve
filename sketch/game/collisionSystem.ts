@@ -38,6 +38,7 @@ class CollisionSystem {
                             } else {
                                 snake.isAlive = false
                                 gameSounds.died.play()
+                                return
                             }
                         }
                     } else {
