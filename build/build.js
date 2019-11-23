@@ -704,8 +704,8 @@ var ShrinkAbility = (function (_super) {
             else {
                 var distance = distanceBetween(snake.head, hole.position);
                 var limit = Math.min(width, height);
-                var curveFunction = limit / Math.pow(distance, 2.5) * 100;
-                hole.shrink(1.2 + curveFunction);
+                var proximityValue = limit / Math.pow(distance, 2.5) * 100;
+                hole.shrink(1.2 + proximityValue);
             }
         }
     };
