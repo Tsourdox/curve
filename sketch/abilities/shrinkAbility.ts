@@ -12,8 +12,8 @@ class ShrinkAbility extends Ability {
             } else {
                 const distance = distanceBetween(snake.head, hole.position)
                 const limit = Math.min(width, height)
-                const curveFunction = limit / Math.pow(distance, 2.5) * 100
-                hole.shrink(1.2 + curveFunction)
+                const proximityValue = limit / Math.pow(distance, 2.5) * 100
+                hole.shrink(1.2 + proximityValue)
             }
         }
     }
