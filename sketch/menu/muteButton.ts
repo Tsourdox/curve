@@ -8,7 +8,7 @@ class MuteButton {
     draw() {
         const diameter = min(width, height) * 0.1
         const x = width - diameter * 0.7
-        const y = + diameter * 0.7
+        const y = diameter * 0.7
         this.handleMouseClick(x, y, diameter)
 
         noStroke()

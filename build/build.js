@@ -1608,8 +1608,50 @@ var CharacterMenuItem = (function () {
 }());
 var HighScoreMenu = (function () {
     function HighScoreMenu() {
+        this.mouseWasPressed = false;
     }
     HighScoreMenu.prototype.draw = function (x, y, menuDiameter) {
+        this.drawButton();
+        this.drawScoreList(x, y, menuDiameter);
+    };
+    HighScoreMenu.prototype.drawButton = function () {
+        var diameter = min(width, height) * 0.1;
+        var x = diameter * 0.7;
+        var y = diameter * 0.7;
+        this.handleMouseClick(x, y, diameter);
+        noStroke();
+        fill(color(0));
+        textAlign(CENTER, CENTER);
+        circle(x, y, diameter);
+        fill(color(180));
+        textSize(diameter * 0.2);
+        if (menu.setupStep != 'highscore') {
+            text('high', x + diameter * 0.01, y - diameter * 0.13);
+            text('score ', x + diameter * 0.03, y + diameter * 0.13);
+        }
+        else {
+            text('back', x, y);
+        }
+    };
+    HighScoreMenu.prototype.handleMouseClick = function (x, y, diameter) {
+        if (!this.mouseWasPressed && mouseIsPressed) {
+            var mousePosition = { x: mouseX, y: mouseY };
+            if (distanceBetween(mousePosition, { x: x, y: y }, 0, diameter) < 0) {
+                if (menu.setupStep == 'highscore') {
+                    menu.setupStep = 'selection';
+                }
+                else {
+                    menu.setupStep = 'highscore';
+                }
+            }
+        }
+        this.mouseWasPressed = mouseIsPressed;
+    };
+    HighScoreMenu.prototype.drawScoreList = function (x, y, menuDiameter) {
+        if (menu.setupStep != 'highscore') {
+            return;
+        }
+        fill(color(180));
         textFont(Fonts.Monoton);
         textSize(menuDiameter * 0.07);
         text('HIGH   SCORES', x, y - menuDiameter * 0.3);
@@ -1672,6 +1714,7 @@ var Menu = (function () {
             }
             else if (this.setupStep == 'selection') {
                 this.characterMenu.draw(x, y, this.diameter);
+                this.highScoreMenu.draw(x, y, this.diameter);
             }
             else if (this.setupStep == 'highscore') {
                 this.highScoreMenu.draw(x, y, this.diameter);
@@ -1720,7 +1763,7 @@ var MuteButton = (function () {
     MuteButton.prototype.draw = function () {
         var diameter = min(width, height) * 0.1;
         var x = width - diameter * 0.7;
-        var y = +diameter * 0.7;
+        var y = diameter * 0.7;
         this.handleMouseClick(x, y, diameter);
         noStroke();
         fill(color(0));

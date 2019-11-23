@@ -54,6 +54,7 @@ class Menu {
                 this.storyMenu.draw(x, y, this.diameter)
             } else if (this.setupStep == 'selection') {
                 this.characterMenu.draw(x, y, this.diameter)
+                this.highScoreMenu.draw(x, y, this.diameter)
             } else if (this.setupStep == 'highscore') {
                 this.highScoreMenu.draw(x, y, this.diameter)
             } else {
