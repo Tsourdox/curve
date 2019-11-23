@@ -10,7 +10,10 @@ class ShrinkAbility extends Ability {
             if (hole.state === 'ghosted') {
                 hole.disappear()
             } else {
-                hole.shrink()
+                const distance = distanceBetween(snake.head, hole.position)
+                const limit = Math.min(width, height)
+                const curveFunction = limit / Math.pow(distance, 2.5) * 100
+                hole.shrink(1.2 + curveFunction)
             }
         }
     }

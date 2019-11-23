@@ -41,8 +41,8 @@ class Hole extends GameObject {
         }
     }
 
-    public shrink() {
-        this.baseRadius *= 0.75
+    public shrink(amount: number) {
+        this.baseRadius /= amount
         if (this.baseRadius < 10) {
             this.shouldDisappear = true
         }

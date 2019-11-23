@@ -27,36 +27,36 @@ class Snakes {
             case 'Bliz': return {
                 name, ability: 'Freeze',
                 description: 'Created out of a blizzard from another world. Bliz gained the power to control her surroundings and create calm where chaos previously existed.',
-                abilityDescription: 'Freezes all Anomalies for 5 seconds. Frozen Anomalies are unstable and collapse upon impact.'
+                abilityDescription: 'Freezes all anomalies for 5 seconds. Frozen anomalies are unstable and collapse upon impact.'
             }
             case 'Hell': return {
                 name, ability: 'Burn',
-                description: 'From the deepest part of this world, Hell itself, rose up to defend what was left and rid it of all the Anomalies for good.',
-                abilityDescription: 'Burns hellishly hot for just 1.7 seconds but vaporizes any Anomalies that comes into contact with him.'
+                description: 'From the deepest part of this world, Hell itself, rose up to defend what was left and rid it of all the anomalies for good.',
+                abilityDescription: 'Burns hellishly hot for just 1.7 seconds but vaporizes any anomalies that comes into contact with her.'
             }
             case 'Glow': return {
                 name, ability: 'Rebirth',
-                description: 'When the last sun died due to the mysterious Anomalies, it gave birth to Glow. Being pure light she uses it to guide her but also to help her friends.',
+                description: 'When the last sun died due to the mysterious anomalies, it gave birth to Glow. Being pure light she uses it to guide her but also to help her friends.',
                 abilityDescription: 'Revives the neareast friend after a short delay. During this delay Glow is invulnerable.'
             }
             case 'Dash': return {
                 name, ability: 'Teleport',
                 description: 'No one knows how it happened, she just entered our world from nowhere. Dash jumps from location to location, from world to world - through anything.',
-                abilityDescription: 'Instantly jumps forward shattering any Anomalies at that location.'
+                abilityDescription: 'Instantly jumps forward shattering any anomalies at that location.'
             }
             case 'Ouk': return {
                 name, ability: 'Collapse',
                 description: 'A mystical creature with legendary powers beyond this world. Ouk is the last survivor of her kind and has the will to stop anything.',
-                abilityDescription: 'Instantly alters the space-time continuum around all Anomalies, pushing them towards their imminent collapse.'
+                abilityDescription: 'Instantly alters the space-time continuum around anomalies, pushing them towards their imminent collapse. Effect is greatest near her.'
             }
             case 'Nic': return {
                 name, ability: 'Ghost',
                 description: 'A powerful ghost from ancient times, sworn to protect his world. Nic has the power to tap into his ancient magic and reveil what can not be seen.',
-                abilityDescription: 'Enters a powerful ghost state for 4 seconds weakening all Anomalies he enters. While in this state he passes through everything.'
+                abilityDescription: 'Enters a powerful ghost state for 4 seconds weakening all anomalies she enters. While in this state she passes through everything.'
             }
             case 'Tok': return {
                 name, ability: 'Tokit',
-                description: 'A mysterias entity that entered this world through the first anomaly. At the beginning Tok tried to re-enter the Anomalies but could not - he just created more chaos.',
+                description: 'A mysterious entity that entered this world through the first anomaly. At the beginning Tok tried to re-enter the anomalies but could not - she just created more chaos.',
                 abilityDescription: 'All players gets the ability to push holes. Holes pushed off screen has a chance to disappear forever.'
             }
             default: return {
