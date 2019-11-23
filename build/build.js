@@ -80,6 +80,14 @@ function keyPressed() {
             if (keyCode == BACKSPACE) {
                 showGameIntro();
             }
+            if (key == "h") {
+                showHighScore();
+            }
+        }
+        else if (menu.setupStep == 'highscore') {
+            if (keyCode == BACKSPACE || keyCode == SPACE) {
+                enterCharacterSelection();
+            }
         }
     }
     else if (game.hasEnded) {
@@ -115,7 +123,10 @@ function enterCharacterSelection() {
     game = new Game([]);
 }
 function showGameIntro() {
-    menu.replayStory();
+    menu.setupStep = 'story';
+}
+function showHighScore() {
+    menu.setupStep = 'highscore';
 }
 var Music = (function () {
     function Music(musicFiles) {
@@ -213,6 +224,14 @@ var ScoreBoard = (function () {
                 highScore = max(data.score, highScore);
             }
             return highScore;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ScoreBoard.prototype, "topTenList", {
+        get: function () {
+            var sortedScores = this.scores.sort(function (a, b) { return a.score > b.score ? -1 : 1; });
+            return sortedScores.slice(0, 10);
         },
         enumerable: true,
         configurable: true
@@ -1587,6 +1606,31 @@ var CharacterMenuItem = (function () {
     };
     return CharacterMenuItem;
 }());
+var HighScoreMenu = (function () {
+    function HighScoreMenu() {
+    }
+    HighScoreMenu.prototype.draw = function (x, y, menuDiameter) {
+        textFont(Fonts.Monoton);
+        textSize(menuDiameter * 0.07);
+        text('HIGH   SCORES', x, y - menuDiameter * 0.3);
+        textFont(Fonts.Chilanka);
+        var scores = scoreboard.topTenList;
+        for (var i = 0; i < scores.length; i++) {
+            var scoreData = scores[i];
+            var yPos = (y - menuDiameter * 0.2) + menuDiameter * 0.06 * i;
+            var xPos = x - menuDiameter * 0.07;
+            textAlign(RIGHT);
+            textSize(menuDiameter * 0.04);
+            text(scoreData.score, xPos, yPos);
+            xPos += menuDiameter * 0.02;
+            yPos -= menuDiameter * 0.005;
+            textAlign(LEFT);
+            textSize(menuDiameter * 0.025);
+            text(scoreData.players.join(', '), xPos, yPos);
+        }
+    };
+    return HighScoreMenu;
+}());
 var Menu = (function () {
     function Menu() {
         this.bgColor = color(0, 160);
@@ -1594,6 +1638,7 @@ var Menu = (function () {
         this.setupStep = 'story';
         this.storyMenu = new StoryMenu();
         this.characterMenu = new CharacterMenu();
+        this.highScoreMenu = new HighScoreMenu();
         this.muteButton = new MuteButton();
         this.diameter = 0;
     }
@@ -1611,10 +1656,6 @@ var Menu = (function () {
         enumerable: true,
         configurable: true
     });
-    Menu.prototype.replayStory = function () {
-        this.storyMenu = new StoryMenu();
-        this.setupStep = 'story';
-    };
     Menu.prototype.draw = function () {
         if (menu.isSetup || game.isPaused) {
             this.diameter = min(width, height) * 0.7;
@@ -1631,6 +1672,9 @@ var Menu = (function () {
             }
             else if (this.setupStep == 'selection') {
                 this.characterMenu.draw(x, y, this.diameter);
+            }
+            else if (this.setupStep == 'highscore') {
+                this.highScoreMenu.draw(x, y, this.diameter);
             }
             else {
                 this.drawScore(x, y);
