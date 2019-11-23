@@ -40,7 +40,7 @@ type ParticleGenerator = (position: p5.Vector) => Particle[]
 enum HoleEffecType {
     'teleport',
     'redirect',
-    'freeze',
+    'cripple',
     'none'
 }
 

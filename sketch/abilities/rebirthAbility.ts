@@ -25,9 +25,11 @@ class RebirthAbility extends DelayedAbility {
                         this.initParticleEffect(snakeToBirth, true)
                         snakeToBirth.birth()
                     }
+                    snakeToBirth.speed = snakeToBirth.defaultSpeed
                 } else {
                     this.initParticleEffect(snake)
                     this.shiftSnake(snake)
+                    snake.speed = snake.defaultSpeed
                 }
                 snake.effect = 'none'
             }

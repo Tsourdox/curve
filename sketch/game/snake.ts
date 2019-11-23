@@ -5,11 +5,12 @@ class Snake extends GameObject {
     public readonly name: string
     public readonly color: p5.Color
     public readonly colorGhosted: p5.Color
-    public readonly speed: number
     public readonly controls: Controls
+    public readonly defaultSpeed: number
     private readonly ability: Ability
     private rebirthProtection?: number
 
+    public speed: number
     public isInsideHoles: { [id: string]: HoleEffect | null }
     public thickness: number
     public effect!: Effect
@@ -22,7 +23,8 @@ class Snake extends GameObject {
         this.name = name
         this.color = color(_color)
         this.colorGhosted = color(this.color.toString().replace(',1)', ',0.2)'))
-        this.speed = 1.5
+        this.defaultSpeed = 1.5
+        this.speed = this.defaultSpeed
         this.controls = controls
         this.ability = ability
         this.isInsideHoles = {}

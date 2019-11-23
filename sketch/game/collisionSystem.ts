@@ -132,8 +132,8 @@ class CollisionSystem {
                 } else if (holeEffect.type == HoleEffecType.redirect) {
                     const randomDirection = random(1) * TWO_PI
                     snake.direction = randomDirection
-                } else if (holeEffect.type == HoleEffecType.freeze) {
-                    // implement freeze or other effect?
+                } else if (holeEffect.type == HoleEffecType.cripple) {
+                    snake.speed *= 0.9
                 } else {
                     // a small chance that nothing happens
                 }
