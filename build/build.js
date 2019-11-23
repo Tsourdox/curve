@@ -623,10 +623,12 @@ var RebirthAbility = (function (_super) {
                         this.initParticleEffect(snakeToBirth, true);
                         snakeToBirth.birth();
                     }
+                    snakeToBirth.speed = snakeToBirth.defaultSpeed;
                 }
                 else {
                     this.initParticleEffect(snake);
                     this.shiftSnake(snake);
+                    snake.speed = snake.defaultSpeed;
                 }
                 snake.effect = 'none';
             }
@@ -775,6 +777,7 @@ var CollisionSystem = (function () {
                             else {
                                 snake.isAlive = false;
                                 gameSounds.died.play();
+                                return;
                             }
                         }
                     }
@@ -870,7 +873,8 @@ var CollisionSystem = (function () {
                     var randomDirection = random(1) * TWO_PI;
                     snake.direction = randomDirection;
                 }
-                else if (holeEffect.type == HoleEffecType.freeze) {
+                else if (holeEffect.type == HoleEffecType.cripple) {
+                    snake.speed *= 0.9;
                 }
                 else {
                 }
@@ -1202,7 +1206,8 @@ var Snake = (function (_super) {
         _this.name = name;
         _this.color = color(_color);
         _this.colorGhosted = color(_this.color.toString().replace(',1)', ',0.2)'));
-        _this.speed = 1.5;
+        _this.defaultSpeed = 1.5;
+        _this.speed = _this.defaultSpeed;
         _this.controls = controls;
         _this.ability = ability;
         _this.isInsideHoles = {};
@@ -1886,7 +1891,7 @@ var HoleEffecType;
 (function (HoleEffecType) {
     HoleEffecType[HoleEffecType["teleport"] = 0] = "teleport";
     HoleEffecType[HoleEffecType["redirect"] = 1] = "redirect";
-    HoleEffecType[HoleEffecType["freeze"] = 2] = "freeze";
+    HoleEffecType[HoleEffecType["cripple"] = 2] = "cripple";
     HoleEffecType[HoleEffecType["none"] = 3] = "none";
 })(HoleEffecType || (HoleEffecType = {}));
 var Mouse = (function () {
