@@ -41,9 +41,6 @@ function keyPressed() {
         if (keyCode == SPACE) {
             reloadGame()
         }
-        if (keyCode == KEY_0) {
-            game.holes.forEach((hole) => hole.state = 'ghosted')
-        }
     } else if (game.isPaused) {
         // PAUSED GAME
         if (keyCode == BACKSPACE) {

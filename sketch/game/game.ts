@@ -142,6 +142,7 @@ class Game {
 
     private checkEndCondition() {
         if (this.endCheck.isGameOver) {
+            this.holes.forEach((hole) => hole.state = 'ghosted')
             this.hasEnded = true
             this.pause()
             scoreboard.saveScore()
