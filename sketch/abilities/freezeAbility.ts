@@ -2,14 +2,12 @@ class FreezeAbility extends Ability {
     private readonly duration: number
     private time: number
     private isActive: boolean
-    private particleSystems: ParticleSystem[]
 
     constructor(coldown: number, duration: number) {
         super('Freeze', coldown)
         this.time = 0
         this.duration = duration
         this.isActive = false
-        this.particleSystems = []
     }
 
     protected applyEffect(): void {
@@ -24,34 +22,26 @@ class FreezeAbility extends Ability {
                  hole.state = 'frozen'
             }
         }
-
-        for (const snake of game.snakes) {
-            const { x, y } = snake.head
-            this.particleSystems.push(
-                new ParticleSystem(createVector(x, y), 0.01, snowParticle)
-            )
-        }
     }
 
     public update(snake: Snake) {
         super.update(snake)
         if (this.isActive) {
-            this.time += deltaTime * 0.001
+            const nextTime = this.time + deltaTime * 0.001
 
-            for (const index in game.snakes) {
-                const snake = game.snakes[index]
-                const { x, y } = snake.head
-                this.particleSystems[index].updateOrigin(createVector(x, y))
+            // Start unfreeze audio
+            const unfreezeStartTime = this.duration - 1.8
+            if (nextTime > unfreezeStartTime && this.time <= unfreezeStartTime) {
+                gameSounds.unfreeze.play()
             }
 
-            for (const particleSystem of this.particleSystems) {
-                particleSystem.run()
-            }
+            // Update time
+            this.time = nextTime
 
+            // End effect and unfreeze all holes
             if (this.time > this.duration) {
                 this.isActive = false
                 this.time = 0
-                this.particleSystems = []
                 this.unfreezeHoles()
             }
         }

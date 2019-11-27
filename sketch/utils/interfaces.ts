@@ -13,6 +13,7 @@ interface Controls {
 interface GameSounds {
     died: p5.SoundFile
     freeze: p5.SoundFile
+    unfreeze: p5.SoundFile
     teleport: p5.SoundFile
     disappear: p5.SoundFile
     burn: p5.SoundFile
@@ -40,8 +41,7 @@ type ParticleGenerator = (position: p5.Vector) => Particle[]
 enum HoleEffecType {
     'teleport',
     'redirect',
-    'cripple',
-    'none'
+    'cripple'
 }
 
 interface SnakeInfo {
