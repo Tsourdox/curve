@@ -17,6 +17,7 @@ function preload() {
     gameSounds = {
         died: loadSound('./assets/sounds/end.wav'),
         freeze: loadSound('./assets/sounds/freeze.wav'),
+        unfreeze: loadSound('./assets/sounds/unfreeze.wav'),
         teleport: loadSound('./assets/sounds/teleport.wav'),
         disappear: loadSound('./assets/sounds/disappear.wav'),
         burn: loadSound('./assets/sounds/burn.wav'),
@@ -27,12 +28,14 @@ function preload() {
     };
 }
 function setup() {
+    pixelDensity(4);
     createCanvas(windowWidth, windowHeight);
     frameRate(60);
     noCursor();
     backgroundColor = color(20);
     gameSounds.died.setVolume(0.4);
     gameSounds.freeze.setVolume(1);
+    gameSounds.unfreeze.setVolume(0.7);
     gameSounds.teleport.setVolume(1);
     gameSounds.disappear.setVolume(0.5);
     gameSounds.burn.setVolume(0.5);
@@ -495,7 +498,6 @@ var FreezeAbility = (function (_super) {
         _this.time = 0;
         _this.duration = duration;
         _this.isActive = false;
-        _this.particleSystems = [];
         return _this;
     }
     FreezeAbility.prototype.applyEffect = function () {
@@ -510,29 +512,19 @@ var FreezeAbility = (function (_super) {
                 hole.state = 'frozen';
             }
         }
-        for (var _i = 0, _a = game.snakes; _i < _a.length; _i++) {
-            var snake = _a[_i];
-            var _b = snake.head, x = _b.x, y = _b.y;
-            this.particleSystems.push(new ParticleSystem(createVector(x, y), 0.01, snowParticle));
-        }
     };
     FreezeAbility.prototype.update = function (snake) {
         _super.prototype.update.call(this, snake);
         if (this.isActive) {
-            this.time += deltaTime * 0.001;
-            for (var index in game.snakes) {
-                var snake_1 = game.snakes[index];
-                var _a = snake_1.head, x = _a.x, y = _a.y;
-                this.particleSystems[index].updateOrigin(createVector(x, y));
+            var nextTime = this.time + deltaTime * 0.001;
+            var unfreezeStartTime = this.duration - 1.8;
+            if (nextTime > unfreezeStartTime && this.time <= unfreezeStartTime) {
+                gameSounds.unfreeze.play();
             }
-            for (var _i = 0, _b = this.particleSystems; _i < _b.length; _i++) {
-                var particleSystem = _b[_i];
-                particleSystem.run();
-            }
+            this.time = nextTime;
             if (this.time > this.duration) {
                 this.isActive = false;
                 this.time = 0;
-                this.particleSystems = [];
                 this.unfreezeHoles();
             }
         }
@@ -866,13 +858,13 @@ var CollisionSystem = (function () {
         var outcome = random(1);
         var holeEffect = snake.isInsideHoles[hole.id];
         if (holeEffect === undefined) {
-            if (outcome < 0.2) {
+            if (outcome < .15) {
                 snake.isAlive = false;
                 gameSounds.died.play();
             }
-            else {
+            else if (outcome < .75) {
                 snake.isInsideHoles[hole.id] = {
-                    type: floor(random(3)),
+                    type: floor(random(2)),
                     time: 0,
                     delay: random(0.1, 0.6)
                 };
@@ -882,21 +874,24 @@ var CollisionSystem = (function () {
             holeEffect.time += deltaTime * 0.001;
             if (holeEffect.time > holeEffect.delay) {
                 snake.isInsideHoles[hole.id] = null;
-                if (holeEffect.type == HoleEffecType.teleport) {
-                    var randomHole = holes[floor(random(holes.length))];
-                    snake.body.pop();
-                    snake.body.push([randomHole.position]);
-                    snake.isInsideHoles[randomHole.id] = null;
-                }
-                else if (holeEffect.type == HoleEffecType.redirect) {
-                    var randomDirection = random(1) * TWO_PI;
-                    snake.direction = randomDirection;
-                }
-                else if (holeEffect.type == HoleEffecType.cripple) {
-                    snake.speed *= 0.9;
-                }
-                else {
-                }
+                this.applyHoleEffectToSnake(holeEffect, snake, holes);
+            }
+        }
+    };
+    CollisionSystem.prototype.applyHoleEffectToSnake = function (holeEffect, snake, holes) {
+        switch (holeEffect.type) {
+            case HoleEffecType['teleport']: {
+                var randomHole = holes[floor(random(holes.length))];
+                snake.body.pop();
+                snake.body.push([randomHole.position]);
+                snake.isInsideHoles[randomHole.id] = null;
+            }
+            case HoleEffecType['redirect']: {
+                var randomDirection = random(1) * TWO_PI;
+                snake.direction = randomDirection;
+            }
+            case HoleEffecType['cripple']: {
+                snake.speed *= .85;
             }
         }
     };
@@ -1979,7 +1974,6 @@ var HoleEffecType;
     HoleEffecType[HoleEffecType["teleport"] = 0] = "teleport";
     HoleEffecType[HoleEffecType["redirect"] = 1] = "redirect";
     HoleEffecType[HoleEffecType["cripple"] = 2] = "cripple";
-    HoleEffecType[HoleEffecType["none"] = 3] = "none";
 })(HoleEffecType || (HoleEffecType = {}));
 var Mouse = (function () {
     function Mouse() {
