@@ -108,36 +108,43 @@ class CollisionSystem {
         const holeEffect = snake.isInsideHoles[hole.id]
 
         if (holeEffect === undefined) {
-            if (outcome < 0.2) {
+            // 15% chance to die instantly
+            if (outcome < .15) {
                 snake.isAlive = false
                 gameSounds.died.play()
-            } else {
+            } else if (outcome < .75) {
+                // 60% chance that an effect is applied
                 snake.isInsideHoles[hole.id] = {
-                    type: floor(random(3)),
+                    type: floor(random(2)),
                     time: 0,
                     delay: random(0.1, 0.6)
                 }
             }
+            // 25% chance that nothing happens
         } else if (holeEffect !== null) {
             holeEffect.time += deltaTime * 0.001
 
             if (holeEffect.time > holeEffect.delay) {
                 snake.isInsideHoles[hole.id] = null
+                this.applyHoleEffectToSnake(holeEffect, snake, holes)
+            }
+        }
+    }
 
-                if (holeEffect.type == HoleEffecType.teleport) {
-                    const randomHole = holes[floor(random(holes.length))]
-                    snake.body.pop()
-                    snake.body.push([randomHole.position])
-                    snake.isInsideHoles[randomHole.id] = null
-                } else if (holeEffect.type == HoleEffecType.redirect) {
-                    const randomDirection = random(1) * TWO_PI
-                    snake.direction = randomDirection
-                } else if (holeEffect.type == HoleEffecType.cripple) {
-                    snake.speed *= 0.9
-                } else {
-                    // a small chance that nothing happens
-                }
-
+    private applyHoleEffectToSnake(holeEffect: HoleEffect, snake: Snake, holes: Hole[]) {
+        switch(holeEffect.type) {
+            case HoleEffecType['teleport']: {
+                const randomHole = holes[floor(random(holes.length))]
+                snake.body.pop()
+                snake.body.push([randomHole.position])
+                snake.isInsideHoles[randomHole.id] = null
+            }
+            case HoleEffecType['redirect']: {
+                const randomDirection = random(1) * TWO_PI
+                snake.direction = randomDirection
+            }
+            case HoleEffecType['cripple']: {
+                snake.speed *= .85
             }
         }
     }
