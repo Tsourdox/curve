@@ -39,7 +39,7 @@ function setup() {
 
     gameSounds.died.setVolume(0.4)
     gameSounds.freeze.setVolume(1)
-    gameSounds.unfreeze.setVolume(0.7)
+    gameSounds.unfreeze.setVolume(0.3)
     gameSounds.teleport.setVolume(1)
     gameSounds.disappear.setVolume(0.5)
     gameSounds.burn.setVolume(0.5)

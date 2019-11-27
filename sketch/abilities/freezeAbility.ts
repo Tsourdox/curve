@@ -30,7 +30,7 @@ class FreezeAbility extends Ability {
             const nextTime = this.time + deltaTime * 0.001
 
             // Start unfreeze audio
-            const unfreezeStartTime = this.duration - 1.8
+            const unfreezeStartTime = this.duration - 1.0
             if (nextTime > unfreezeStartTime && this.time <= unfreezeStartTime) {
                 gameSounds.unfreeze.play()
             }

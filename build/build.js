@@ -35,7 +35,7 @@ function setup() {
     backgroundColor = color(20);
     gameSounds.died.setVolume(0.4);
     gameSounds.freeze.setVolume(1);
-    gameSounds.unfreeze.setVolume(0.7);
+    gameSounds.unfreeze.setVolume(0.3);
     gameSounds.teleport.setVolume(1);
     gameSounds.disappear.setVolume(0.5);
     gameSounds.burn.setVolume(0.5);
@@ -517,7 +517,7 @@ var FreezeAbility = (function (_super) {
         _super.prototype.update.call(this, snake);
         if (this.isActive) {
             var nextTime = this.time + deltaTime * 0.001;
-            var unfreezeStartTime = this.duration - 1.8;
+            var unfreezeStartTime = this.duration - 1.0;
             if (nextTime > unfreezeStartTime && this.time <= unfreezeStartTime) {
                 gameSounds.unfreeze.play();
             }
