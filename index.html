@@ -14,6 +14,17 @@
                 display: flex;
                 background: black;
             }
+            .loading-screen {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: whitesmoke;
+                position: fixed;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+            }
         </style>
 
         <script src="./p5.js"></script>
@@ -22,6 +33,8 @@
 
     </head>
     <body>
-
+        <div id="p5_loading" class="loading-screen">
+            <h2>Loading assets...</h2>
+        </div>
     </body>
 </html>
