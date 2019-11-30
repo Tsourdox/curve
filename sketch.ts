@@ -31,7 +31,6 @@ function preload() {
 
 function setup() {
     // Canvas settings
-    pixelDensity(4)
     createCanvas(windowWidth, windowHeight)
     frameRate(60)
     noCursor()
