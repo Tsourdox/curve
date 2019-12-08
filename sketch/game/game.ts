@@ -1,6 +1,7 @@
 class Game {
     private readonly collisionSystem: CollisionSystem
     private readonly baseInterval: number
+    private readonly nrOfStartingHoles: number
     private disappearedHolesCount: number
     private spawnInterval: number
     public snakes: Snake[]
@@ -19,6 +20,7 @@ class Game {
     constructor(snakes: Snake[], isPaused = true) {
         this.collisionSystem = new CollisionSystem()
         this.baseInterval = 3
+        this.nrOfStartingHoles = 20
         this.spawnInterval = this.baseInterval
         this.snakes = snakes
         this.holes = []
@@ -135,7 +137,7 @@ class Game {
 
     private createHoles() {
         this.holes = []
-        for (let i = 0; i < 10; i ++ ) {
+        for (let i = 0; i < this.nrOfStartingHoles; i ++ ) {
             this.holes.push(new Hole())
         }
     }
