@@ -7,9 +7,18 @@ class CollisionSystem {
                 continue
             }
 
-            this.maxDistanceBetweenParts = s(snake.speed)
+            // TODO: snake points should be created based on framerate
+            //       so maxDistanceBetweenParts doesn't have to be an approximation
+            //       and not allowing snakes to go faster than the defaultSpeed
+            //       because then snakes might go through each other.
+
+            // Using the default speed here means that snakes can be slowed
+            // and collision calulations still work, altough a bit inefficeint..
+            this.maxDistanceBetweenParts = s(snake.defaultSpeed)
+
+            // Check collisions
             this.checkCollisionWithSnakes(snake, snakes)
-            this.checkCollisionWithHole(snake, holes)
+            this.checkCollisionWithHoles(snake, holes)
         }
     }
 
@@ -26,6 +35,7 @@ class CollisionSystem {
 
                     if (distance < 0) {
                         if (hasSkippedFirstFewPoints) {
+
                             if (snake_2.readyForRebirth) {
                                 snake_2.birth()
                             } else if (
@@ -51,7 +61,7 @@ class CollisionSystem {
         }
     }
 
-    private checkCollisionWithHole(snake: Snake, holes: Hole[]) {
+    private checkCollisionWithHoles(snake: Snake, holes: Hole[]) {
         let nicLeftGhostedHole = true
             const nonCollsionList = []
             for (const hole of holes) {
