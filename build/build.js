@@ -758,9 +758,9 @@ var CollisionSystem = (function () {
             if (!snake.isAlive) {
                 continue;
             }
-            this.maxDistanceBetweenParts = s(snake.speed);
+            this.maxDistanceBetweenParts = s(snake.defaultSpeed);
             this.checkCollisionWithSnakes(snake, snakes);
-            this.checkCollisionWithHole(snake, holes);
+            this.checkCollisionWithHoles(snake, holes);
         }
     };
     CollisionSystem.prototype.checkCollisionWithSnakes = function (snake, snakes) {
@@ -799,7 +799,7 @@ var CollisionSystem = (function () {
             }
         }
     };
-    CollisionSystem.prototype.checkCollisionWithHole = function (snake, holes) {
+    CollisionSystem.prototype.checkCollisionWithHoles = function (snake, holes) {
         var nicLeftGhostedHole = true;
         var nonCollsionList = [];
         for (var _i = 0, holes_1 = holes; _i < holes_1.length; _i++) {
@@ -973,6 +973,7 @@ var Game = (function () {
         if (isPaused === void 0) { isPaused = true; }
         this.collisionSystem = new CollisionSystem();
         this.baseInterval = 3;
+        this.nrOfStartingHoles = 20;
         this.spawnInterval = this.baseInterval;
         this.snakes = snakes;
         this.holes = [];
@@ -1094,7 +1095,7 @@ var Game = (function () {
     };
     Game.prototype.createHoles = function () {
         this.holes = [];
-        for (var i = 0; i < 10; i++) {
+        for (var i = 0; i < this.nrOfStartingHoles; i++) {
             this.holes.push(new Hole());
         }
     };
