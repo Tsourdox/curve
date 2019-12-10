@@ -247,7 +247,7 @@ var Snakes = (function () {
         get: function () {
             return {
                 'Bliz': new Snake('Bliz', 'blue', this.controls[0], new FreezeAbility(14, 4)),
-                'Hell': new Snake('Hell', 'red', this.controls[1], new BurnAbility(7, 1.7)),
+                'Hell': new Snake('Hell', 'red', this.controls[1], new BurnAbility(15, 1.7)),
                 'Glow': new Snake('Glow', 'yellow', this.controls[2], new RebirthAbility(4)),
                 'Dash': new Snake('Dash', 'green', this.controls[3], new TeleportAbility(1.5)),
                 'Ouk': new Snake('Ouk', 'purple', this.controls[4], new ShrinkAbility(11)),
@@ -981,14 +981,16 @@ var Game = (function () {
         this.hasEnded = false;
         this.time = 0;
         this.disappearedHolesCount = 0;
+        this.nrOfRebirths = 0;
         this.createHoles();
         this.endCheck = new EndCheck();
     }
     Object.defineProperty(Game.prototype, "score", {
         get: function () {
             var holes = this.disappearedHolesCount || 1;
+            var rebirths = this.nrOfRebirths || 1;
             var snakes = this.snakes.length;
-            return round(this.time * holes / sqrt(snakes));
+            return round(this.time * holes * rebirths / sqrt(sqrt(snakes)));
         },
         enumerable: true,
         configurable: true
@@ -1276,6 +1278,7 @@ var Snake = (function (_super) {
         this.isInsideHoles = {};
         this.effect = 'none';
         this.rebirthProtection = 4000;
+        game.nrOfRebirths += 1;
     };
     Snake.prototype.enterPassiveGhostForm = function () {
         this.ability.enterPassiveGhostForm(this);
