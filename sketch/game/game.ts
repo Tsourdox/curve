@@ -3,6 +3,7 @@ class Game {
     private readonly baseInterval: number
     private readonly nrOfStartingHoles: number
     private disappearedHolesCount: number
+    public nrOfRebirths: number
     private spawnInterval: number
     public snakes: Snake[]
     public holes: Hole[]
@@ -13,8 +14,9 @@ class Game {
 
     public get score() {
         const holes = this.disappearedHolesCount || 1
+        const rebirths = this.nrOfRebirths || 1
         const snakes = this.snakes.length
-        return round(this.time * holes / sqrt(snakes))
+        return round(this.time * holes * rebirths / sqrt(sqrt(snakes)))
     }
 
     constructor(snakes: Snake[], isPaused = true) {
@@ -28,6 +30,7 @@ class Game {
         this.hasEnded = false
         this.time = 0
         this.disappearedHolesCount = 0
+        this.nrOfRebirths = 0
         this.createHoles()
         this.endCheck = new EndCheck()
     }

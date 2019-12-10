@@ -66,6 +66,7 @@ class Snake extends GameObject {
         this.isInsideHoles = {}
         this.effect = 'none'
         this.rebirthProtection = 4000
+        game.nrOfRebirths += 1
     }
 
     public enterPassiveGhostForm() {
