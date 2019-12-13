@@ -1,102 +1,43 @@
-let snakes: Snake[];
-let isRunning: boolean;
-let backgroundColor: p5.Color;
-let sound: p5.SoundFile;
-
+/**
+ * Built in preload function in P5
+ * This is a good place to load assets such as
+ * sound files, images etc...
+ */
 function preload() {
-    sound = (window as any).loadSound('../assets/mystic_drums.wav');
+    // Tyvärr har jag inte fått till den globala typningen för
+    // inladdningen av ljud men fungerar bra enligt nedan..
+    // sound = (window as any).loadSound('../assets/mySound.wav');
 }
 
+/**
+ * Built in setup function in P5
+ * This is a good place to create your first class object
+ * and save it as a global variable so it can be used
+ * in the draw function below
+ */
 function setup() {
-    createCanvas(windowWidth, windowHeight);
-    frameRate(50);
-    noCursor();
-    fullscreen();
-    playMusic();
-
-    createSnakes();
-    isRunning = false;
-    backgroundColor = color(20);
+    createCanvas(windowWidth, windowHeight)
+    frameRate(60)
+    noCursor()
+    fullscreen()
 }
 
-function playMusic() {
-    sound.setLoop(true);
-    sound.setVolume(0);
-    sound.play();
-    sound.setVolume(0.1, 0.5);
+/**
+ * Built in draw function in P5
+ * This is a good place to call public funcions of the object
+ * you created in the setup function above
+ */
+function draw() {
+    background('blue')
+    fill('red')
+    stroke('white')
+    circle(width * .5, height * .5, width * 0.2)
 }
 
-function pauseMusic() {
-    sound.setVolume(0, 0.5);
-    sound.pause(0.5)
-}
 
-function createSnakes() {
-    snakes = [
-        new Snake('Olivia', 'yellow', {
-            left: LEFT_ARROW,
-            right: RIGHT_ARROW
-        }),
-        new Snake('David', 'red', {
-            left: KEY_A,
-            right: KEY_D
-        })
-    ];
-}
-
+/**
+ *  Built in windowResize listener function in P5
+ */
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
-}
-
-function keyPressed() {
-    if (keyCode == SPACE) {
-        isRunning = !isRunning;
-    } else if (keyCode == ESC) {
-        createSnakes();
-        isRunning = false;
-    } else if (keyCode == ENTER) {
-        if (sound.isPlaying()) {
-            pauseMusic();
-        } else {
-            playMusic();
-        }
-    }
-    return false;
-}
-
-function draw() {
-    background(backgroundColor);
-    if (isRunning) {
-        for (const snake of snakes) {
-            snake.update();
-        }
-    }
-
-    checkCollision();
-
-    for (const snake of snakes) {
-        snake.draw();
-    }
-}
-
-function checkCollision() {
-    for (const snake of snakes) {
-        for (const snake_2 of snakes) {
-            if (snake.id == snake_2.id) {
-                continue;
-            }
-
-            // optimize check by not calulating near by sections when far away
-            for (const bodySection of snake_2.body) {
-                const dx = snake.head.x - bodySection.x
-                const dy = snake.head.y - bodySection.y
-                const distance = sqrt(dx * dx + dy * dy)
-
-                const snakesRadius = (snake.thickness / 2) + (snake_2.thickness / 2)
-                if (distance < snakesRadius) {
-                    snake.isAlive = false
-                }
-            }
-        }
-    }
 }
