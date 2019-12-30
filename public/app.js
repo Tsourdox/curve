@@ -213,8 +213,7 @@ function preload() {
     };
 }
 function setup() {
-    socket = io();
-    socket.on('connected', function (data) { return console.log('yes!', socket.id, data); });
+    handleSockets();
     createCanvas(windowWidth, windowHeight);
     frameRate(60);
     noCursor();
@@ -242,6 +241,28 @@ function draw() {
     game.draw();
     menu.draw();
     mouse.draw();
+}
+function handleSockets() {
+    socket = io();
+    socket.on('connected', function () {
+        console.log('connected!', socket.id);
+        var activeSocketId = getItem('socket-id');
+        if (activeSocketId) {
+            console.log('Trying to reconnect...', activeSocketId);
+            socket.emit('hard-reconnect', activeSocketId);
+        }
+        else {
+            storeItem('socket-id', socket.id);
+        }
+    });
+    socket.on('reconnect-success', function (data) {
+        console.log('reconnect', data);
+        storeItem('socket-id', socket.id);
+    });
+    socket.on('reconnect-fail', function (data) {
+        console.log('reconnect', data);
+        storeItem('socket-id', socket.id);
+    });
 }
 var Snakes = (function () {
     function Snakes() {

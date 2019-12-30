@@ -31,9 +31,7 @@ function preload() {
 }
 
 function setup() {
-    // Connect to Socket
-    socket = io()
-    socket.on('connected', (data: string) => console.log('yes!', socket.id, data))
+    handleSockets()
 
     // Canvas settings
     createCanvas(windowWidth, windowHeight)
@@ -69,4 +67,27 @@ function draw() {
     game.draw()
     menu.draw()
     mouse.draw()
+}
+
+function handleSockets() {
+    // Connect to Socket
+    socket = io()
+    socket.on('connected', () => {
+        console.log('connected!', socket.id)
+        const activeSocketId = getItem('socket-id')
+        if (activeSocketId) {
+            console.log('Trying to reconnect...', activeSocketId)
+            socket.emit('hard-reconnect', activeSocketId)
+        } else {
+            storeItem('socket-id', socket.id)
+        }
+    })
+    socket.on('reconnect-success', (data: string) => {
+        console.log('reconnect', data)
+        storeItem('socket-id', socket.id)
+    })
+    socket.on('reconnect-fail', (data: string) => {
+        console.log('reconnect', data)
+        storeItem('socket-id', socket.id)
+    })
 }
