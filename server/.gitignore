@@ -1,0 +1,4 @@
+node_modules
+public/whiteboard
+build
+server.js

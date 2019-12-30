@@ -1,61 +1,4 @@
 "use strict";
-var backgroundColor;
-var musicFiles;
-var gameSounds;
-var snakes;
-var music;
-var game;
-var menu;
-var mouse;
-var scoreboard;
-function preload() {
-    var loadSound = window.loadSound;
-    musicFiles = {
-        menu: loadSound('./assets/music/menu.mp3'),
-        game: loadSound('./assets/music/game.mp3')
-    };
-    gameSounds = {
-        died: loadSound('./assets/sounds/end.wav'),
-        freeze: loadSound('./assets/sounds/freeze.wav'),
-        unfreeze: loadSound('./assets/sounds/unfreeze.wav'),
-        teleport: loadSound('./assets/sounds/teleport.wav'),
-        disappear: loadSound('./assets/sounds/disappear.wav'),
-        burn: loadSound('./assets/sounds/burn.wav'),
-        rebirth: loadSound('./assets/sounds/rebirth.wav'),
-        shrink: loadSound('./assets/sounds/shrink.wav'),
-        ghost: loadSound('./assets/sounds/ghost.wav'),
-        warning: loadSound('./assets/sounds/warning.wav')
-    };
-}
-function setup() {
-    createCanvas(windowWidth, windowHeight);
-    frameRate(60);
-    noCursor();
-    backgroundColor = color(20);
-    gameSounds.died.setVolume(0.4);
-    gameSounds.freeze.setVolume(1);
-    gameSounds.unfreeze.setVolume(0.3);
-    gameSounds.teleport.setVolume(1);
-    gameSounds.disappear.setVolume(0.5);
-    gameSounds.burn.setVolume(0.5);
-    gameSounds.rebirth.setVolume(0.5);
-    gameSounds.shrink.setVolume(0.7);
-    gameSounds.warning.setVolume(0.8);
-    scoreboard = new ScoreBoard();
-    snakes = new Snakes();
-    music = new Music(musicFiles);
-    game = new Game([]);
-    menu = new Menu();
-    mouse = new Mouse();
-    window.userStartAudio().then(function () { return music.userStartAudio(); });
-}
-function draw() {
-    background(backgroundColor);
-    game.update();
-    game.draw();
-    menu.draw();
-    mouse.draw();
-}
 function mouseClicked() {
     var mousePosition = { x: mouseX, y: mouseY };
     if (menu && menu.isSetup) {
@@ -240,6 +183,63 @@ var ScoreBoard = (function () {
     });
     return ScoreBoard;
 }());
+var backgroundColor;
+var musicFiles;
+var gameSounds;
+var snakes;
+var music;
+var game;
+var menu;
+var mouse;
+var scoreboard;
+function preload() {
+    var loadSound = window.loadSound;
+    musicFiles = {
+        menu: loadSound('/assets/music/menu.mp3'),
+        game: loadSound('/assets/music/game.mp3')
+    };
+    gameSounds = {
+        died: loadSound('/assets/sounds/end.wav'),
+        freeze: loadSound('/assets/sounds/freeze.wav'),
+        unfreeze: loadSound('/assets/sounds/unfreeze.wav'),
+        teleport: loadSound('/assets/sounds/teleport.wav'),
+        disappear: loadSound('/assets/sounds/disappear.wav'),
+        burn: loadSound('/assets/sounds/burn.wav'),
+        rebirth: loadSound('/assets/sounds/rebirth.wav'),
+        shrink: loadSound('/assets/sounds/shrink.wav'),
+        ghost: loadSound('/assets/sounds/ghost.wav'),
+        warning: loadSound('/assets/sounds/warning.wav')
+    };
+}
+function setup() {
+    createCanvas(windowWidth, windowHeight);
+    frameRate(60);
+    noCursor();
+    backgroundColor = color(20);
+    gameSounds.died.setVolume(0.4);
+    gameSounds.freeze.setVolume(1);
+    gameSounds.unfreeze.setVolume(0.3);
+    gameSounds.teleport.setVolume(1);
+    gameSounds.disappear.setVolume(0.5);
+    gameSounds.burn.setVolume(0.5);
+    gameSounds.rebirth.setVolume(0.5);
+    gameSounds.shrink.setVolume(0.7);
+    gameSounds.warning.setVolume(0.8);
+    scoreboard = new ScoreBoard();
+    snakes = new Snakes();
+    music = new Music(musicFiles);
+    game = new Game([]);
+    menu = new Menu();
+    mouse = new Mouse();
+    window.userStartAudio().then(function () { return music.userStartAudio(); });
+}
+function draw() {
+    background(backgroundColor);
+    game.update();
+    game.draw();
+    menu.draw();
+    mouse.draw();
+}
 var Snakes = (function () {
     function Snakes() {
     }
@@ -2022,4 +2022,4 @@ function numberWithSpaces(number) {
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
 }
-//# sourceMappingURL=build.js.map
+//# sourceMappingURL=app.js.map

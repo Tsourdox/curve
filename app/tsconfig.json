@@ -2,9 +2,9 @@
     "compilerOptions": {
         "target": "es5",
         "module": "none",
-        "outFile": "./build/build.js",
-        "sourceRoot": "./sketch/",
-        "rootDir": "./sketch/",
+        "outFile": "../public/app.js",
+        "sourceRoot": "./sketch",
+        "rootDir": "./sketch",
         "sourceMap": true,
 
         "removeComments": true,
@@ -13,5 +13,10 @@
         "strict": true,
         "strictPropertyInitialization": true,
         "strictNullChecks": true
-    }
+    },
+    "exclude": [
+        "./node_modules",
+        "./build",
+        "./assets"
+    ]
 }
