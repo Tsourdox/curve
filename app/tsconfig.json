@@ -2,7 +2,7 @@
     "compilerOptions": {
         "target": "es5",
         "module": "none",
-        "outFile": "../public/app.js",
+        "outFile": "../public/bundle/app.js",
         "sourceRoot": "./sketch",
         "rootDir": "./sketch",
         "sourceMap": true,

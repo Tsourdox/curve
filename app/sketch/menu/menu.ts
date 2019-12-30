@@ -7,6 +7,7 @@ class Menu {
     private characterMenu: CharacterMenu
     private highScoreMenu: HighScoreMenu
     private muteButton: MuteButton
+    private roomButton: RoomButton
     public setupStep: SetupStep
     public diameter: number
 
@@ -18,6 +19,7 @@ class Menu {
         this.characterMenu = new CharacterMenu()
         this.highScoreMenu = new HighScoreMenu()
         this.muteButton = new MuteButton()
+        this.roomButton = new RoomButton()
         this.diameter = 0
     }
 
@@ -62,6 +64,7 @@ class Menu {
                 this.drawActions(x, y)
             }
             this.muteButton.draw()
+            this.roomButton.draw()
         }
     }
 

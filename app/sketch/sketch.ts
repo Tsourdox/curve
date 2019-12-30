@@ -8,6 +8,7 @@ let game: Game
 let menu: Menu
 let mouse: Mouse
 let scoreboard: ScoreBoard
+let connection: Connection
 
 function preload() {
     const { loadSound } = (window as any) // todo fix typings for p5.sound
@@ -31,7 +32,8 @@ function preload() {
 }
 
 function setup() {
-    handleSockets()
+    // init socket connection
+    socket = io()
 
     // Canvas settings
     createCanvas(windowWidth, windowHeight)
@@ -50,6 +52,7 @@ function setup() {
     gameSounds.warning.setVolume(0.8)
 
     // Create Game Instances
+    connection = new Connection()
     scoreboard = new ScoreBoard()
     snakes = new Snakes()
     music = new Music(musicFiles)
@@ -67,27 +70,4 @@ function draw() {
     game.draw()
     menu.draw()
     mouse.draw()
-}
-
-function handleSockets() {
-    // Connect to Socket
-    socket = io()
-    socket.on('connected', () => {
-        console.log('connected!', socket.id)
-        const activeSocketId = getItem('socket-id')
-        if (activeSocketId) {
-            console.log('Trying to reconnect...', activeSocketId)
-            socket.emit('hard-reconnect', activeSocketId)
-        } else {
-            storeItem('socket-id', socket.id)
-        }
-    })
-    socket.on('reconnect-success', (data: string) => {
-        console.log('reconnect', data)
-        storeItem('socket-id', socket.id)
-    })
-    socket.on('reconnect-fail', (data: string) => {
-        console.log('reconnect', data)
-        storeItem('socket-id', socket.id)
-    })
 }
