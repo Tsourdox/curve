@@ -9,7 +9,7 @@ const port = process.env.PORT || 3000
 
 app.use(express.static('../public'))
 
-function onConnection(socket: SocketIO.Socket) {
+io.on('connection', (socket: SocketIO.Socket) => {
     console.log('connected....', socket.id)
 
     socket.on('join room', (data) => {
@@ -28,8 +28,7 @@ function onConnection(socket: SocketIO.Socket) {
         })
     })
 
-}
-
-io.on('connection', onConnection)
+    socket.emit('connected', 'Secret message.. :O')
+})
 
 server.listen(port, () => console.log('listening on port ' + port))

@@ -183,6 +183,7 @@ var ScoreBoard = (function () {
     });
     return ScoreBoard;
 }());
+var socket;
 var backgroundColor;
 var musicFiles;
 var gameSounds;
@@ -212,6 +213,8 @@ function preload() {
     };
 }
 function setup() {
+    socket = io();
+    socket.on('connected', function (data) { return console.log('yes!', socket.id, data); });
     createCanvas(windowWidth, windowHeight);
     frameRate(60);
     noCursor();

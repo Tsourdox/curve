@@ -1,3 +1,4 @@
+let socket: SocketIOClient.Socket
 let backgroundColor: p5.Color
 let musicFiles: MusicFiles
 let gameSounds: GameSounds
@@ -30,6 +31,10 @@ function preload() {
 }
 
 function setup() {
+    // Connect to Socket
+    socket = io()
+    socket.on('connected', (data: string) => console.log('yes!', socket.id, data))
+
     // Canvas settings
     createCanvas(windowWidth, windowHeight)
     frameRate(60)
