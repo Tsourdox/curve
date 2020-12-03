@@ -6,7 +6,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "run-p start-run start-compile",
     "start-compile": "tsc --watch",
-    "start-run": "live-server"
+    "start-run": "live-server",
+    "build": "tsc"
   },
   "homepage": "https://github.com/Gaweph/p5-typescript-starter#readme",
   "devDependencies": {
