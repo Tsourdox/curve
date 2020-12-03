@@ -13,4 +13,4 @@ Thats it!
 
 Try the game out for your self!
 
-**[Play Game](https://tsourdox.github.io/curve/)**
+**[Play Game](https://nostalgic-spence-5a6992.netlify.app)**
