@@ -13,4 +13,4 @@ Thats it!
 
 Try the game out for your self!
 
-**[Play Game](https://nostalgic-spence-5a6992.netlify.app)**
+**[Play Game](https://p5curve.netlify.app)**
